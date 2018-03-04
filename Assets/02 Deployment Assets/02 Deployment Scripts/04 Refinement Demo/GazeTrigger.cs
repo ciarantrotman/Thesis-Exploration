@@ -21,12 +21,12 @@ public class GazeTrigger : MonoBehaviour {
             GazeObject = HitPoint.transform.gameObject;
             GazeObject.transform.GetChild(0).gameObject.SetActive(true);
         }
-
-        /*
-        else if (GazeObject != null && DeactiveOffGaze == true)
+        else
         {
-            GazeObject.transform.GetChild(0).gameObject.SetActive(false);
+            if (GazeObject != null)
+            {
+                GazeObject.transform.GetChild(0).gameObject.SetActive(false);
+            }
         }
-        */
     }
 }
