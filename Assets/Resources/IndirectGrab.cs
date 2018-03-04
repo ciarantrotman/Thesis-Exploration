@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Uniduino;
 
 public class IndirectGrab : MonoBehaviour
 {
+    #region Inspector
     private Arduino arduino;
 
     [Header("Grab Settings")]
@@ -15,7 +17,7 @@ public class IndirectGrab : MonoBehaviour
     private int ButtonPressValue;
     private int ReleasePressValue;
     private float ReachDistance = 100.0f;
-    private int InputPinValue = 1;
+    private int InputPinValue;
     private GameObject InventoryObject;
 
     [Header("Grab Physics")]
@@ -55,6 +57,9 @@ public class IndirectGrab : MonoBehaviour
     [Space(5)]
     public bool ShellEnabled = true;
     private bool ShellActive = false;
+    private bool ButtonPress = false;
+    private int ShellState = 0;
+    private bool ShellTrigger = false;
     public GameObject ShellParent;
 
     private float LerpTime = 15.0f;
@@ -66,9 +71,10 @@ public class IndirectGrab : MonoBehaviour
     private float CurrentLerpTime = 0.0f;
     private bool LerpState = false;
     private ObjectMass ObjectMassScript;
-    int InteractionType = 0;
+    private int InteractionType = 0;
 
     private GameObject EgocentricParent;
+    #endregion
 
     void Start()
     {
@@ -106,7 +112,15 @@ public class IndirectGrab : MonoBehaviour
 
         InputPinValue = arduino.digitalRead(InputPin);
         InventoryCount = InventoryObject.transform.childCount;
-
+        if (InputPinValue == ButtonPressValue)
+        {
+            ButtonPress = true;
+        }
+        if (InputPinValue == ReleasePressValue)
+        {
+            ButtonPress = false;
+        }
+        #region Indirect Grab
         if (Physics.Raycast(GrabRay, out HitPoint, ReachDistance) && HitPoint.transform.tag == "GrabObject")
         {
             InteractionType = 1;
@@ -121,6 +135,8 @@ public class IndirectGrab : MonoBehaviour
                 Invoke("ExoToEgo", 0);
             }
         }
+        #endregion
+        #region Teleportation
         if (Physics.Raycast(GrabRay, out HitPoint, ReachDistance) && HitPoint.transform.tag == "TeleportLocation")
         {
             if (TeleportEnabled == true)
@@ -132,6 +148,8 @@ public class IndirectGrab : MonoBehaviour
                 SelectedObject.GetComponent<BlendshapeAnimation>().OnTriggerStart();
             }
         }
+        #endregion
+        #region Selection
         if (Physics.Raycast(GrabRay, out HitPoint, ReachDistance) && HitPoint.transform.tag == "SelectableUI")
         {
             if (IndirectSelectionEnabled == true)
@@ -140,14 +158,18 @@ public class IndirectGrab : MonoBehaviour
                 GetComponent<LineRenderer>().enabled = true;
             }
         }
+        #endregion
+        #region Contextual Menu
         if (Physics.Raycast(GrabRay, out HitPoint, ReachDistance) && HitPoint.transform.tag == "CONTEXTUAL MENU I GUESS")
         {
             InteractionType = 4;
         }
+        #endregion
 
         switch (InteractionType)
         {
             case 1:
+                #region Indirect Grab
                 SelectedObject = HitPoint.transform.gameObject;
                 if (ClonedObject == null && HighlightEnabled == true)
                 {
@@ -236,7 +258,9 @@ public class IndirectGrab : MonoBehaviour
                     CurrentLerpTime = 0;
                 }
                 break;
+                #endregion
             case 2:
+                #region Teleportation
                 TeleportTarget = HitPoint.transform.gameObject;
                 Vector3 TeleportPosition = PlayerLocation.transform.position;
                 Vector3 TeleportTargetPosition = TeleportTarget.transform.position;
@@ -247,17 +271,21 @@ public class IndirectGrab : MonoBehaviour
                     PlayerLocation.transform.position = TeleportPosition;
                 }
                 break;
+                #endregion
             case 3:
+                #region Selection
                 if (InputPinValue == ButtonPressValue)
                 {
                     IndirectSelectionState ^= true;   
                 }
                 break;
+                #endregion
             case 4:
                 break;
             case 5:
                 break;
             default:
+                #region Default
                 GetComponent<LineRenderer>().enabled = false;
                 if (ClonedObject != null && HighlightEnabled == true)
                 {
@@ -271,26 +299,45 @@ public class IndirectGrab : MonoBehaviour
                 {
                     SelectedObject.GetComponent<BlendshapeAnimation>().OnTriggerEnd();
                 }
-                break; 
+                break;
+                #endregion
         }
+        Debug.Log(InputPinValue);
     }
 
     private void LateUpdate()
     {
-        if (InputPinValue == ButtonPressValue && ShellEnabled == true && InteractionType == 0)
+        if (ShellEnabled == true && InteractionType == 0)
         {
-            if (ShellActive == false)
-            {
-                //Debug.Log(ShellActive);
-                ShellParent.SetActive(true);
-                ShellActive = true;
-            }
-            if (ShellActive == true)
-            {
-                //Debug.Log(ShellActive);
-                ShellParent.SetActive(false);
-                ShellActive = false;
-            }
+            ShellTrigger = true;
+        }
+        else if (ShellEnabled == false || InteractionType != 0)
+        {
+            ShellTrigger = false;
+        }
+
+        if (ShellTrigger == true && ButtonPress == true && ShellParent.activeSelf == false)
+        {
+            ShellState = 1;
+        }
+        if (ShellTrigger == true && ButtonPress == true && ShellParent.activeSelf == true)
+        {
+            ShellState = 2;
+        }
+
+        switch (ShellState)
+        {
+            case 1:
+                Debug.Log("SHELL LAUNCH: " + ButtonPressValue);
+                Invoke("ShellLaunch", 0);
+                StartCoroutine("ShellDelay");
+                break;
+            case 2:
+                Debug.Log("SHELL CLOSE: " + ButtonPressValue);
+                Invoke("ShellClose", 0);
+                break;
+            default:
+                break;
         }
         if (ClonedObject != null && HighlightEnabled == true)
         {
@@ -312,6 +359,7 @@ public class IndirectGrab : MonoBehaviour
         }
     }
 
+    #region Content Locking Logic
     public void ExoToEgo()
     {
         Debug.Log(SelectedObject.transform.name);
@@ -328,4 +376,23 @@ public class IndirectGrab : MonoBehaviour
             SelectedObject.transform.parent = null;
         }
     }
+    #endregion
+
+    #region Shell Logic
+    public void ShellLaunch()
+    {
+        Debug.Log("SHELL ACTIVATION");
+        ShellParent.SetActive(true);
+    }
+    public void ShellClose()
+    {
+        Debug.Log("SHELL DEACTIVATION");
+        ShellParent.SetActive(false);
+    }
+    private IEnumerator ShellDelay()
+    {
+        ShellTrigger = false;
+        yield return new WaitForSeconds(1);
+    }
+    #endregion
 }

@@ -28,8 +28,22 @@ public class EnvironmentalProgramController : MonoBehaviour {
             StartCoroutine("EnvironmentalLaunch");
         }
     }
-	
+
     void OnTriggerExit(Collider collider)
+    {
+        HMD.cullingMask = ~(1 << LayerMask.NameToLayer("Environmental Program")); // Switch off Environmental Programs, leave others as-is
+        HMD.cullingMask |= (1 << LayerMask.NameToLayer("Real World Objects")); // Switch on Real World Objects, leave others as-is
+        TriggerRenderer.enabled = true;
+        Trigger.transform.parent = null;
+        LoopCount = 0;
+    }
+
+    public void LaunchEnvironmental()
+    {
+        StartCoroutine("EnvironmentalLaunch");
+    }
+
+    public void CloseEnvironmental()
     {
         HMD.cullingMask = ~(1 << LayerMask.NameToLayer("Environmental Program")); // Switch off Environmental Programs, leave others as-is
         HMD.cullingMask |= (1 << LayerMask.NameToLayer("Real World Objects")); // Switch on Real World Objects, leave others as-is
