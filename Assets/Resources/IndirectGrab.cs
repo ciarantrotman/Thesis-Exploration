@@ -81,7 +81,6 @@ public class IndirectGrab : MonoBehaviour
         arduino = Arduino.global;
         arduino.Setup(ConfigurePins);
         InventoryObject = gameObject;
-        //TargetLocation = GameObject.Find("Target Location");
         PlayerLocation = GameObject.Find("Leap Motion Rig");
         TeleportTarget = GameObject.Find("Teleport Target");
         EgocentricParent = GameObject.Find("Egocentric Content Origin");
@@ -302,7 +301,6 @@ public class IndirectGrab : MonoBehaviour
                 break;
                 #endregion
         }
-        Debug.Log(InputPinValue);
     }
 
     private void LateUpdate()

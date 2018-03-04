@@ -20,7 +20,8 @@ public class EnvironmentalProgramController : MonoBehaviour {
         HMD = UserHead.GetComponent<Camera>();
         HMD.cullingMask = ~(1 << LayerMask.NameToLayer("Environmental Program")); // Render everything *except* Environmental Programs
     }
-
+    
+    #region Collision Based
     void OnTriggerEnter(Collider collider)
     {
         if (collider.GetComponent<Collider>().name == UserHead.transform.name)
@@ -30,20 +31,6 @@ public class EnvironmentalProgramController : MonoBehaviour {
     }
 
     void OnTriggerExit(Collider collider)
-    {
-        HMD.cullingMask = ~(1 << LayerMask.NameToLayer("Environmental Program")); // Switch off Environmental Programs, leave others as-is
-        HMD.cullingMask |= (1 << LayerMask.NameToLayer("Real World Objects")); // Switch on Real World Objects, leave others as-is
-        TriggerRenderer.enabled = true;
-        Trigger.transform.parent = null;
-        LoopCount = 0;
-    }
-
-    public void LaunchEnvironmental()
-    {
-        StartCoroutine("EnvironmentalLaunch");
-    }
-
-    public void CloseEnvironmental()
     {
         HMD.cullingMask = ~(1 << LayerMask.NameToLayer("Environmental Program")); // Switch off Environmental Programs, leave others as-is
         HMD.cullingMask |= (1 << LayerMask.NameToLayer("Real World Objects")); // Switch on Real World Objects, leave others as-is
@@ -70,4 +57,19 @@ public class EnvironmentalProgramController : MonoBehaviour {
             TriggerCollider.enabled = true;
         }
     }
+    #endregion
+
+    #region Trigger Based
+    public void LaunchEnvironmental()
+    {
+        HMD.cullingMask |= (1 << LayerMask.NameToLayer("Environmental Program")); // Switch on Environmental Programs, leave others as-is
+        HMD.cullingMask = ~(1 << LayerMask.NameToLayer("Real World Objects")); // Switch off Real World Objects, leave others as-is
+    }
+
+    public void CloseEnvironmental()
+    {
+        HMD.cullingMask = ~(1 << LayerMask.NameToLayer("Environmental Program")); // Switch off Environmental Programs, leave others as-is
+        HMD.cullingMask |= (1 << LayerMask.NameToLayer("Real World Objects")); // Switch on Real World Objects, leave others as-is
+    }
+    #endregion
 }

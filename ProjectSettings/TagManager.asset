@@ -11,6 +11,7 @@ TagManager:
   - TeleportLocation
   - SelectableUI
   - EgocentricContent
+  - GazeTrigger
   layers:
   - Default
   - TransparentFX
