@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 6c9b3cce8ff135b469cb4e66d3e65ce2
+timeCreated: 1512421507
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - ChildObject: {instanceID: 0}
+  - ParentObject: {instanceID: 0}
+  - RaycastingObject: {instanceID: 0}
+  - LineRenderer: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
