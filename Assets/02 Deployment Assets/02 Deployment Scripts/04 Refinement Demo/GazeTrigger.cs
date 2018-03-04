@@ -7,7 +7,6 @@ public class GazeTrigger : MonoBehaviour {
     [Header("Gaze Trigger Settings")]
     [Space(5)]
     public bool ActiveOnGaze;
-    public bool DeactiveOffGaze;
     private int ReachDistance = 100;
     private GameObject GazeObject;
 
