@@ -14,6 +14,7 @@ TagManager:
   - GazeTrigger
   - ShellObject
   - ManipulationHandle
+  - HoverTrigger
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - Environmental Program
   - Real World Objects
   - Digital Objects
-  - 
+  - IgnoreIndirectGrab
   - 
   - 
   - 

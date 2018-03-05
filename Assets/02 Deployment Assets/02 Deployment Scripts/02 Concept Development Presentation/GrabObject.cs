@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿/*
+using UnityEngine;
 using System.Collections;
 using Uniduino;
 
@@ -57,7 +58,7 @@ public class GrabObject : MonoBehaviour
             Rigidbody GrabbedObjectRigidbody = GetComponent<Rigidbody>();
             GrabbedObjectRigidbody.isKinematic = false;
             GrabbedObjectRigidbody.useGravity = false;
-            */
+            
         }
 
         else if (InputPinValue == 1) //release
@@ -74,13 +75,13 @@ public class GrabObject : MonoBehaviour
             Rigidbody GrabbedObjectRigidbody = GetComponent<Rigidbody>();
             GrabbedObjectRigidbody.isKinematic = true;
             GrabbedObjectRigidbody.useGravity = true;
-            */
+            
         }
     }
 }
 
 
-/*if (grabbed == false)
+if (grabbed == false)
     {
         arduino.digitalWrite(13, Arduino.HIGH);
         yield return new WaitForSeconds(.25F);

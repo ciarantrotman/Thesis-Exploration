@@ -39,7 +39,7 @@ public class IndirectGrab : MonoBehaviour
     private bool ShellActive = false;               // TEMP
     private bool Mode;
     [HideInInspector]
-    public static bool ButtonPress = false;         // this is reffered to from other scripts to trigger events
+    public bool ButtonPress = false;         // this is reffered to from other scripts to trigger events
     [HideInInspector]
     public bool IndirectSelectionState = true;      // this is reffered to from other scripts to trigger selection
     #endregion
@@ -108,7 +108,7 @@ public class IndirectGrab : MonoBehaviour
         InputPinValue = arduino.digitalRead(InputPin);
         ButtonPress = (InputPinValue == ButtonPressValue) ? ButtonPress = true : ButtonPress = false;
         #region Indirect Grab       | 1
-        if (Physics.Raycast(GrabRay, out HitPoint, ReachDistance) && HitPoint.transform.tag == "GrabObject")
+        if (Physics.Raycast(GrabRay, out HitPoint, ReachDistance, LayerMask.NameToLayer("IgnoreIndirectGrab")) && HitPoint.transform.tag == "GrabObject")
         {
             InteractionType = 1;
             SelectedObject = HitPoint.transform.gameObject;
@@ -121,7 +121,7 @@ public class IndirectGrab : MonoBehaviour
         }
         #endregion
         #region Teleportation       | 2
-        if (Physics.Raycast(GrabRay, out HitPoint, ReachDistance) && HitPoint.transform.tag == "TeleportLocation")
+        if (Physics.Raycast(GrabRay, out HitPoint, ReachDistance, LayerMask.NameToLayer("IgnoreIndirectGrab")) && HitPoint.transform.tag == "TeleportLocation")
         {
             if (TeleportEnabled == true)
             {
@@ -138,7 +138,7 @@ public class IndirectGrab : MonoBehaviour
         }
         #endregion
         #region Selection           | 3
-        if (Physics.Raycast(GrabRay, out HitPoint, ReachDistance) && HitPoint.transform.tag == "SelectableUI")
+        if (Physics.Raycast(GrabRay, out HitPoint, ReachDistance, LayerMask.NameToLayer("IgnoreIndirectGrab")) && HitPoint.transform.tag == "SelectableUI")
         {
             if (IndirectSelectionEnabled == true)
             {
@@ -300,7 +300,7 @@ public class IndirectGrab : MonoBehaviour
     }
     private IEnumerator ShellLaunch()
     {
-        Debug.Log(ShellParents);
+        //Debug.Log(ShellParents);
         ShellActive = ShellActive ? false : true;
         if (ShellParents == null)
         {
