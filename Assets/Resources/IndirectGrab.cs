@@ -101,7 +101,7 @@ public class IndirectGrab : MonoBehaviour
     }
     void Update()
     {
-        Debug.Log("Button Press: " + ButtonPress);
+        //Debug.Log("Button Press: " + ButtonPress);
         InteractionType = 0; 
         Ray GrabRay = new Ray(transform.position, transform.forward);
         RaycastHit HitPoint;
