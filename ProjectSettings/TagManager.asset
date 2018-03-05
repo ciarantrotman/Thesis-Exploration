@@ -13,6 +13,7 @@ TagManager:
   - EgocentricContent
   - GazeTrigger
   - ShellObject
+  - ManipulationHandle
   layers:
   - Default
   - TransparentFX

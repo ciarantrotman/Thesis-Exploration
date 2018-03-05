@@ -34,7 +34,8 @@ public class IndirectGrab : MonoBehaviour
 
     private ObjectMass ObjectMassScript;            // the script that determines the responsiveness of grabbed objects
 
-    private bool LerpState = false;                 // determines whether to initialise the grabbing Lerp
+    [HideInInspector]
+    public bool LerpState = false;                 // determines whether to initialise the grabbing Lerp
     private bool ShellActive = false;               // TEMP
     private bool Mode;
     [HideInInspector]
@@ -267,7 +268,7 @@ public class IndirectGrab : MonoBehaviour
                 {
                     Destroy(ClonedObject);
                 }
-                if (SelectedObject != null)
+                if (SelectedObject != null && SelectedObject.GetComponent<BlendshapeAnimation>() != null)
                 {
                     SelectedObject.GetComponent<BlendshapeAnimation>().OnTriggerEnd();
                 }
