@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class LC1 : MonoBehaviour {
 
-    public GameObject ContextualMenu;
-	
+    public GameObject ContextualMenu;	
+    
+    void Update()
+    {
+        if (GameObject.Find("Manual Input Controller").GetComponent<IndirectGrab>().IndirectSelectionState == true)
+        {
+            Invoke("LaunchContextualMenu", 0);
+        }
+    }
+
 	public void LaunchContextualMenu()
     {
         ContextualMenu.SetActive(true);

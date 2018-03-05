@@ -4403,6 +4403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18500685794cd0d43aa6189d97e8fae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IndirectSelectionState: 0
   TargetLocation: {fileID: 1648370703816858}
   InputPin: 2
   IsInputInverted: 1
@@ -4414,7 +4415,6 @@ MonoBehaviour:
   HighlightMaterial: {fileID: 2100000, guid: ddcd05eef84fb5746b438f2ba195ff2d, type: 2}
   TeleportEnabled: 1
   IndirectSelectionEnabled: 1
-  IndirectSelectionState: 0
   ShellEnabled: 1
   ShellParent: {fileID: 1929438141263876}
 --- !u!114 &114438549775082486
@@ -4428,6 +4428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18500685794cd0d43aa6189d97e8fae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IndirectSelectionState: 1
   TargetLocation: {fileID: 1124482507204280}
   InputPin: 2
   IsInputInverted: 1
@@ -4439,7 +4440,6 @@ MonoBehaviour:
   HighlightMaterial: {fileID: 2100000, guid: ddcd05eef84fb5746b438f2ba195ff2d, type: 2}
   TeleportEnabled: 1
   IndirectSelectionEnabled: 1
-  IndirectSelectionState: 1
   ShellEnabled: 1
   ShellParent: {fileID: 0}
 --- !u!114 &114461165287830368

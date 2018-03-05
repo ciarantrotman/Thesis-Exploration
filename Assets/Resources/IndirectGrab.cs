@@ -21,26 +21,34 @@ public class IndirectGrab : MonoBehaviour
     private float LerpTime = 15.0f;                 // part of the Lerp logic
     private float CurrentLerpTime = 0.0f;           // part of the Lerp logic
 
+    private GameObject TargetLocation;              // the object that is lerped to when grabbing
     private GameObject ClonedObject;                // this will be instantiated to create the highlight effect
     private GameObject SelectedObject;              // the object being hit by the raycast
     private GameObject LeapMotionRig;               // this is the Leap Motion Rig
     private GameObject TeleportTarget;              // this is a dynamic object that you teleport to
     private GameObject EgocentricOrigin;            // the main object that is rubber banded to you
+    private GameObject GazeController;
+    private GameObject ManualController;
+    private GameObject[] ShellParents;               // an array of objects that will be activated on a trigger
     private LineRenderer RaycastLineRender;         // the linerenderer that shows where the user will act
 
     private ObjectMass ObjectMassScript;            // the script that determines the responsiveness of grabbed objects
 
     private bool LerpState = false;                 // determines whether to initialise the grabbing Lerp
     private bool ShellActive = false;               // TEMP
+    private bool Mode;
     [HideInInspector]
     public static bool ButtonPress = false;         // this is reffered to from other scripts to trigger events
     [HideInInspector]
     public bool IndirectSelectionState = true;      // this is reffered to from other scripts to trigger selection
     #endregion
     #region Inspector and Public Variables
+    //[Header("Modality Controller")]
+    //[Space(5)]
+    //public bool ModalityControllerEnabled;          // determines if the followobject script is enabled
+
     [Header("Grab Settings")]
     [Space(5)]
-    public GameObject TargetLocation;
     public int InputPin = 2;                        //what pin on the Arduino is the button connected to
     public bool IsInputInverted = false;            // change this based on the wiring of the button
 
@@ -69,16 +77,18 @@ public class IndirectGrab : MonoBehaviour
     [Header("Shell Settings")]
     [Space(5)]
     public bool ShellEnabled = true;
-    public GameObject ShellParent;
     #endregion
 
     void Start()
     {
         arduino = Arduino.global;
         arduino.Setup(ConfigurePins);
+        TargetLocation = GameObject.Find("Target Location");
         LeapMotionRig = GameObject.Find("Leap Motion Rig");
         TeleportTarget = GameObject.Find("Teleport Target");
         EgocentricOrigin = GameObject.Find("Egocentric Content Origin");
+        GazeController = GameObject.Find("Gaze Controller");
+        ManualController = GameObject.Find("Manual Controller");
         RaycastLineRender = GetComponent<LineRenderer>();
         ButtonPressValue = IsInputInverted ? 1 : 0;
         ReleasePressValue = IsInputInverted ? 1 : 0;
@@ -238,10 +248,7 @@ public class IndirectGrab : MonoBehaviour
             case 3:
                 #region Selection
                 IndirectSelectionState = ButtonPress ? true : false;
-                if (ButtonPress == true)
-                {
-                    IndirectSelectionState ^= true;
-                }
+                Debug.Log(IndirectSelectionState);
                 break;
                 #endregion
             case 4:
@@ -266,7 +273,7 @@ public class IndirectGrab : MonoBehaviour
                 }
                 if (ButtonPress == true && ShellEnabled == true)
                 {
-                    ShellActive = ShellActive ? false : true;
+                    StartCoroutine(ShellLaunch());
                 }
                 break;
                 #endregion
@@ -274,7 +281,6 @@ public class IndirectGrab : MonoBehaviour
     }
     private void LateUpdate()
     {
-        ShellParent.SetActive(ShellActive);
         if (ClonedObject != null && HighlightEnabled == true)
         {
             ClonedObject.transform.localScale = new Vector3(HoverScaleDynamic, HoverScaleDynamic, HoverScaleDynamic);
@@ -291,4 +297,40 @@ public class IndirectGrab : MonoBehaviour
             SelectedObject.transform.position = Vector3.Lerp(SelectedObject.transform.position, TargetLocation.transform.position, JourneyPercentage);
         }                                          // handles the actual grab mechanism
     }
+    private IEnumerator ShellLaunch()
+    {
+        Debug.Log(ShellParents);
+        ShellActive = ShellActive ? false : true;
+        if (ShellParents == null)
+        {
+            ShellParents = GameObject.FindGameObjectsWithTag("ShellObject");
+        }
+        foreach (GameObject ShellParent in ShellParents)
+        {
+            ShellParent.SetActive(ShellActive);
+        }
+        yield return new WaitForSeconds(3);
+    }
+    
+    #region Modality Controller
+    /*public void Gaze()
+    {
+        Mode = true;
+        while (Mode == true)
+        {
+            transform.position = ModalityControllerEnabled ? GazeController.transform.position : transform.position;
+            transform.localRotation = ModalityControllerEnabled ? GazeController.transform.rotation : transform.localRotation;
+        }
+    }
+
+    public void Manual()
+    {
+        Mode = false;
+        while (Mode == false)
+        {
+            transform.position = ModalityControllerEnabled ? ManualController.transform.position : transform.position;
+            transform.localRotation = ModalityControllerEnabled ? ManualController.transform.rotation : transform.localRotation;
+        }
+    }*/
+    #endregion
 }

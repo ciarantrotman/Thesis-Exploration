@@ -12,6 +12,7 @@ TagManager:
   - SelectableUI
   - EgocentricContent
   - GazeTrigger
+  - ShellObject
   layers:
   - Default
   - TransparentFX
