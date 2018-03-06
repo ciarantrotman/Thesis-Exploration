@@ -5,7 +5,6 @@ using UnityEngine;
 public class LD2 : MonoBehaviour {
 
     private Rigidbody rigidbody;
-    public GameObject Shell;
 
     void Start()
     {
@@ -25,13 +24,9 @@ public class LD2 : MonoBehaviour {
     {
         if (collider.GetComponent<Collider>().name == "Shell Proxy")
         {
+            Debug.Log("Yeet");
             rigidbody.drag = 100;
             transform.localScale = new Vector3(3, 3, 3);
         }
-    }
-
-    public void DisableShell()
-    {
-        Shell.SetActive(false);
     }
 }

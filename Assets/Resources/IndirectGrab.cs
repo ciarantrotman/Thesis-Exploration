@@ -44,14 +44,11 @@ public class IndirectGrab : MonoBehaviour
     public bool IndirectSelectionState = true;      // this is reffered to from other scripts to trigger selection
     #endregion
     #region Inspector and Public Variables
-    //[Header("Modality Controller")]
-    //[Space(5)]
-    //public bool ModalityControllerEnabled;          // determines if the followobject script is enabled
-
     [Header("Grab Settings")]
     [Space(5)]
-    public int InputPin = 2;                        //what pin on the Arduino is the button connected to
+    public int InputPin = 2;                        // what pin on the Arduino is the button connected to
     public bool IsInputInverted = false;            // change this based on the wiring of the button
+    public bool LineRendererEnabled = false;            // enable line renderer?
 
     [Header("Grab Physics")]
     [Space(5)]
@@ -78,7 +75,7 @@ public class IndirectGrab : MonoBehaviour
     [Header("Shell Settings")]
     [Space(5)]
     public bool ShellEnabled = true;
-    #endregion
+    #endregion 
 
     void Start()
     {
@@ -90,7 +87,7 @@ public class IndirectGrab : MonoBehaviour
         EgocentricOrigin = GameObject.Find("Egocentric Content Origin");
         GazeController = GameObject.Find("Gaze Controller");
         ManualController = GameObject.Find("Manual Controller");
-        RaycastLineRender = GetComponent<LineRenderer>();
+        RaycastLineRender = LineRendererEnabled ? GetComponent<LineRenderer>() : null;
         ButtonPressValue = IsInputInverted ? 1 : 0;
         ReleasePressValue = IsInputInverted ? 1 : 0;
     }
@@ -101,12 +98,11 @@ public class IndirectGrab : MonoBehaviour
     }
     void Update()
     {
-        //Debug.Log("Button Press: " + ButtonPress);
+        ButtonPress = (InputPinValue == ButtonPressValue) ? ButtonPress = true : ButtonPress = false;
         InteractionType = 0; 
         Ray GrabRay = new Ray(transform.position, transform.forward);
         RaycastHit HitPoint;
         InputPinValue = arduino.digitalRead(InputPin);
-        ButtonPress = (InputPinValue == ButtonPressValue) ? ButtonPress = true : ButtonPress = false;
         #region Indirect Grab       | 1
         if (Physics.Raycast(GrabRay, out HitPoint, ReachDistance, LayerMask.NameToLayer("IgnoreIndirectGrab")) && HitPoint.transform.tag == "GrabObject")
         {
@@ -249,7 +245,6 @@ public class IndirectGrab : MonoBehaviour
             case 3:
                 #region Selection
                 IndirectSelectionState = ButtonPress ? true : false;
-                Debug.Log(IndirectSelectionState);
                 break;
                 #endregion
             case 4:

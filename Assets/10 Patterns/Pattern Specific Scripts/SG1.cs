@@ -8,7 +8,7 @@ public class SG1 : MonoBehaviour {
     {
         if (GameObject.Find("Manual Input Controller").GetComponent<IndirectGrab>().IndirectSelectionState == true)
         {
-            Debug.Log("Pressed");
+            gameObject.SetActive(false);
         }
     }
 }
