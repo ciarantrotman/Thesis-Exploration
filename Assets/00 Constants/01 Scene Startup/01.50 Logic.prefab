@@ -36,9 +36,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4225313229386462}
   - component: {fileID: 114387475351038440}
-  - component: {fileID: 114638156402072726}
   m_Layer: 0
-  m_Name: Vibration Coroutines
+  m_Name: Shell Summon Events
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,6 +54,23 @@ GameObject:
   - component: {fileID: 114055022249941392}
   m_Layer: 0
   m_Name: Press Coroutine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1557413506126570
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4246784569085896}
+  - component: {fileID: 114407112945714840}
+  - component: {fileID: 114638156402072726}
+  m_Layer: 0
+  m_Name: Vibration Coroutines
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,6 +113,19 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1316652970412194}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4867742403927804}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4246784569085896
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1557413506126570}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -115,7 +144,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4867742403927804}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4846428490346102
 Transform:
@@ -128,7 +157,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4867742403927804}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4848222513805630
 Transform:
@@ -141,7 +170,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4867742403927804}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4867742403927804
 Transform:
@@ -153,8 +182,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.875, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4848222513805630}
   - {fileID: 4225313229386462}
+  - {fileID: 4246784569085896}
+  - {fileID: 4848222513805630}
   - {fileID: 4846428490346102}
   - {fileID: 4445471077179744}
   m_Father: {fileID: 0}
@@ -171,7 +201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f52e3ee91f0ab444b24138def13ef76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arduino: {fileID: 0}
   SmoothDuration: 0.3
   PWMPin: 3
   LowerTarget: 0
@@ -187,7 +216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f52e3ee91f0ab444b24138def13ef76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arduino: {fileID: 0}
   SmoothDuration: 0.125
   PWMPin: 3
   LowerTarget: 0
@@ -203,7 +231,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f52e3ee91f0ab444b24138def13ef76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arduino: {fileID: 0}
+  SmoothDuration: 0.125
+  PWMPin: 3
+  LowerTarget: 0
+  UpperTarget: 170
+--- !u!114 &114407112945714840
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1557413506126570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f52e3ee91f0ab444b24138def13ef76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   SmoothDuration: 0.125
   PWMPin: 3
   LowerTarget: 0
@@ -228,7 +270,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1316652970412194}
+  m_GameObject: {fileID: 1557413506126570}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f247945a68a08348b278004bfb07a6f, type: 3}

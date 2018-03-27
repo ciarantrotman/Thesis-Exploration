@@ -15,6 +15,7 @@ TagManager:
   - ShellObject
   - ManipulationHandle
   - HoverTrigger
+  - ProprioShell
   layers:
   - Default
   - TransparentFX

@@ -14,45 +14,61 @@ public class IndirectGrab : MonoBehaviour
     private int ReleasePressValue;                  // value of InputPin when button is depressed
     private int InteractionType = 0;                // the int that determines the case for the main switchcase
     private int ShellState = 0;                     // the int that determines the case for the shell switchcase
+    private int _lastActiveProgram;                 // the int value for the last active program in the active program list (count - 1)
 
-    private float ReachDistance = 100.0f;           // how far the raycast for grabbing reaches
+    private float ReachDistance = 1000.0f;           // how far the raycast for grabbing reaches
     private float SmoothVelocity = 1.0f;            // part of the highlight effect
     private float HoverScaleDynamic = 1.0f;         // determines the mathf.smoothdamp for the highlight effect
     private float LerpTime = 15.0f;                 // part of the Lerp logic
     private float CurrentLerpTime = 0.0f;           // part of the Lerp logic
 
     private GameObject TargetLocation;              // the object that is lerped to when grabbing
-    private GameObject ClonedObject;                // this will be instantiated to create the highlight effect
-    private GameObject SelectedObject;              // the object being hit by the raycast
+    private GameObject ClonedObject;                // this will be instantiated to create the highlight effect                            
+    private GameObject SelectedObject;               // the object being hit by the raycast
     private GameObject LeapMotionRig;               // this is the Leap Motion Rig
     private GameObject TeleportTarget;              // this is a dynamic object that you teleport to
     private GameObject EgocentricOrigin;            // the main object that is rubber banded to you
-    private GameObject GazeController;
-    private GameObject ManualController;
-    private GameObject[] ShellParents;               // an array of objects that will be activated on a trigger
+    private GameObject GazeController;              // the object the input controller will follow when gaze modality is active
+    private GameObject ManualController;            // the object the input controller will follow when manual interaction is active
+    private GameObject ContextualShell;             // the contextual shell master
+    private GameObject SelectedObjectProxy;         // will move to the center of selected objects
+    private GameObject[] ShellParents;              // an array of objects that will be activated on a trigger
+    private List<GameObject> ActivePrograms;            // an array of objects that will be activated on a trigger
+
+    private LineRenderer contextualLineRenderer;    // the line render drawn from the active program to the shell
     private LineRenderer RaycastLineRender;         // the linerenderer that shows where the user will act
 
     private ObjectMass ObjectMassScript;            // the script that determines the responsiveness of grabbed objects
 
     [HideInInspector]
-    public bool LerpState = false;                 // determines whether to initialise the grabbing Lerp
+    public bool LerpState = false;                  // determines whether to initialise the grabbing Lerp
     private bool ShellActive = false;               // TEMP
     private bool Mode;
     [HideInInspector]
-    public bool ButtonPress = false;         // this is reffered to from other scripts to trigger events
+    public bool ButtonPress = false;                // this is reffered to from other scripts to trigger events
     [HideInInspector]
     public bool IndirectSelectionState = true;      // this is reffered to from other scripts to trigger selection
+    private bool _gazeActive;                       // this will be true when the right hand is inactive
+    private bool _manualActive;                     // this will be true when the right hand is active
+    private bool _lineRenderTrue;                   // dynamic bool for the linerenderer state
+    private bool _lineRenderFalse;                  // dynamic bool for the linerenderer state
+    private bool _shellActive;                      // ia the contextual shell active?
     #endregion
     #region Inspector and Public Variables
     [Header("Grab Settings")]
     [Space(5)]
     public int InputPin = 2;                        // what pin on the Arduino is the button connected to
     public bool IsInputInverted = false;            // change this based on the wiring of the button
-    public bool LineRendererEnabled = false;            // enable line renderer?
+    public bool LineRendererEnabled;        // enable line renderer?
 
     [Header("Grab Physics")]
     [Space(5)]
     public float DefaultObjectMass = 5.0f;          // the responsiveness of a grabbed object
+
+    [Header("Gaze Cursor Settings")]
+    [Space(5)]
+    public bool GazeCursorEnabled;                  // enable the gaze cursor?
+    public GameObject GazeCursor;                   // the parent object which will handle the gaze cursor states
 
     [Header("Highlight Settings")]
     [Space(5)]
@@ -85,9 +101,12 @@ public class IndirectGrab : MonoBehaviour
         LeapMotionRig = GameObject.Find("Leap Motion Rig");
         TeleportTarget = GameObject.Find("Teleport Target");
         EgocentricOrigin = GameObject.Find("Egocentric Content Origin");
-        GazeController = GameObject.Find("Gaze Controller");
-        ManualController = GameObject.Find("Manual Controller");
-        RaycastLineRender = LineRendererEnabled ? GetComponent<LineRenderer>() : null;
+        GazeController = GameObject.Find("Gaze Input Controller");
+        ManualController = GameObject.Find("Manual Input Controller");
+        ContextualShell = GameObject.Find("Contextual Shell ----- | Parent");
+        RaycastLineRender = GetComponent<LineRenderer>();
+        contextualLineRenderer = ContextualShell.GetComponent<LineRenderer>();
+        ActivePrograms = new List<GameObject>();
         ButtonPressValue = IsInputInverted ? 1 : 0;
         ReleasePressValue = IsInputInverted ? 1 : 0;
     }
@@ -98,32 +117,39 @@ public class IndirectGrab : MonoBehaviour
     }
     void Update()
     {
+        _lineRenderTrue = LineRendererEnabled ? true : false;
+        _lineRenderFalse = LineRendererEnabled ? false : false;
         ButtonPress = (InputPinValue == ButtonPressValue) ? ButtonPress = true : ButtonPress = false;
         InteractionType = 0; 
         Ray GrabRay = new Ray(transform.position, transform.forward);
         RaycastHit HitPoint;
         InputPinValue = arduino.digitalRead(InputPin);
-        #region Indirect Grab       | 1
-        if (Physics.Raycast(GrabRay, out HitPoint, ReachDistance, LayerMask.NameToLayer("IgnoreIndirectGrab")) && HitPoint.transform.tag == "GrabObject")
+
+        if (Physics.Raycast(GrabRay, out HitPoint, ReachDistance, LayerMask.NameToLayer("IgnoreIndirectGrab")))
         {
-            InteractionType = 1;
             SelectedObject = HitPoint.transform.gameObject;
-            RaycastLineRender.enabled = true;
-            RaycastLineRender.useWorldSpace = true;
-            Vector3 StartPoint = transform.position;
-            Vector3 EndPoint = SelectedObject.transform.position;
-            RaycastLineRender.SetPosition(0, StartPoint);
-            RaycastLineRender.SetPosition(1, EndPoint);
-        }
-        #endregion
-        #region Teleportation       | 2
-        if (Physics.Raycast(GrabRay, out HitPoint, ReachDistance, LayerMask.NameToLayer("IgnoreIndirectGrab")) && HitPoint.transform.tag == "TeleportLocation")
-        {
-            if (TeleportEnabled == true)
+            ActivePrograms.Add(SelectedObject);
+            _lastActiveProgram = ActivePrograms.Count - 1;
+            Debug.Log(ActivePrograms.Count);
+            #region Indirect Grab       | 1
+            if (HitPoint.transform.tag == "GrabObject")
+            {
+                InteractionType = 1;
+                //SelectedObject = HitPoint.transform.gameObject;
+                RaycastLineRender.enabled = _lineRenderTrue;
+                RaycastLineRender.useWorldSpace = true;
+                Vector3 StartPoint = transform.position;
+                Vector3 EndPoint = SelectedObject.transform.position;
+                RaycastLineRender.SetPosition(0, StartPoint);
+                RaycastLineRender.SetPosition(1, EndPoint);
+            }
+            #endregion
+            #region Teleportation       | 2
+            if (HitPoint.transform.tag == "TeleportLocation" && TeleportEnabled == true)
             {
                 InteractionType = 2;
-                SelectedObject = HitPoint.transform.gameObject;
-                RaycastLineRender.enabled = true;
+                //SelectedObject = HitPoint.transform.gameObject;
+                RaycastLineRender.enabled = _lineRenderTrue;
                 RaycastLineRender.useWorldSpace = true;
                 Vector3 StartPoint = transform.position;
                 Vector3 EndPoint = SelectedObject.transform.position;
@@ -131,27 +157,27 @@ public class IndirectGrab : MonoBehaviour
                 RaycastLineRender.SetPosition(1, EndPoint);
                 SelectedObject.GetComponent<BlendshapeAnimation>().OnTriggerStart();
             }
-        }
-        #endregion
-        #region Selection           | 3
-        if (Physics.Raycast(GrabRay, out HitPoint, ReachDistance, LayerMask.NameToLayer("IgnoreIndirectGrab")) && HitPoint.transform.tag == "SelectableUI")
-        {
-            if (IndirectSelectionEnabled == true)
+            #endregion
+            #region Selection           | 3
+            if (HitPoint.transform.tag == "SelectableUI" && IndirectSelectionEnabled == true)
             {
                 InteractionType = 3;
-                SelectedObject = HitPoint.transform.gameObject;
-                RaycastLineRender.enabled = true;
+                //SelectedObject = HitPoint.transform.gameObject;
+                RaycastLineRender.enabled = _lineRenderTrue;
                 RaycastLineRender.useWorldSpace = true;
                 Vector3 StartPoint = transform.position;
                 Vector3 EndPoint = SelectedObject.transform.position;
                 RaycastLineRender.SetPosition(0, StartPoint);
                 RaycastLineRender.SetPosition(1, EndPoint);
             }
+            #endregion
+            // this shouldn't be here
+            if (_shellActive == true)
+            {
+                contextualLineRenderer.SetPosition(0, ContextualShell.transform.position);
+                contextualLineRenderer.SetPosition(1, SelectedObject.transform.position);
+            }
         }
-        #endregion
-        #region Shell Trigger       | 4
-        // wait until after the prototyping stage
-        #endregion
         switch (InteractionType)
         {
             case 1:
@@ -205,7 +231,7 @@ public class IndirectGrab : MonoBehaviour
                         }
                         TargetLocation.transform.position = SelectedObject.transform.position;
                         LerpState = true;
-                        RaycastLineRender.enabled = false;
+                        RaycastLineRender.enabled = _lineRenderFalse;
                     }
                     if (ClonedObject != null && HighlightEnabled == true)
                     {
@@ -218,7 +244,6 @@ public class IndirectGrab : MonoBehaviour
                 }
                 if (ButtonPress == false)
                 {
-                    //RaycastLineRender.enabled = true;
                     SelectedObject = null;
                     if (this.SelectedObject != null)
                     {
@@ -246,14 +271,10 @@ public class IndirectGrab : MonoBehaviour
                 #region Selection
                 IndirectSelectionState = ButtonPress ? true : false;
                 break;
-                #endregion
-            case 4:
-                #region Shell
-                break;
-                #endregion
+            #endregion
             default:
                 #region Default;
-                RaycastLineRender.enabled = false;
+                RaycastLineRender.enabled = _lineRenderFalse;
                 RaycastLineRender.useWorldSpace = false;
                 if (ClonedObject != null && HighlightEnabled == true)
                 {
@@ -267,15 +288,39 @@ public class IndirectGrab : MonoBehaviour
                 {
                     SelectedObject.GetComponent<BlendshapeAnimation>().OnTriggerEnd();
                 }
-                if (ButtonPress == true && ShellEnabled == true)
-                {
-                    StartCoroutine(ShellLaunch());
-                }
                 break;
                 #endregion
         }
+        if (GazeCursorEnabled)
+        {
+            GazeCursor.transform.position = HitPoint.point;
+        }
+        #region Input Controller
+        if (_manualActive == true && ManualController != null)
+        {
+            LineRendererEnabled = true;
+            GazeCursorEnabled = false;
+            transform.position = ManualController.transform.position;
+            transform.localRotation = ManualController.transform.localRotation;
+        }
+        if (_gazeActive == true && GazeController != null)
+        {
+            LineRendererEnabled = false;
+            GazeCursorEnabled = true;
+            transform.position = GazeController.transform.position;
+            transform.eulerAngles = GazeController.transform.eulerAngles;
+        }
+        #endregion
+        #region Contextual Shell
+        //this need to work normally - put a selected object into a list an activate element 0 here
+        /*if (_shellActive == true)
+        {
+            contextualLineRenderer.SetPosition(0, ContextualShell.transform.position);
+            contextualLineRenderer.SetPosition(1, SelectedObject.transform.position);
+        }*/
+    #endregion
     }
-    private void LateUpdate()
+    void LateUpdate()
     {
         if (ClonedObject != null && HighlightEnabled == true)
         {
@@ -293,40 +338,28 @@ public class IndirectGrab : MonoBehaviour
             SelectedObject.transform.position = Vector3.Lerp(SelectedObject.transform.position, TargetLocation.transform.position, JourneyPercentage);
         }                                          // handles the actual grab mechanism
     }
-    private IEnumerator ShellLaunch()
+    #region Modality Methods
+    public void ManualInput()
     {
-        //Debug.Log(ShellParents);
-        ShellActive = ShellActive ? false : true;
-        if (ShellParents == null)
-        {
-            ShellParents = GameObject.FindGameObjectsWithTag("ShellObject");
-        }
-        foreach (GameObject ShellParent in ShellParents)
-        {
-            ShellParent.SetActive(ShellActive);
-        }
-        yield return new WaitForSeconds(3);
+        _manualActive = true;
+        _gazeActive = false;
     }
-    
-    #region Modality Controller
-    /*public void Gaze()
+    public void GazeInput()
     {
-        Mode = true;
-        while (Mode == true)
-        {
-            transform.position = ModalityControllerEnabled ? GazeController.transform.position : transform.position;
-            transform.localRotation = ModalityControllerEnabled ? GazeController.transform.rotation : transform.localRotation;
-        }
+        _manualActive = false;
+        _gazeActive = true;
     }
-
-    public void Manual()
+    #endregion
+    #region Contextual Shell Methods
+    public void ContextualShellLineRenderActive()
     {
-        Mode = false;
-        while (Mode == false)
-        {
-            transform.position = ModalityControllerEnabled ? ManualController.transform.position : transform.position;
-            transform.localRotation = ModalityControllerEnabled ? ManualController.transform.rotation : transform.localRotation;
-        }
-    }*/
+        _shellActive = true;
+        contextualLineRenderer.enabled = true;
+    }
+    public void ContextualShellLineRenderDeactive()
+    {
+        _shellActive = false;
+        contextualLineRenderer.enabled = false;
+    }
     #endregion
 }
