@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Uniduino;
+using Leap.Unity.Animation;
 
 public class IndirectGrab : MonoBehaviour
 {
@@ -92,7 +93,6 @@ public class IndirectGrab : MonoBehaviour
     [Space(5)]
     public bool ShellEnabled = true;
     #endregion 
-
     void Start()
     {
         arduino = Arduino.global;
@@ -124,18 +124,19 @@ public class IndirectGrab : MonoBehaviour
         Ray GrabRay = new Ray(transform.position, transform.forward);
         RaycastHit HitPoint;
         InputPinValue = arduino.digitalRead(InputPin);
-
         if (Physics.Raycast(GrabRay, out HitPoint, ReachDistance, LayerMask.NameToLayer("IgnoreIndirectGrab")))
         {
             SelectedObject = HitPoint.transform.gameObject;
             ActivePrograms.Add(SelectedObject);
             _lastActiveProgram = ActivePrograms.Count - 1;
-            Debug.Log(ActivePrograms.Count);
             #region Indirect Grab       | 1
             if (HitPoint.transform.tag == "GrabObject")
             {
+                if (SelectedObject.GetComponent<ProgramLogic>() != null)
+                {
+                    SelectedObject.GetComponent<ProgramLogic>().Invoke("OnHoverStart", 0);
+                }
                 InteractionType = 1;
-                //SelectedObject = HitPoint.transform.gameObject;
                 RaycastLineRender.enabled = _lineRenderTrue;
                 RaycastLineRender.useWorldSpace = true;
                 Vector3 StartPoint = transform.position;
@@ -148,7 +149,6 @@ public class IndirectGrab : MonoBehaviour
             if (HitPoint.transform.tag == "TeleportLocation" && TeleportEnabled == true)
             {
                 InteractionType = 2;
-                //SelectedObject = HitPoint.transform.gameObject;
                 RaycastLineRender.enabled = _lineRenderTrue;
                 RaycastLineRender.useWorldSpace = true;
                 Vector3 StartPoint = transform.position;
@@ -162,7 +162,6 @@ public class IndirectGrab : MonoBehaviour
             if (HitPoint.transform.tag == "SelectableUI" && IndirectSelectionEnabled == true)
             {
                 InteractionType = 3;
-                //SelectedObject = HitPoint.transform.gameObject;
                 RaycastLineRender.enabled = _lineRenderTrue;
                 RaycastLineRender.useWorldSpace = true;
                 Vector3 StartPoint = transform.position;
@@ -171,12 +170,6 @@ public class IndirectGrab : MonoBehaviour
                 RaycastLineRender.SetPosition(1, EndPoint);
             }
             #endregion
-            // this shouldn't be here
-            if (_shellActive == true)
-            {
-                contextualLineRenderer.SetPosition(0, ContextualShell.transform.position);
-                contextualLineRenderer.SetPosition(1, SelectedObject.transform.position);
-            }
         }
         switch (InteractionType)
         {
@@ -288,13 +281,19 @@ public class IndirectGrab : MonoBehaviour
                 {
                     SelectedObject.GetComponent<BlendshapeAnimation>().OnTriggerEnd();
                 }
+                if (ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null)
+                {
+                    ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnHoverEnd", 0);
+                }
                 break;
                 #endregion
         }
+        #region Gaze Cursor
         if (GazeCursorEnabled)
         {
             GazeCursor.transform.position = HitPoint.point;
         }
+        #endregion
         #region Input Controller
         if (_manualActive == true && ManualController != null)
         {
@@ -312,13 +311,24 @@ public class IndirectGrab : MonoBehaviour
         }
         #endregion
         #region Contextual Shell
-        //this need to work normally - put a selected object into a list an activate element 0 here
-        /*if (_shellActive == true)
+        if (_shellActive == true)
         {
+            if (ActivePrograms.Count > 0 && ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null)
+            {
+                ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnShellOpen", 0);
+            }
             contextualLineRenderer.SetPosition(0, ContextualShell.transform.position);
-            contextualLineRenderer.SetPosition(1, SelectedObject.transform.position);
-        }*/
-    #endregion
+            contextualLineRenderer.SetPosition(1, ActivePrograms[_lastActiveProgram].transform.position);
+        }
+        if (_shellActive == false)
+        {   // some funky shit with the ArgumentOutOfRangeException...
+            /*
+            if (ActivePrograms.Count > 0 && ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null)
+            {
+                ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnShellClose", 0);
+            }*/
+        }
+        #endregion
     }
     void LateUpdate()
     {
@@ -360,6 +370,16 @@ public class IndirectGrab : MonoBehaviour
     {
         _shellActive = false;
         contextualLineRenderer.enabled = false;
+    }
+    #endregion
+    #region Active Program Methods
+    public void LaunchActiveProgram()
+    {
+        ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnLaunch", 0);
+    }
+    public void CloseActiveProgram()
+    {
+        ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnClose", 0);
     }
     #endregion
 }
