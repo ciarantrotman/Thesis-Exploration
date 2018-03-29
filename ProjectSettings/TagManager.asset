@@ -16,6 +16,7 @@ TagManager:
   - ManipulationHandle
   - HoverTrigger
   - ProprioShell
+  - Pocket
   layers:
   - Default
   - TransparentFX

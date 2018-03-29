@@ -8,19 +8,18 @@ public class EnvironmentalProgramController : MonoBehaviour {
     private Renderer TriggerRenderer;
     private Collider TriggerCollider;
     private GameObject UserHead;
-    private GameObject Trigger;
+    private GameObject EnvironmentalProgram;
     private int LoopCount = 0;
 
     void Start ()
     {
-        Trigger = gameObject;
-        TriggerRenderer = Trigger.GetComponent<Renderer>();
-        TriggerCollider = Trigger.GetComponent<Collider>();
+        EnvironmentalProgram = gameObject;
+        TriggerRenderer = EnvironmentalProgram.GetComponent<Renderer>();
+        TriggerCollider = EnvironmentalProgram.GetComponent<Collider>();
         UserHead = GameObject.Find("HMD Camera");
         HMD = UserHead.GetComponent<Camera>();
         HMD.cullingMask = ~(1 << LayerMask.NameToLayer("Environmental Program")); // Render everything *except* Environmental Programs
     }
-    
     #region Collision Based
     void OnTriggerEnter(Collider collider)
     {
@@ -28,15 +27,23 @@ public class EnvironmentalProgramController : MonoBehaviour {
         {
             StartCoroutine("EnvironmentalLaunch");
         }
+        if (collider.GetComponent<Collider>().name == "Environmental Program - Position Marker")
+        {
+            EnvironmentalProgram.transform.parent = collider.transform;
+        }
+        
     }
 
-    void OnTriggerExit(Collider collider)
+    public void OnTriggerExit(Collider collider)
     {
-        HMD.cullingMask = ~(1 << LayerMask.NameToLayer("Environmental Program")); // Switch off Environmental Programs, leave others as-is
-        HMD.cullingMask |= (1 << LayerMask.NameToLayer("Real World Objects")); // Switch on Real World Objects, leave others as-is
-        TriggerRenderer.enabled = true;
-        Trigger.transform.parent = null;
-        LoopCount = 0;
+        if (collider.GetComponent<Collider>().name == UserHead.transform.name)
+        {
+            HMD.cullingMask = ~(1 << LayerMask.NameToLayer("Environmental Program")); // Switch off Environmental Programs, leave others as-is
+            HMD.cullingMask |= (1 << LayerMask.NameToLayer("Real World Objects")); // Switch on Real World Objects, leave others as-is
+            TriggerRenderer.enabled = true;
+            EnvironmentalProgram.transform.parent = null;
+            LoopCount = 0;
+        }
     }
 
     IEnumerator EnvironmentalLaunch()
@@ -48,17 +55,15 @@ public class EnvironmentalProgramController : MonoBehaviour {
         {
             TriggerCollider.enabled = false;
         }
-        Trigger.transform.parent = UserHead.transform;
+        EnvironmentalProgram.transform.parent = UserHead.transform;
         yield return new WaitForSeconds(1);
         LoopCount++;
-        Debug.Log(LoopCount);
         if (LoopCount > 0)
         {
             TriggerCollider.enabled = true;
         }
     }
     #endregion
-
     #region Trigger Based
     public void LaunchEnvironmental()
     {
@@ -72,4 +77,9 @@ public class EnvironmentalProgramController : MonoBehaviour {
         HMD.cullingMask |= (1 << LayerMask.NameToLayer("Real World Objects")); // Switch on Real World Objects, leave others as-is
     }
     #endregion
+    public void OnGrab()
+    {
+        Debug.Log("Full Tiddy");
+        EnvironmentalProgram.transform.parent = null;
+    }
 }

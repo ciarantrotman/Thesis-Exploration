@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExocentricLinerenderer : MonoBehaviour {
+public class ContentlockLinerenderer : MonoBehaviour {
 
     private LineRenderer _exocentricLinerenderer;
     private GameObject _startPoint;

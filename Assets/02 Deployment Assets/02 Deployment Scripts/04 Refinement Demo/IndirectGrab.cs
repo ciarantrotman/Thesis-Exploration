@@ -16,6 +16,7 @@ public class IndirectGrab : MonoBehaviour
     private int InteractionType = 0;                // the int that determines the case for the main switchcase
     private int ShellState = 0;                     // the int that determines the case for the shell switchcase
     private int _lastActiveProgram;                 // the int value for the last active program in the active program list (count - 1)
+    private int _hoverCounter = 0;
 
     private float ReachDistance = 1000.0f;           // how far the raycast for grabbing reaches
     private float SmoothVelocity = 1.0f;            // part of the highlight effect
@@ -60,7 +61,7 @@ public class IndirectGrab : MonoBehaviour
     [Space(5)]
     public int InputPin = 2;                        // what pin on the Arduino is the button connected to
     public bool IsInputInverted = false;            // change this based on the wiring of the button
-    public bool LineRendererEnabled;        // enable line renderer?
+    public bool LineRendererEnabled;                // enable line renderer?
 
     [Header("Grab Physics")]
     [Space(5)]
@@ -92,7 +93,8 @@ public class IndirectGrab : MonoBehaviour
     [Header("Shell Settings")]
     [Space(5)]
     public bool ShellEnabled = true;
-    #endregion 
+    #endregion
+    #region Main Methods
     void Start()
     {
         arduino = Arduino.global;
@@ -128,14 +130,15 @@ public class IndirectGrab : MonoBehaviour
         {
             SelectedObject = HitPoint.transform.gameObject;
             ActivePrograms.Add(SelectedObject);
-            _lastActiveProgram = ActivePrograms.Count - 1;
+            if (ActivePrograms.Count > 0)
+            {
+                _lastActiveProgram = ActivePrograms.Count - 1;
+            }
             #region Indirect Grab       | 1
             if (HitPoint.transform.tag == "GrabObject")
             {
-                if (SelectedObject.GetComponent<ProgramLogic>() != null)
-                {
-                    SelectedObject.GetComponent<ProgramLogic>().Invoke("OnHoverStart", 0);
-                }
+                _hoverCounter = 0;
+                Invoke("OnHoverStart", 0);
                 InteractionType = 1;
                 RaycastLineRender.enabled = _lineRenderTrue;
                 RaycastLineRender.useWorldSpace = true;
@@ -168,6 +171,12 @@ public class IndirectGrab : MonoBehaviour
                 Vector3 EndPoint = SelectedObject.transform.position;
                 RaycastLineRender.SetPosition(0, StartPoint);
                 RaycastLineRender.SetPosition(1, EndPoint);
+            }
+            #endregion
+            #region Pocket              | 4
+            if (HitPoint.transform.tag == "Pocket" && IndirectSelectionEnabled == true)
+            {
+                Debug.Log("Skkrt");
             }
             #endregion
         }
@@ -267,6 +276,11 @@ public class IndirectGrab : MonoBehaviour
             #endregion
             default:
                 #region Default;
+                _hoverCounter++;
+                if (_shellActive == false && _hoverCounter == 1)
+                {
+                    Invoke("OnHoverEnd", 0);
+                }
                 RaycastLineRender.enabled = _lineRenderFalse;
                 RaycastLineRender.useWorldSpace = false;
                 if (ClonedObject != null && HighlightEnabled == true)
@@ -280,10 +294,6 @@ public class IndirectGrab : MonoBehaviour
                 if (SelectedObject != null && SelectedObject.GetComponent<BlendshapeAnimation>() != null)
                 {
                     SelectedObject.GetComponent<BlendshapeAnimation>().OnTriggerEnd();
-                }
-                if (ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null)
-                {
-                    ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnHoverEnd", 0);
                 }
                 break;
                 #endregion
@@ -313,20 +323,12 @@ public class IndirectGrab : MonoBehaviour
         #region Contextual Shell
         if (_shellActive == true)
         {
-            if (ActivePrograms.Count > 0 && ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null)
-            {
-                ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnShellOpen", 0);
-            }
             contextualLineRenderer.SetPosition(0, ContextualShell.transform.position);
             contextualLineRenderer.SetPosition(1, ActivePrograms[_lastActiveProgram].transform.position);
         }
         if (_shellActive == false)
-        {   // some funky shit with the ArgumentOutOfRangeException...
-            /*
-            if (ActivePrograms.Count > 0 && ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null)
-            {
-                ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnShellClose", 0);
-            }*/
+        { 
+
         }
         #endregion
     }
@@ -348,6 +350,7 @@ public class IndirectGrab : MonoBehaviour
             SelectedObject.transform.position = Vector3.Lerp(SelectedObject.transform.position, TargetLocation.transform.position, JourneyPercentage);
         }                                          // handles the actual grab mechanism
     }
+    #endregion
     #region Modality Methods
     public void ManualInput()
     {
@@ -360,16 +363,40 @@ public class IndirectGrab : MonoBehaviour
         _gazeActive = true;
     }
     #endregion
+    #region Hover Methods
+    public void OnHoverStart()
+    {
+        if (ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null)
+        {
+            ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnHoverStart", 0);
+        }
+    }
+    public void OnHoverEnd()
+    {
+        if (ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null)
+        {
+            ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnHoverEnd", 0);
+        }
+    }
+    #endregion
     #region Contextual Shell Methods
     public void ContextualShellLineRenderActive()
     {
-        _shellActive = true;
+        if (ActivePrograms.Count > 0 && ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null)
+        {
+            ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnShellOpen", 0);
+        }
         contextualLineRenderer.enabled = true;
+        _shellActive = true;
     }
     public void ContextualShellLineRenderDeactive()
     {
-        _shellActive = false;
         contextualLineRenderer.enabled = false;
+        _shellActive = false;
+        if (ActivePrograms.Count > 0 && ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null)
+        {
+            ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnShellClose", 0);
+        }
     }
     #endregion
     #region Active Program Methods

@@ -3,8 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ProgramLogic : MonoBehaviour {
+public class ProgramLogic : MonoBehaviour
+{
+    #region Direct and Indirect Transitions
+    private GameObject _program;
+    private GameObject _user;
+    private float _programDistance;
+    [Header("Direct and Indirect Transition Events")]
+    [Space(5)]
+    public float _directDistance = .55f;
+    public UnityEvent _onBecomingDirect;
+    public UnityEvent _onBecomingIndirect;
+    void Start()
+    {
+        _program = gameObject;
+        _user = GameObject.Find("HMD Camera");
+    }
+    public void Update()
+    {
+        _programDistance = Vector3.Distance(_program.transform.position, _user.transform.position);
+        if (_programDistance < _directDistance)
+        {
+            _onBecomingDirect.Invoke();
+        }
+        if (_programDistance > _directDistance)
+        {
+            _onBecomingIndirect.Invoke();
+        }
+    }
+    public void OnBecomingDirect()
+    {
+        _onBecomingDirect.Invoke();
+    }
+    public void OnBecomingIndirect()
+    {
+        _onBecomingIndirect.Invoke();
+    }
+    #endregion
     #region Launching and Closing
+    [Space(10)]
+    [Header("Program Launch and Close Events")]
     public UnityEvent _onProgramLaunch;
     public UnityEvent _onProgramClose;
     public void OnLaunch()
@@ -17,6 +55,8 @@ public class ProgramLogic : MonoBehaviour {
     }
     #endregion
     #region Shell
+    [Space(10)]
+    [Header("Shell Launch and Close Events")]
     public UnityEvent _onShellOpen;
     public UnityEvent _onShellClose;
     public void OnShellOpen()
@@ -29,6 +69,8 @@ public class ProgramLogic : MonoBehaviour {
     }
     #endregion
     #region Indirect Hover
+    [Space(10)]
+    [Header("Hover Events")]
     public UnityEvent _onHoverStart;
     public UnityEvent _onHoverEnd;
     public void OnHoverStart()
@@ -38,18 +80,6 @@ public class ProgramLogic : MonoBehaviour {
     public void OnHoverEnd()
     {
         _onHoverEnd.Invoke();
-    }
-    #endregion
-    #region Direct and Indirect Transitions
-    public UnityEvent _onBecomingDirect;
-    public UnityEvent _onBecomingIndirect;
-    public void OnBecomingDirect()
-    {
-        _onBecomingDirect.Invoke();
-    }
-    public void OnBecomingIndirect()
-    {
-        _onBecomingIndirect.Invoke();
     }
     #endregion
 }
