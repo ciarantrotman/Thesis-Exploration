@@ -1,24 +1,65 @@
 fileFormatVersion: 2
-guid: 17d1700b2a2376044a5f06bd4c547452
-timeCreated: 1522355836
+guid: 9c413f4bb63471243a5a480fb8419e14
+timeCreated: 1522358701
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
-    100002: pPipe1
-    100004: pPipe2
+    100002: pCube1
+    100004: pCube10
+    100006: pCube11
+    100008: pCube12
+    100010: pCube13
+    100012: pCube15
+    100014: pCube2
+    100016: pCube3
+    100018: pCube4
+    100020: pCube5
+    100022: pCube6
+    100024: pCube8
+    100026: pCube9
+    100028: transform1
+    100030: transform10
+    100032: transform11
+    100034: transform12
+    100036: transform2
+    100038: transform3
+    100040: transform4
+    100042: transform5
+    100044: transform6
+    100046: transform7
+    100048: transform8
+    100050: transform9
     400000: //RootNode
-    400002: pPipe1
-    400004: pPipe2
-    2300000: pPipe1
-    2300002: pPipe2
-    3300000: pPipe1
-    3300002: pPipe2
-    4300000: pPipe1
-    4300002: pPipe2
+    400002: pCube1
+    400004: pCube10
+    400006: pCube11
+    400008: pCube12
+    400010: pCube13
+    400012: pCube15
+    400014: pCube2
+    400016: pCube3
+    400018: pCube4
+    400020: pCube5
+    400022: pCube6
+    400024: pCube8
+    400026: pCube9
+    400028: transform1
+    400030: transform10
+    400032: transform11
+    400034: transform12
+    400036: transform2
+    400038: transform3
+    400040: transform4
+    400042: transform5
+    400044: transform6
+    400046: transform7
+    400048: transform8
+    400050: transform9
+    4300000: pCube15
     9500000: //RootNode
-    13700000: //RootNode
+    13700000: pCube15
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -26,7 +67,7 @@ ModelImporter:
       name: lambert1
     second: {fileID: 2100000, guid: fdc66b1351fb6c342934c50ee6a29ae4, type: 2}
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 0
@@ -57,10 +98,10 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importVisibility: 0
+    importVisibility: 1
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
+    importCameras: 1
+    importLights: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -77,7 +118,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2

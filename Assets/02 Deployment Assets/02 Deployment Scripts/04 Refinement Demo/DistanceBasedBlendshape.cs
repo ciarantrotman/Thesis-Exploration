@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DistanceBasedBlendshape : MonoBehaviour {
-
+public class DistanceBasedBlendshape : MonoBehaviour
+{
     private GameObject _blendshapeObject;
     private GameObject _userHand;
     private float _distance;

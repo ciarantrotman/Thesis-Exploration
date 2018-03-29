@@ -331,6 +331,12 @@ public class IndirectGrab : MonoBehaviour
 
         }
         #endregion
+        #region Summoning
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Invoke("SummonActiveProgram", 0);
+        }
+        #endregion
     }
     void LateUpdate()
     {
@@ -408,6 +414,12 @@ public class IndirectGrab : MonoBehaviour
     public void CloseActiveProgram()
     {
         ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnClose", 0);
+    }
+    #endregion
+    #region Summoning Methods
+    public void SummonActiveProgram()
+    {
+        ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnSummon", 0);
     }
     #endregion
 }

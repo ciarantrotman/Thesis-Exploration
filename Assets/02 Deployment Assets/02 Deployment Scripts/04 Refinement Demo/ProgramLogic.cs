@@ -82,4 +82,13 @@ public class ProgramLogic : MonoBehaviour
         _onHoverEnd.Invoke();
     }
     #endregion
+    #region Summoning
+    [Space(10)]
+    [Header("Summon Events")]
+    public UnityEvent _onSummon;
+    public void OnSummon()
+    {
+        _onSummon.Invoke();
+    }
+    #endregion
 }
