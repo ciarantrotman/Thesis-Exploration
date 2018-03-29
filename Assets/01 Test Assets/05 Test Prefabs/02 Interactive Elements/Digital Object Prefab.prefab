@@ -174,6 +174,7 @@ GameObject:
   - component: {fileID: 65779320934495628}
   - component: {fileID: 114767832091181578}
   - component: {fileID: 114003808793892836}
+  - component: {fileID: 114384771850230316}
   - component: {fileID: 136768796184637316}
   - component: {fileID: 114313161975722562}
   m_Layer: 0
@@ -1184,6 +1185,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98d3bbb8a11c4da40b33a7988ada2c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114384771850230316
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1598868501269726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e933f13d48c681d48b14750922ac906d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _comment: These are used for direct interaction and shouldn't be enabled unless
+    they're within the direct reach threshold.
+  _isEditing: 0
 --- !u!114 &114420166005827626
 MonoBehaviour:
   m_ObjectHideFlags: 1

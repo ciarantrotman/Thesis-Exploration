@@ -321,7 +321,7 @@ public class IndirectGrab : MonoBehaviour
         }
         #endregion
         #region Contextual Shell
-        if (_shellActive == true)
+        if (_shellActive == true && ActivePrograms.Count > 0)
         {
             contextualLineRenderer.SetPosition(0, ContextualShell.transform.position);
             contextualLineRenderer.SetPosition(1, ActivePrograms[_lastActiveProgram].transform.position);
@@ -341,6 +341,7 @@ public class IndirectGrab : MonoBehaviour
         }           // handles the scale down of highlighted objects
         if (LerpState == true)
         {
+            Debug.Log("GrabbyBoi");
             CurrentLerpTime += Time.deltaTime;
             if (CurrentLerpTime >= 1)
             {
@@ -366,14 +367,14 @@ public class IndirectGrab : MonoBehaviour
     #region Hover Methods
     public void OnHoverStart()
     {
-        if (ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null)
+        if (ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null && ActivePrograms.Count > 0)
         {
             ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnHoverStart", 0);
         }
     }
     public void OnHoverEnd()
     {
-        if (ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null)
+        if (ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null && ActivePrograms.Count > 0)
         {
             ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnHoverEnd", 0);
         }
@@ -382,7 +383,7 @@ public class IndirectGrab : MonoBehaviour
     #region Contextual Shell Methods
     public void ContextualShellLineRenderActive()
     {
-        if (ActivePrograms.Count > 0 && ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null)
+        if (ActivePrograms.Count > 0 && ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null && ActivePrograms.Count > 0)
         {
             ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnShellOpen", 0);
         }
@@ -393,7 +394,7 @@ public class IndirectGrab : MonoBehaviour
     {
         contextualLineRenderer.enabled = false;
         _shellActive = false;
-        if (ActivePrograms.Count > 0 && ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null)
+        if (ActivePrograms.Count > 0 && ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null && ActivePrograms.Count > 0)
         {
             ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnShellClose", 0);
         }
