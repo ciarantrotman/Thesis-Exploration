@@ -54,6 +54,20 @@ public class ProgramLogic : MonoBehaviour
         _onProgramClose.Invoke();
     }
     #endregion
+    #region Selection
+    [Space(10)]
+    [Header("Selection Events")]
+    public UnityEvent _onSelect;
+    public UnityEvent _onDeselect;
+    public void OnSelect()
+    {
+        _onSelect.Invoke();
+    }
+    public void OnDeselect()
+    {
+        _onDeselect.Invoke();
+    }
+    #endregion
     #region Shell
     [Space(10)]
     [Header("Shell Launch and Close Events")]

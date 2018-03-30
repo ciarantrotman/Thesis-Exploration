@@ -10,7 +10,8 @@ public class IndirectGrab : MonoBehaviour
     #region Private Variables
     private Arduino arduino;
 
-    private int InputPinValue;                      // value being fed from the Arduino
+    private int _inputPinRightValue;                // value being fed from the right hand button
+    private int _inputPinLeftValue;                 // value being fed from the left hand button
     private int ButtonPressValue;                   // value of InputPin when button is pressed
     private int ReleasePressValue;                  // value of InputPin when button is depressed
     private int InteractionType = 0;                // the int that determines the case for the main switchcase
@@ -60,12 +61,14 @@ public class IndirectGrab : MonoBehaviour
     private bool _manualActive;                     // this will be true when the right hand is active
     private bool _lineRenderTrue;                   // dynamic bool for the linerenderer state
     private bool _lineRenderFalse;                  // dynamic bool for the linerenderer state
-    private bool _shellActive;                      // ia the contextual shell active?
+    private bool _shellActive;                      // is the contextual shell active?
+    private bool _select;                           // has the current UI element already been selected?
     #endregion
     #region Inspector and Public Variables
     [Header("Grab Settings")]
     [Space(5)]
-    public int InputPin = 2;                        // what pin on the Arduino is the button connected to
+    public int _inputPinRight = 2;                  // what pin on the Arduino is the button connected to
+    public int _inputPinLeft = 4;                   // what pin on the Arduino is the button connected to
     public bool IsInputInverted = false;            // change this based on the wiring of the button
     public bool LineRendererEnabled;                // enable line renderer?
 
@@ -122,27 +125,30 @@ public class IndirectGrab : MonoBehaviour
     }
     void ConfigurePins()
     {
-        arduino.pinMode(InputPin, PinMode.INPUT);
-        arduino.reportDigital((byte)(InputPin / 8), 1);
+        arduino.pinMode(_inputPinRight, PinMode.INPUT);
+        arduino.pinMode(_inputPinLeft, PinMode.INPUT);
+        arduino.reportDigital((byte)(_inputPinRight / 8), 1);
+        arduino.reportDigital((byte)(_inputPinLeft / 8), 1);
     }
     void Update()
     {
         _lineRenderTrue = LineRendererEnabled ? true : false;
         _lineRenderFalse = LineRendererEnabled ? false : false;
-        ButtonPress = (InputPinValue == ButtonPressValue) ? ButtonPress = true : ButtonPress = false;
+        ButtonPress = (_inputPinRightValue == ButtonPressValue) ? ButtonPress = true : ButtonPress = false;
         InteractionType = 0; 
         Ray GrabRay = new Ray(transform.position, transform.forward);
         RaycastHit HitPoint;
-        InputPinValue = arduino.digitalRead(InputPin);
-        #region Indirect LineRenderer
+        _inputPinRightValue = arduino.digitalRead(_inputPinRight);
+        _inputPinLeftValue = arduino.digitalRead(_inputPinLeft);
+        #region Midpoint Calculation
         if (ActivePrograms.Count > 0)
         {
+            // lerp the actual endpoint you dope
             float _midX = (transform.position.x + ActivePrograms[_lastActiveProgram].transform.gameObject.transform.position.x) / 2;
             float _midY = (transform.position.y + ActivePrograms[_lastActiveProgram].transform.gameObject.transform.position.y) / 2;
             float _midZ = (transform.position.z + ActivePrograms[_lastActiveProgram].transform.gameObject.transform.position.z) / 2;
             _midPoint.Set(_midX, _midY, _midZ);
             _activeProgramMidpoint.transform.position = _midPoint;
-
             CurrentLerpTime += Time.deltaTime;
             if (CurrentLerpTime >= 1)
             {
@@ -160,6 +166,7 @@ public class IndirectGrab : MonoBehaviour
             {
                 _lastActiveProgram = ActivePrograms.Count - 1;
             }
+            #region Linerenderer Drawing
             RaycastLineRender.enabled = _lineRenderTrue;
             RaycastLineRender.useWorldSpace = true;
             Vector3 _start_point = transform.position;
@@ -167,6 +174,20 @@ public class IndirectGrab : MonoBehaviour
             RaycastLineRender.SetPosition(0, _start_point);
             RaycastLineRender.SetPosition(1, _midPointLerped);
             RaycastLineRender.SetPosition(2, _endPoint);
+            /*
+            var vertexCount = 12;
+            var pointList = new List<Vector3>();
+            for (float ratio = 0; ratio <= 1; ratio += 1.0f / vertexCount)
+            {
+                var tangentLineVertex1 = Vector3.Lerp(_start_point, _midPointLerped, ratio);
+                var tangentLineVertex2 = Vector3.Lerp(_midPointLerped, _midPointLerped, ratio);
+                var bezierpoint = Vector3.Lerp(tangentLineVertex1, tangentLineVertex2, ratio);
+                pointList.Add(bezierpoint);
+            }
+            RaycastLineRender.positionCount = pointList.Count;
+            RaycastLineRender.SetPositions(pointList.ToArray());
+            */
+            #endregion
             #region Indirect Grab       | 1
             if (HitPoint.transform.tag == "GrabObject")
             {
@@ -284,10 +305,20 @@ public class IndirectGrab : MonoBehaviour
                 break;
             #endregion
             case 3:
-                #region Selection
+                #region Selection 
                 IndirectSelectionState = ButtonPress ? true : false;
+                if (IndirectSelectionState == true)
+                {
+                    _select = true;
+                    Invoke("SelectionEvent", 0);
+                }
+                if (IndirectSelectionState == true && _select == true)
+                {
+                    _select = false;
+                    Invoke("DeselectionEvent", 0);
+                }
                 break;
-            #endregion
+                #endregion
             default:
                 #region Default;
                 _hoverCounter++;
@@ -376,7 +407,7 @@ public class IndirectGrab : MonoBehaviour
         #endregion
     }
     #endregion
-    #region Modality Methods
+    #region Modality Methods            | 00
     public void ManualInput()
     {
         _manualActive = true;
@@ -388,7 +419,7 @@ public class IndirectGrab : MonoBehaviour
         _gazeActive = true;
     }
     #endregion
-    #region Hover Methods
+    #region Hover Methods               | 10
     public void OnHoverStart()
     {
         if (ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null && ActivePrograms.Count > 0)
@@ -404,7 +435,7 @@ public class IndirectGrab : MonoBehaviour
         }
     }
     #endregion
-    #region Contextual Shell Methods
+    #region Contextual Shell Methods    | 20
     public void ContextualShellLineRenderActive()
     {
         if (ActivePrograms.Count > 0 && ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null && ActivePrograms.Count > 0)
@@ -424,7 +455,7 @@ public class IndirectGrab : MonoBehaviour
         }
     }
     #endregion
-    #region Active Program Methods
+    #region Active Program Methods      | 30
     public void LaunchActiveProgram()
     {
         ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnLaunch", 0);
@@ -434,7 +465,7 @@ public class IndirectGrab : MonoBehaviour
         ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnClose", 0);
     }
     #endregion
-    #region Summoning Methods
+    #region Summoning Methods           | 40
     public void SummonActiveProgram()
     {
         ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnSummon", 0);
@@ -442,6 +473,16 @@ public class IndirectGrab : MonoBehaviour
     public void UnsummonActiveProgram()
     {
         ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnUnsummon", 0);
+    }
+    #endregion
+    #region Selection Methods           | 50
+    public void SelectionEvent()
+    {
+        ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnSelect", 0);
+    }
+    public void DeselectionEvent()
+    {
+        ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnDeselect", 0);
     }
     #endregion
 }
