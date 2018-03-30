@@ -86,9 +86,14 @@ public class ProgramLogic : MonoBehaviour
     [Space(10)]
     [Header("Summon Events")]
     public UnityEvent _onSummon;
+    public UnityEvent _onUnsummon;
     public void OnSummon()
     {
         _onSummon.Invoke();
+    }
+    public void OnUnsummon()
+    {
+        _onUnsummon.Invoke();
     }
     #endregion
 }

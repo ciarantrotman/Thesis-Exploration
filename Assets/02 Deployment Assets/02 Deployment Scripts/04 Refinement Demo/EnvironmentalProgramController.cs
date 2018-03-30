@@ -44,6 +44,10 @@ public class EnvironmentalProgramController : MonoBehaviour {
             EnvironmentalProgram.transform.parent = null;
             LoopCount = 0;
         }
+        if (collider.GetComponent<Collider>().name == "Environmental Program - Position Marker")
+        {
+            EnvironmentalProgram.transform.parent = null;
+        }
     }
 
     IEnumerator EnvironmentalLaunch()

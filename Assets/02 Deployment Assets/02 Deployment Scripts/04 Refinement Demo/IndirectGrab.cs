@@ -18,15 +18,17 @@ public class IndirectGrab : MonoBehaviour
     private int _lastActiveProgram;                 // the int value for the last active program in the active program list (count - 1)
     private int _hoverCounter = 0;
 
-    private float ReachDistance = 1000.0f;           // how far the raycast for grabbing reaches
+    private float ReachDistance = 1000.0f;          // how far the raycast for grabbing reaches
     private float SmoothVelocity = 1.0f;            // part of the highlight effect
     private float HoverScaleDynamic = 1.0f;         // determines the mathf.smoothdamp for the highlight effect
     private float LerpTime = 15.0f;                 // part of the Lerp logic
     private float CurrentLerpTime = 0.0f;           // part of the Lerp logic
+    private float _startTime;                       // part of the Lerp logic
+    private float _activeProgramsDistance;          // part of the Lerp logic
 
     private GameObject TargetLocation;              // the object that is lerped to when grabbing
     private GameObject ClonedObject;                // this will be instantiated to create the highlight effect                            
-    private GameObject SelectedObject;               // the object being hit by the raycast
+    private GameObject SelectedObject;              // the object being hit by the raycast
     private GameObject LeapMotionRig;               // this is the Leap Motion Rig
     private GameObject TeleportTarget;              // this is a dynamic object that you teleport to
     private GameObject EgocentricOrigin;            // the main object that is rubber banded to you
@@ -34,8 +36,12 @@ public class IndirectGrab : MonoBehaviour
     private GameObject ManualController;            // the object the input controller will follow when manual interaction is active
     private GameObject ContextualShell;             // the contextual shell master
     private GameObject SelectedObjectProxy;         // will move to the center of selected objects
+    private GameObject _activeProgramMidpoint;      // the halfway point between the active gameobject and the user
     private GameObject[] ShellParents;              // an array of objects that will be activated on a trigger
-    private List<GameObject> ActivePrograms;            // an array of objects that will be activated on a trigger
+    private List<GameObject> ActivePrograms;        // an array of objects that will be activated on a trigger
+
+    private Vector3 _midPoint;
+    private Vector3 _midPointLerped;
 
     private LineRenderer contextualLineRenderer;    // the line render drawn from the active program to the shell
     private LineRenderer RaycastLineRender;         // the linerenderer that shows where the user will act
@@ -106,11 +112,13 @@ public class IndirectGrab : MonoBehaviour
         GazeController = GameObject.Find("Gaze Input Controller");
         ManualController = GameObject.Find("Manual Input Controller");
         ContextualShell = GameObject.Find("Contextual Shell ----- | Parent");
+        _activeProgramMidpoint = GameObject.Find("Active Program Midpoint");
         RaycastLineRender = GetComponent<LineRenderer>();
         contextualLineRenderer = ContextualShell.GetComponent<LineRenderer>();
         ActivePrograms = new List<GameObject>();
         ButtonPressValue = IsInputInverted ? 1 : 0;
         ReleasePressValue = IsInputInverted ? 1 : 0;
+        _startTime = Time.time;
     }
     void ConfigurePins()
     {
@@ -126,6 +134,24 @@ public class IndirectGrab : MonoBehaviour
         Ray GrabRay = new Ray(transform.position, transform.forward);
         RaycastHit HitPoint;
         InputPinValue = arduino.digitalRead(InputPin);
+        #region Indirect LineRenderer
+        if (ActivePrograms.Count > 0)
+        {
+            float _midX = (transform.position.x + ActivePrograms[_lastActiveProgram].transform.gameObject.transform.position.x) / 2;
+            float _midY = (transform.position.y + ActivePrograms[_lastActiveProgram].transform.gameObject.transform.position.y) / 2;
+            float _midZ = (transform.position.z + ActivePrograms[_lastActiveProgram].transform.gameObject.transform.position.z) / 2;
+            _midPoint.Set(_midX, _midY, _midZ);
+            _activeProgramMidpoint.transform.position = _midPoint;
+
+            CurrentLerpTime += Time.deltaTime;
+            if (CurrentLerpTime >= 1)
+            {
+                CurrentLerpTime = 0;
+            }
+            float JourneyPercentage = CurrentLerpTime/.25f;
+            _midPointLerped = Vector3.Lerp(_midPointLerped, _midPoint, JourneyPercentage);
+        }
+        #endregion
         if (Physics.Raycast(GrabRay, out HitPoint, ReachDistance, LayerMask.NameToLayer("IgnoreIndirectGrab")))
         {
             SelectedObject = HitPoint.transform.gameObject;
@@ -134,43 +160,31 @@ public class IndirectGrab : MonoBehaviour
             {
                 _lastActiveProgram = ActivePrograms.Count - 1;
             }
+            RaycastLineRender.enabled = _lineRenderTrue;
+            RaycastLineRender.useWorldSpace = true;
+            Vector3 _start_point = transform.position;
+            Vector3 _endPoint = ActivePrograms[_lastActiveProgram].transform.gameObject.transform.position;
+            RaycastLineRender.SetPosition(0, _start_point);
+            RaycastLineRender.SetPosition(1, _midPointLerped);
+            RaycastLineRender.SetPosition(2, _endPoint);
             #region Indirect Grab       | 1
             if (HitPoint.transform.tag == "GrabObject")
             {
                 _hoverCounter = 0;
                 Invoke("OnHoverStart", 0);
                 InteractionType = 1;
-                RaycastLineRender.enabled = _lineRenderTrue;
-                RaycastLineRender.useWorldSpace = true;
-                Vector3 StartPoint = transform.position;
-                Vector3 EndPoint = SelectedObject.transform.position;
-                RaycastLineRender.SetPosition(0, StartPoint);
-                RaycastLineRender.SetPosition(1, EndPoint);
             }
             #endregion
             #region Teleportation       | 2
             if (HitPoint.transform.tag == "TeleportLocation" && TeleportEnabled == true)
             {
                 InteractionType = 2;
-                RaycastLineRender.enabled = _lineRenderTrue;
-                RaycastLineRender.useWorldSpace = true;
-                Vector3 StartPoint = transform.position;
-                Vector3 EndPoint = SelectedObject.transform.position;
-                RaycastLineRender.SetPosition(0, StartPoint);
-                RaycastLineRender.SetPosition(1, EndPoint);
-                SelectedObject.GetComponent<BlendshapeAnimation>().OnTriggerStart();
             }
             #endregion
             #region Selection           | 3
             if (HitPoint.transform.tag == "SelectableUI" && IndirectSelectionEnabled == true)
             {
                 InteractionType = 3;
-                RaycastLineRender.enabled = _lineRenderTrue;
-                RaycastLineRender.useWorldSpace = true;
-                Vector3 StartPoint = transform.position;
-                Vector3 EndPoint = SelectedObject.transform.position;
-                RaycastLineRender.SetPosition(0, StartPoint);
-                RaycastLineRender.SetPosition(1, EndPoint);
             }
             #endregion
             #region Pocket              | 4
@@ -332,19 +346,22 @@ public class IndirectGrab : MonoBehaviour
         }
         #endregion
         #region Summoning
-        if (Input.GetKeyDown(KeyCode.Space))
+        /*if (Input.GetKeyDown(KeyCode.Space))
         {
             Invoke("SummonActiveProgram", 0);
-        }
+        }*/
         #endregion
     }
     void LateUpdate()
     {
+        #region Highlight Effects
         if (ClonedObject != null && HighlightEnabled == true)
         {
             ClonedObject.transform.localScale = new Vector3(HoverScaleDynamic, HoverScaleDynamic, HoverScaleDynamic);
             ClonedObject.transform.localEulerAngles = new Vector3(0, 0, 0);
         }           // handles the scale down of highlighted objects
+        #endregion
+        #region Lerp Grab Mechanic
         if (LerpState == true)
         {
             Debug.Log("GrabbyBoi");
@@ -355,7 +372,8 @@ public class IndirectGrab : MonoBehaviour
             }
             float JourneyPercentage = CurrentLerpTime / LerpTime;
             SelectedObject.transform.position = Vector3.Lerp(SelectedObject.transform.position, TargetLocation.transform.position, JourneyPercentage);
-        }                                          // handles the actual grab mechanism
+        }
+        #endregion
     }
     #endregion
     #region Modality Methods
@@ -420,6 +438,10 @@ public class IndirectGrab : MonoBehaviour
     public void SummonActiveProgram()
     {
         ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnSummon", 0);
+    }
+    public void UnsummonActiveProgram()
+    {
+        ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnUnsummon", 0);
     }
     #endregion
 }
