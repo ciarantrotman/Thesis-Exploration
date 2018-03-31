@@ -17,6 +17,7 @@ TagManager:
   - HoverTrigger
   - ProprioShell
   - Pocket
+  - DirectObject
   layers:
   - Default
   - TransparentFX

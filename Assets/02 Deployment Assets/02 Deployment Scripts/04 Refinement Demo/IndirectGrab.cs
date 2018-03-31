@@ -7,13 +7,19 @@ using Leap.Unity.Animation;
 
 public class IndirectGrab : MonoBehaviour
 {
-    #region Private Variables
+    #region Private Variables           | 00
     private Arduino arduino;
 
     private int _inputPinRightValue;                // value being fed from the right hand button
     private int _inputPinLeftValue;                 // value being fed from the left hand button
-    private int ButtonPressValue;                   // value of InputPin when button is pressed
-    private int ReleasePressValue;                  // value of InputPin when button is depressed
+    private int _rightButtonPressValue;             // value of InputPin when button is pressed
+    private int _rightButtonReleaseValue;           // value of InputPin when button is depressed
+    private int _leftButtonPressValue;              // value of InputPin when button is pressed
+    private int _leftButtonReleaseValue;            // value of InputPin when button is depressed
+    private int _lastRightPinValue;                 //
+    private int _lastLeftPinValue;                  //
+    private int _rightPressCounter;                 //
+    private int _leftPressCounter;                  //
     private int InteractionType = 0;                // the int that determines the case for the main switchcase
     private int ShellState = 0;                     // the int that determines the case for the shell switchcase
     private int _lastActiveProgram;                 // the int value for the last active program in the active program list (count - 1)
@@ -37,12 +43,12 @@ public class IndirectGrab : MonoBehaviour
     private GameObject ManualController;            // the object the input controller will follow when manual interaction is active
     private GameObject ContextualShell;             // the contextual shell master
     private GameObject SelectedObjectProxy;         // will move to the center of selected objects
-    private GameObject _activeProgramMidpoint;      // the halfway point between the active gameobject and the user
     private GameObject[] ShellParents;              // an array of objects that will be activated on a trigger
     private List<GameObject> ActivePrograms;        // an array of objects that will be activated on a trigger
 
     private Vector3 _midPoint;
     private Vector3 _midPointLerped;
+    private Vector3 _endPoint;
 
     private LineRenderer contextualLineRenderer;    // the line render drawn from the active program to the shell
     private LineRenderer RaycastLineRender;         // the linerenderer that shows where the user will act
@@ -54,7 +60,8 @@ public class IndirectGrab : MonoBehaviour
     private bool ShellActive = false;               // TEMP
     private bool Mode;
     [HideInInspector]
-    public bool ButtonPress = false;                // this is reffered to from other scripts to trigger events
+    public bool _rightButtonPress = false;          // this is reffered to from other scripts to trigger events
+    public bool _leftButtonPress = false;          // this is reffered to from other scripts to trigger events
     [HideInInspector]
     public bool IndirectSelectionState = true;      // this is reffered to from other scripts to trigger selection
     private bool _gazeActive;                       // this will be true when the right hand is inactive
@@ -64,13 +71,15 @@ public class IndirectGrab : MonoBehaviour
     private bool _shellActive;                      // is the contextual shell active?
     private bool _select;                           // has the current UI element already been selected?
     #endregion
-    #region Inspector and Public Variables
+    #region Public Variables            | 00
     [Header("Grab Settings")]
     [Space(5)]
     public int _inputPinRight = 2;                  // what pin on the Arduino is the button connected to
     public int _inputPinLeft = 4;                   // what pin on the Arduino is the button connected to
-    public bool IsInputInverted = false;            // change this based on the wiring of the button
+    public bool _isRightButtonInverted = false;     // change this based on the wiring of the button
+    public bool _isLeftButtonInverted = false;     // change this based on the wiring of the button
     public bool LineRendererEnabled;                // enable line renderer?
+    public bool _lerpGrabEnabled = false;           // the old way of doing the grab
 
     [Header("Grab Physics")]
     [Space(5)]
@@ -103,7 +112,7 @@ public class IndirectGrab : MonoBehaviour
     [Space(5)]
     public bool ShellEnabled = true;
     #endregion
-    #region Main Methods
+    #region Main Methods                | 00
     void Start()
     {
         arduino = Arduino.global;
@@ -115,12 +124,13 @@ public class IndirectGrab : MonoBehaviour
         GazeController = GameObject.Find("Gaze Input Controller");
         ManualController = GameObject.Find("Manual Input Controller");
         ContextualShell = GameObject.Find("Contextual Shell ----- | Parent");
-        _activeProgramMidpoint = GameObject.Find("Active Program Midpoint");
         RaycastLineRender = GetComponent<LineRenderer>();
         contextualLineRenderer = ContextualShell.GetComponent<LineRenderer>();
         ActivePrograms = new List<GameObject>();
-        ButtonPressValue = IsInputInverted ? 1 : 0;
-        ReleasePressValue = IsInputInverted ? 1 : 0;
+        _rightButtonPressValue = _isRightButtonInverted ? 1 : 0;
+        _rightButtonReleaseValue = _isRightButtonInverted ? 1 : 0;
+        _leftButtonPressValue = _isLeftButtonInverted ? 1 : 0;
+        _leftButtonReleaseValue = _isLeftButtonInverted ? 1 : 0;
         _startTime = Time.time;
     }
     void ConfigurePins()
@@ -134,30 +144,48 @@ public class IndirectGrab : MonoBehaviour
     {
         _lineRenderTrue = LineRendererEnabled ? true : false;
         _lineRenderFalse = LineRendererEnabled ? false : false;
-        ButtonPress = (_inputPinRightValue == ButtonPressValue) ? ButtonPress = true : ButtonPress = false;
+        #region Button Pressing Logic       | 10
+        _rightButtonPress = (_inputPinRightValue == _rightButtonPressValue) ? _rightButtonPress = true : _rightButtonPress = false;
+        _leftButtonPress = (_inputPinLeftValue == _leftButtonPressValue) ? _leftButtonPress = true : _leftButtonPress = false;
         InteractionType = 0; 
         Ray GrabRay = new Ray(transform.position, transform.forward);
         RaycastHit HitPoint;
         _inputPinRightValue = arduino.digitalRead(_inputPinRight);
         _inputPinLeftValue = arduino.digitalRead(_inputPinLeft);
-        #region Midpoint Calculation
+        if (_inputPinRightValue != _lastRightPinValue)
+        {
+            if (_rightButtonPress == true)
+            {
+                _rightPressCounter++;
+            }
+        }
+        if (_inputPinLeftValue != _lastLeftPinValue)
+        {
+            if (_leftButtonPress == true)
+            {
+                _leftPressCounter++;
+            }
+        }
+        _lastRightPinValue = _inputPinRightValue;
+        _lastLeftPinValue = _inputPinLeftValue;
+        #endregion
+        #region Midpoint Calculation        | 20
         if (ActivePrograms.Count > 0)
         {
-            // lerp the actual endpoint you dope
             float _midX = (transform.position.x + ActivePrograms[_lastActiveProgram].transform.gameObject.transform.position.x) / 2;
             float _midY = (transform.position.y + ActivePrograms[_lastActiveProgram].transform.gameObject.transform.position.y) / 2;
             float _midZ = (transform.position.z + ActivePrograms[_lastActiveProgram].transform.gameObject.transform.position.z) / 2;
             _midPoint.Set(_midX, _midY, _midZ);
-            _activeProgramMidpoint.transform.position = _midPoint;
             CurrentLerpTime += Time.deltaTime;
             if (CurrentLerpTime >= 1)
             {
                 CurrentLerpTime = 0;
             }
             float JourneyPercentage = CurrentLerpTime/.25f;
-            _midPointLerped = Vector3.Lerp(_midPointLerped, _midPoint, JourneyPercentage);
+            _endPoint = Vector3.Lerp(_endPoint, ActivePrograms[_lastActiveProgram].transform.gameObject.transform.position, JourneyPercentage);
         }
         #endregion
+        #region Raycasting                  | 30
         if (Physics.Raycast(GrabRay, out HitPoint, ReachDistance, LayerMask.NameToLayer("IgnoreIndirectGrab")))
         {
             SelectedObject = HitPoint.transform.gameObject;
@@ -166,14 +194,13 @@ public class IndirectGrab : MonoBehaviour
             {
                 _lastActiveProgram = ActivePrograms.Count - 1;
             }
-            #region Linerenderer Drawing
+            #region Linerenderer Drawing| 0
             RaycastLineRender.enabled = _lineRenderTrue;
             RaycastLineRender.useWorldSpace = true;
-            Vector3 _start_point = transform.position;
-            Vector3 _endPoint = ActivePrograms[_lastActiveProgram].transform.gameObject.transform.position;
-            RaycastLineRender.SetPosition(0, _start_point);
-            RaycastLineRender.SetPosition(1, _midPointLerped);
+            RaycastLineRender.SetPosition(0, transform.position);
+            RaycastLineRender.SetPosition(1, _midPoint);
             RaycastLineRender.SetPosition(2, _endPoint);
+
             /*
             var vertexCount = 12;
             var pointList = new List<Vector3>();
@@ -218,74 +245,15 @@ public class IndirectGrab : MonoBehaviour
         switch (InteractionType)
         {
             case 1:
-                #region Indirect Grab
-                SelectedObject = HitPoint.transform.gameObject;
-                if (ClonedObject == null && HighlightEnabled == true)
+                #region Indirect Grab 
+                if (_rightButtonPress == true)
                 {
-                    ClonedObject = Instantiate(HitPoint.transform.gameObject, HitPoint.transform.position, HitPoint.transform.rotation);
-                    ClonedObject.GetComponent<Collider>().enabled = false;
-                    Component[] ChildColliders = ClonedObject.GetComponentsInChildren(typeof(Collider));
-                    foreach (Collider ChildCollider in ChildColliders)
-                    {
-                        ChildCollider.enabled = false;
-                    }
-                    ClonedObject.transform.parent = HitPoint.transform;
-                    Renderer CloneRenderer = ClonedObject.GetComponent<Renderer>();
-                    if (HighlightMaterial == null)
-                    {
-                        HighlightMaterial = Resources.Load("HighlightMatBackup", typeof(Material)) as Material;
-                    }
-                    Component[] ChildRenderers = ClonedObject.GetComponentsInChildren(typeof(Renderer));
-                    foreach (Renderer ChildRenderer in ChildRenderers)
-                    {
-                        ChildRenderer.material = HighlightMaterial;
-                        ChildRenderer.material.renderQueue = 3000;
-                    }
-                    if (CloneRenderer != null)
-                    {
-                        CloneRenderer.material = HighlightMaterial;
-                        CloneRenderer.material.renderQueue = 3000;
-                    }
+                    Invoke("GrabEvent", 0);
                 }
-                if (ClonedObject != null && HighlightEnabled == true)
+                if (_rightButtonPress == false)
                 {
-                    HoverScaleDynamic = (Mathf.SmoothDamp(HoverScaleDynamic, HoverScale, ref SmoothVelocity, ScaleUpTime));
-                }
-                if (ButtonPress == true)
-                {
-                    if (LerpState == false)
-                    {
-                        this.SelectedObject = HitPoint.transform.gameObject;
-                        this.SelectedObject.GetComponent<BoxCollider>().isTrigger = false;
-                        if (this.SelectedObject.GetComponent<ObjectMass>() != null)
-                        {
-                            ObjectMassScript = this.SelectedObject.GetComponent<ObjectMass>();
-                            LerpTime = ObjectMassScript.DigitalObjectMass;
-                        }
-                        if (this.SelectedObject.GetComponent<ObjectMass>() == null)
-                        {
-                            LerpTime = DefaultObjectMass;
-                        }
-                        TargetLocation.transform.position = SelectedObject.transform.position;
-                        LerpState = true;
-                        RaycastLineRender.enabled = _lineRenderFalse;
-                    }
-                    if (ClonedObject != null && HighlightEnabled == true)
-                    {
-                        HoverScaleDynamic = (Mathf.SmoothDamp(HoverScaleDynamic, .95f, ref SmoothVelocity, .1f));
-                    }
-                    if (HoverScaleDynamic < 1 && HighlightEnabled == true)
-                    {
-                        Destroy(ClonedObject);
-                    }
-                }
-                if (ButtonPress == false)
-                {
+                    Invoke("ReleaseEvent", 0);
                     SelectedObject = null;
-                    if (this.SelectedObject != null)
-                    {
-                        this.SelectedObject.GetComponent<BoxCollider>().isTrigger = true;
-                    }
                     LerpState = false;
                     CurrentLerpTime = 0;
                 }
@@ -296,7 +264,7 @@ public class IndirectGrab : MonoBehaviour
                 TeleportTarget = HitPoint.transform.gameObject;
                 Vector3 TeleportPosition = LeapMotionRig.transform.position;
                 Vector3 TeleportTargetPosition = TeleportTarget.transform.position;
-                if (ButtonPress == true)
+                if (_rightButtonPress == true)
                 {
                     TeleportPosition.x = TeleportTargetPosition.x;
                     TeleportPosition.z = TeleportTargetPosition.z;
@@ -306,7 +274,7 @@ public class IndirectGrab : MonoBehaviour
             #endregion
             case 3:
                 #region Selection 
-                IndirectSelectionState = ButtonPress ? true : false;
+                IndirectSelectionState = _rightButtonPress ? true : false;
                 if (IndirectSelectionState == true)
                 {
                     _select = true;
@@ -343,13 +311,14 @@ public class IndirectGrab : MonoBehaviour
                 break;
                 #endregion
         }
-        #region Gaze Cursor
-        if (GazeCursorEnabled)
+        #endregion
+        #region Gaze Cursor                 | 40
+        if (GazeCursorEnabled /*&& ActivePrograms.Count > 0 && HitPoint.transform.tag != "DirectObject"*/)
         {
             GazeCursor.transform.position = HitPoint.point;
         }
         #endregion
-        #region Input Controller
+        #region Input Controller            | 50
         if (_manualActive == true && ManualController != null)
         {
             LineRendererEnabled = true;
@@ -365,7 +334,7 @@ public class IndirectGrab : MonoBehaviour
             transform.eulerAngles = GazeController.transform.eulerAngles;
         }
         #endregion
-        #region Contextual Shell
+        #region Contextual Shell            | 60
         if (_shellActive == true && ActivePrograms.Count > 0)
         {
             contextualLineRenderer.SetPosition(0, ContextualShell.transform.position);
@@ -376,35 +345,30 @@ public class IndirectGrab : MonoBehaviour
 
         }
         #endregion
-        #region Summoning
+        #region Summoning                   | 70
         /*if (Input.GetKeyDown(KeyCode.Space))
         {
             Invoke("SummonActiveProgram", 0);
         }*/
         #endregion
     }
-    void LateUpdate()
+    private void LateUpdate()
     {
-        #region Highlight Effects
-        if (ClonedObject != null && HighlightEnabled == true)
+        if (LerpState == true && _lerpGrabEnabled == true)
         {
-            ClonedObject.transform.localScale = new Vector3(HoverScaleDynamic, HoverScaleDynamic, HoverScaleDynamic);
-            ClonedObject.transform.localEulerAngles = new Vector3(0, 0, 0);
-        }           // handles the scale down of highlighted objects
-        #endregion
-        #region Lerp Grab Mechanic
-        if (LerpState == true)
-        {
-            Debug.Log("GrabbyBoi");
+            RaycastLineRender.enabled = _lineRenderTrue;
+            RaycastLineRender.useWorldSpace = true;
+            RaycastLineRender.SetPosition(0, transform.position);
+            RaycastLineRender.SetPosition(1, _midPoint);
+            RaycastLineRender.SetPosition(2, _endPoint);
             CurrentLerpTime += Time.deltaTime;
             if (CurrentLerpTime >= 1)
             {
                 CurrentLerpTime = 0;
             }
             float JourneyPercentage = CurrentLerpTime / LerpTime;
-            SelectedObject.transform.position = Vector3.Lerp(SelectedObject.transform.position, TargetLocation.transform.position, JourneyPercentage);
+            SelectedObject.transform.position = Vector3.Lerp(SelectedObject.transform.gameObject.transform.position, TargetLocation.transform.position, JourneyPercentage);
         }
-        #endregion
     }
     #endregion
     #region Modality Methods            | 00
@@ -426,12 +390,54 @@ public class IndirectGrab : MonoBehaviour
         {
             ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnHoverStart", 0);
         }
+        if (HighlightEnabled)
+        {
+            if (ClonedObject == null)
+            {
+                ClonedObject = Instantiate(ActivePrograms[_lastActiveProgram].transform.gameObject.transform.gameObject, ActivePrograms[_lastActiveProgram].transform.gameObject.transform.position, ActivePrograms[_lastActiveProgram].transform.gameObject.transform.rotation);
+                ClonedObject.GetComponent<Collider>().enabled = false;
+                Component[] ChildColliders = ClonedObject.GetComponentsInChildren(typeof(Collider));
+                foreach (Collider ChildCollider in ChildColliders)
+                {
+                    ChildCollider.enabled = false;
+                }
+                ClonedObject.transform.parent = ActivePrograms[_lastActiveProgram].transform.gameObject.transform;
+                Renderer CloneRenderer = ClonedObject.GetComponent<Renderer>();
+                if (HighlightMaterial == null)
+                {
+                    HighlightMaterial = Resources.Load("HighlightMatBackup", typeof(Material)) as Material;
+                }
+                Component[] ChildRenderers = ClonedObject.GetComponentsInChildren(typeof(Renderer));
+                foreach (Renderer ChildRenderer in ChildRenderers)
+                {
+                    ChildRenderer.material = HighlightMaterial;
+                    ChildRenderer.material.renderQueue = 3000;
+                }
+                if (CloneRenderer != null)
+                {
+                    CloneRenderer.material = HighlightMaterial;
+                    CloneRenderer.material.renderQueue = 3000;
+                }
+            }
+            if (ClonedObject != null && HighlightEnabled == true)
+            {
+                HoverScaleDynamic = (Mathf.SmoothDamp(HoverScaleDynamic, HoverScale, ref SmoothVelocity, ScaleUpTime));
+            }
+        }
     }
     public void OnHoverEnd()
     {
         if (ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null && ActivePrograms.Count > 0)
         {
             ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnHoverEnd", 0);
+        }
+        if (HighlightEnabled)
+        {
+            if (ClonedObject != null && HighlightEnabled == true)
+            {
+                ClonedObject.transform.localScale = new Vector3(HoverScaleDynamic, HoverScaleDynamic, HoverScaleDynamic);
+                ClonedObject.transform.localEulerAngles = new Vector3(0, 0, 0);
+            }
         }
     }
     #endregion
@@ -479,10 +485,56 @@ public class IndirectGrab : MonoBehaviour
     public void SelectionEvent()
     {
         ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnSelect", 0);
+        if (GazeCursorEnabled)
+        {
+            GazeCursor.GetComponent<GazeCursor>().Invoke("OnSelect", 0);
+        }
     }
     public void DeselectionEvent()
     {
         ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnDeselect", 0);
+        if (GazeCursorEnabled)
+        {
+            GazeCursor.GetComponent<GazeCursor>().Invoke("OnDeselect", 0);
+        }
+    }
+    #endregion
+    #region Manipulation Methods        | 60
+    public void GrabEvent()
+    {
+        ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnGrab", 0);
+        if (GazeCursorEnabled)
+        {
+            GazeCursor.GetComponent<GazeCursor>().Invoke("OnGrab", 0);
+        }
+            #region Lerp Grab Mechanic
+            if (_lerpGrabEnabled == true)
+        {
+            if (LerpState == false)
+            {
+                if (SelectedObject.GetComponent<ObjectMass>() != null)
+                {
+                    ObjectMassScript = ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ObjectMass>();
+                    LerpTime = ObjectMassScript.DigitalObjectMass;
+                }
+                if (SelectedObject.GetComponent<ObjectMass>() == null)
+                {
+                    LerpTime = DefaultObjectMass;
+                }
+                TargetLocation.transform.position = SelectedObject.transform.position;
+                LerpState = true;
+                RaycastLineRender.enabled = _lineRenderFalse;
+            }
+        }
+        #endregion
+    }
+    public void ReleaseEvent()
+    {
+        ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnRelease", 0);
+        if (GazeCursorEnabled)
+        {
+            GazeCursor.GetComponent<GazeCursor>().Invoke("OnRelease", 0);
+        }
     }
     #endregion
 }

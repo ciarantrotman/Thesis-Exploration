@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class ProgramLogic : MonoBehaviour
 {
-    #region Direct and Indirect Transitions
+    #region Direct Transitions          | 00
     private GameObject _program;
     private GameObject _user;
     private float _programDistance;
@@ -40,7 +40,21 @@ public class ProgramLogic : MonoBehaviour
         _onBecomingIndirect.Invoke();
     }
     #endregion
-    #region Launching and Closing
+    #region Grabing and Releasing       | 10
+    [Space(10)]
+    [Header("Grab and Release Events")]
+    public UnityEvent _onProgramGrab;
+    public UnityEvent _onProgramRelease;
+    public void OnGrab()
+    {
+        _onProgramGrab.Invoke();
+    }
+    public void OnRelease()
+    {
+        _onProgramRelease.Invoke();
+    }
+    #endregion
+    #region Launching and Closing       | 20
     [Space(10)]
     [Header("Program Launch and Close Events")]
     public UnityEvent _onProgramLaunch;
@@ -54,7 +68,7 @@ public class ProgramLogic : MonoBehaviour
         _onProgramClose.Invoke();
     }
     #endregion
-    #region Selection
+    #region Selection                   | 30
     [Space(10)]
     [Header("Selection Events")]
     public UnityEvent _onSelect;
@@ -68,7 +82,7 @@ public class ProgramLogic : MonoBehaviour
         _onDeselect.Invoke();
     }
     #endregion
-    #region Shell
+    #region Shell                       | 40
     [Space(10)]
     [Header("Shell Launch and Close Events")]
     public UnityEvent _onShellOpen;
@@ -82,7 +96,7 @@ public class ProgramLogic : MonoBehaviour
         _onShellClose.Invoke();
     }
     #endregion
-    #region Indirect Hover
+    #region Indirect Hover              | 50
     [Space(10)]
     [Header("Hover Events")]
     public UnityEvent _onHoverStart;
@@ -96,7 +110,7 @@ public class ProgramLogic : MonoBehaviour
         _onHoverEnd.Invoke();
     }
     #endregion
-    #region Summoning
+    #region Summoning                   | 60
     [Space(10)]
     [Header("Summon Events")]
     public UnityEvent _onSummon;

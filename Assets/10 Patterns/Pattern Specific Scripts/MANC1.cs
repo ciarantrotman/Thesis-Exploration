@@ -8,7 +8,7 @@ public class MANC1 : MonoBehaviour {
 
     void Update()
     {
-        if (GameObject.Find("Manual Input Controller").GetComponent<IndirectGrab>().ButtonPress == true)
+        if (GameObject.Find("Manual Input Controller").GetComponent<IndirectGrab>()._rightButtonPress == true)
         {
             Shell.SetActive(true);
         }

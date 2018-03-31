@@ -20,7 +20,7 @@ public class CD2 : MonoBehaviour
             {
                 HoverActivatedObject.transform.GetChild(0).gameObject.SetActive(true);
             }
-            if (GameObject.Find("Manual Input Controller").GetComponent<IndirectGrab>().ButtonPress == true)
+            if (GameObject.Find("Manual Input Controller").GetComponent<IndirectGrab>()._rightButtonPress == true)
             {
                 DiscreteProgram.SetActive(false);
             }

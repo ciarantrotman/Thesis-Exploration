@@ -11,11 +11,11 @@ public class OnButtonPressTrigger : MonoBehaviour
 
     void Update()
     {
-        if (GameObject.Find("Manual Input Controller").GetComponent<IndirectGrab>().ButtonPress == true)
+        if (GameObject.Find("Manual Input Controller").GetComponent<IndirectGrab>()._rightButtonPress == true)
         {
             OnButtonPress.Invoke();
         }
-        else if (GameObject.Find("Manual Input Controller").GetComponent<IndirectGrab>().ButtonPress == false)
+        else if (GameObject.Find("Manual Input Controller").GetComponent<IndirectGrab>()._rightButtonPress == false)
         {
             OnButtonRelease.Invoke();
         }

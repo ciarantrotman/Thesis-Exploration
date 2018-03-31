@@ -30,6 +30,7 @@ public class EnvironmentalProgramController : MonoBehaviour {
         if (collider.GetComponent<Collider>().name == "Environmental Program - Position Marker")
         {
             EnvironmentalProgram.transform.parent = collider.transform;
+            transform.GetComponent<Rigidbody>().isKinematic = true;
         }
         
     }
@@ -47,6 +48,7 @@ public class EnvironmentalProgramController : MonoBehaviour {
         if (collider.GetComponent<Collider>().name == "Environmental Program - Position Marker")
         {
             EnvironmentalProgram.transform.parent = null;
+            transform.GetComponent<Rigidbody>().isKinematic = false;
         }
     }
 
