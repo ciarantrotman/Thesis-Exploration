@@ -28,5 +28,9 @@ public class DistanceBasedBlendshape : MonoBehaviour
             _blendshapeValue = (_distance/_distanceThreshold)*100;
             skinnedMeshRenderer.SetBlendShapeWeight(_blendshapeIndex, _blendshapeValue);
         }
+        if (_distance >= _distanceThreshold)
+        {
+            skinnedMeshRenderer.SetBlendShapeWeight(_blendshapeIndex, 100);
+        }
     }
 }

@@ -20,17 +20,22 @@ public class EnvironmentalProgramController : MonoBehaviour {
         HMD = UserHead.GetComponent<Camera>();
         HMD.cullingMask = ~(1 << LayerMask.NameToLayer("Environmental Program")); // Render everything *except* Environmental Programs
     }
+    private void Update()
+    {
+        //Debug.Log(transform.parent.name);   
+    }
     #region Collision Based
     void OnTriggerEnter(Collider collider)
     {
         if (collider.GetComponent<Collider>().name == UserHead.transform.name)
         {
+            EnvironmentalProgram.transform.parent = UserHead.transform;
             StartCoroutine("EnvironmentalLaunch");
         }
         if (collider.GetComponent<Collider>().name == "Environmental Program - Position Marker")
         {
             EnvironmentalProgram.transform.parent = collider.transform;
-            transform.GetComponent<Rigidbody>().isKinematic = true;
+            //transform.GetComponent<Rigidbody>().isKinematic = true;
         }
         
     }
@@ -48,7 +53,7 @@ public class EnvironmentalProgramController : MonoBehaviour {
         if (collider.GetComponent<Collider>().name == "Environmental Program - Position Marker")
         {
             EnvironmentalProgram.transform.parent = null;
-            transform.GetComponent<Rigidbody>().isKinematic = false;
+            //transform.GetComponent<Rigidbody>().isKinematic = false;
         }
     }
 
@@ -61,7 +66,6 @@ public class EnvironmentalProgramController : MonoBehaviour {
         {
             TriggerCollider.enabled = false;
         }
-        EnvironmentalProgram.transform.parent = UserHead.transform;
         yield return new WaitForSeconds(1);
         LoopCount++;
         if (LoopCount > 0)

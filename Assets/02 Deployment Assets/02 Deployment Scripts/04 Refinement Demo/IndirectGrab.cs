@@ -246,16 +246,23 @@ public class IndirectGrab : MonoBehaviour
         {
             case 1:
                 #region Indirect Grab 
-                if (_rightButtonPress == true)
+                if (_rightButtonPress == true && _manualActive == true)
                 {
                     Invoke("GrabEvent", 0);
                 }
-                if (_rightButtonPress == false)
+                if (_gazeActive == true)
                 {
-                    Invoke("ReleaseEvent", 0);
-                    SelectedObject = null;
-                    LerpState = false;
-                    CurrentLerpTime = 0;
+                    if (_rightButtonPress == true)
+                    {
+                        Invoke("GrabEvent", 0);
+                    }
+                    if (_rightButtonPress == false)
+                    {
+                        Invoke("ReleaseEvent", 0);
+                        SelectedObject = null;
+                        LerpState = false;
+                        CurrentLerpTime = 0;
+                    }
                 }
                 break;
             #endregion
