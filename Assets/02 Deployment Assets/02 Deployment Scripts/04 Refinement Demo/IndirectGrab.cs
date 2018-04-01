@@ -43,6 +43,7 @@ public class IndirectGrab : MonoBehaviour
     private GameObject ManualController;            // the object the input controller will follow when manual interaction is active
     private GameObject ContextualShell;             // the contextual shell master
     private GameObject SelectedObjectProxy;         // will move to the center of selected objects
+    private GameObject _grabProxy;
     private GameObject[] ShellParents;              // an array of objects that will be activated on a trigger
     private List<GameObject> ActivePrograms;        // an array of objects that will be activated on a trigger
 
@@ -124,6 +125,7 @@ public class IndirectGrab : MonoBehaviour
         GazeController = GameObject.Find("Gaze Input Controller");
         ManualController = GameObject.Find("Manual Input Controller");
         ContextualShell = GameObject.Find("Contextual Shell ----- | Parent");
+        _grabProxy = GameObject.Find("Psuedo Direct Grab Target");
         RaycastLineRender = GetComponent<LineRenderer>();
         contextualLineRenderer = ContextualShell.GetComponent<LineRenderer>();
         ActivePrograms = new List<GameObject>();
@@ -542,6 +544,11 @@ public class IndirectGrab : MonoBehaviour
         {
             GazeCursor.GetComponent<GazeCursor>().Invoke("OnRelease", 0);
         }
+    }
+    public void SnapToActiveProgram()
+    {
+        _grabProxy.transform.position = ActivePrograms[_lastActiveProgram].transform.gameObject.transform.position;
+        _grabProxy.transform.rotation = ActivePrograms[_lastActiveProgram].transform.gameObject.transform.rotation;
     }
     #endregion
 }

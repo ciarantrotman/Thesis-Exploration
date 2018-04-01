@@ -5,15 +5,6 @@ using UnityEngine.Events;
 
 public class ProgramLogic : MonoBehaviour
 {
-    #region Direct Transitions          | 00
-    private GameObject _program;
-    private GameObject _user;
-    private float _programDistance;
-    [Header("Direct and Indirect Transition Events")]
-    [Space(5)]
-    public float _directDistance = .55f;
-    public UnityEvent _onBecomingDirect;
-    public UnityEvent _onBecomingIndirect;
     void Start()
     {
         _program = gameObject;
@@ -30,7 +21,23 @@ public class ProgramLogic : MonoBehaviour
         {
             _onBecomingIndirect.Invoke();
         }
+        if (_grabState == true)
+        {
+            float distCovered = (Time.time - startTime) * _lerpSpeed;
+            float fracJourney = distCovered / journeyLength;
+            _program.transform.position = Vector3.Lerp(_program.transform.position, _grabProxy.position, fracJourney);
+            _program.transform.rotation = Quaternion.Lerp(_program.transform.rotation, _grabProxy.rotation, fracJourney);
+        }
     }
+    #region Direct Transitions          | 00
+    private GameObject _program;
+    private GameObject _user;
+    private float _programDistance;
+    [Header("Direct and Indirect Transition Events")]
+    [Space(5)]
+    public float _directDistance = .55f;
+    public UnityEvent _onBecomingDirect;
+    public UnityEvent _onBecomingIndirect;
     public void OnBecomingDirect()
     {
         _onBecomingDirect.Invoke();
@@ -40,18 +47,34 @@ public class ProgramLogic : MonoBehaviour
         _onBecomingIndirect.Invoke();
     }
     #endregion
-    #region Grabing and Releasing       | 10
+    #region Grabbing and Releasing      | 10
     [Space(10)]
     [Header("Grab and Release Events")]
+    public Transform _grabProxy;
+    public float _lerpSpeed = 1.0F;
+    private bool _grabState;
+    private float startTime;
+    private float journeyLength;
+    [Space(5)]
     public UnityEvent _onProgramGrab;
     public UnityEvent _onProgramRelease;
     public void OnGrab()
     {
         _onProgramGrab.Invoke();
+        journeyLength = Vector3.Distance(transform.position, _grabProxy.position);
+        startTime = 0;
     }
     public void OnRelease()
     {
         _onProgramRelease.Invoke();
+    }
+    public void Grab()
+    {
+        _grabState = true;
+    }
+    public void Release()
+    {
+        _grabState = false;
     }
     #endregion
     #region Launching and Closing       | 20
