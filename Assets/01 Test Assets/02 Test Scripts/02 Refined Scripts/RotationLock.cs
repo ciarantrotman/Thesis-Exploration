@@ -19,6 +19,6 @@ public class RotationLock : MonoBehaviour
         transform.eulerAngles = new Vector3(
             _lockX ? _defaultRotation.x : rotation.x,
             _lockY ? _defaultRotation.y : rotation.y,
-            _lockZ ? _defaultRotation.z : rotation.y);
+            _lockZ ? _defaultRotation.z : rotation.z);
     }
 }

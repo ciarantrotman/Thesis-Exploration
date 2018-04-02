@@ -240,7 +240,7 @@ public class IndirectGrab : MonoBehaviour
             #region Pocket              | 4
             if (HitPoint.transform.tag == "Pocket" && IndirectSelectionEnabled == true)
             {
-                Debug.Log("Skkrt");
+                //Debug.Log("Skkrt");
             }
             #endregion
         }

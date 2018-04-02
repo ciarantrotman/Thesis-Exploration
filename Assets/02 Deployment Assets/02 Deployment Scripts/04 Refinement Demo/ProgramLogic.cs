@@ -8,9 +8,10 @@ public class ProgramLogic : MonoBehaviour
     void Start()
     {
         _program = gameObject;
+        _grabProxy = GameObject.Find("Psuedo Direct Grab Target").transform;
         _user = GameObject.Find("HMD Camera");
     }
-    public void Update()
+    void Update()
     {
         _programDistance = Vector3.Distance(_program.transform.position, _user.transform.position);
         if (_programDistance < _directDistance)
@@ -50,7 +51,7 @@ public class ProgramLogic : MonoBehaviour
     #region Grabbing and Releasing      | 10
     [Space(10)]
     [Header("Grab and Release Events")]
-    public Transform _grabProxy;
+    private Transform _grabProxy;
     public float _lerpSpeed = 1.0F;
     private bool _grabState;
     private float startTime;
