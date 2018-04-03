@@ -9,11 +9,13 @@ public class ProgramLogic : MonoBehaviour
     {
         _program = gameObject;
         _grabProxy = GameObject.Find("Psuedo Direct Grab Target").transform;
+        _userHand = GameObject.Find("Direct Grab Reference Point").transform;
         _user = GameObject.Find("HMD Camera");
     }
     void Update()
     {
         _programDistance = Vector3.Distance(_program.transform.position, _user.transform.position);
+        _proxyDistance = Vector3.Distance(_user.transform.position, _userHand.transform.position);
         if (_programDistance < _directDistance)
         {
             _onBecomingDirect.Invoke();
@@ -28,6 +30,10 @@ public class ProgramLogic : MonoBehaviour
             float fracJourney = distCovered / journeyLength;
             _program.transform.position = Vector3.Lerp(_program.transform.position, _grabProxy.position, fracJourney);
             _program.transform.rotation = Quaternion.Lerp(_program.transform.rotation, _grabProxy.rotation, fracJourney);
+            _programXPos = Mathf.SmoothDamp(_program.transform.position.x, _grabProxy.position.x, ref _velocity, 0);
+            _programYPos = Mathf.SmoothDamp(_program.transform.position.y, _grabProxy.position.y, ref _velocity, 0);
+            _programZPos = Mathf.SmoothDamp(_program.transform.position.z, _grabProxy.position.z, ref _velocity, 0);
+            _program.transform.position.Set(_programXPos, _programYPos, _programZPos);
         }
     }
     #region Direct Transitions          | 00
@@ -52,10 +58,20 @@ public class ProgramLogic : MonoBehaviour
     [Space(10)]
     [Header("Grab and Release Events")]
     private Transform _grabProxy;
+    private Transform _userHand;
     public float _lerpSpeed = 1.0F;
     private bool _grabState;
     private float startTime;
     private float journeyLength;
+
+    private float _initialProxyDistance;
+    private float _initialProgramDistance;
+    private float _proxyDistance;
+    private float _programXPos;
+    private float _programYPos;
+    private float _programZPos;
+    private float _velocity = 0.0F;
+
     [Space(5)]
     public UnityEvent _onProgramGrab;
     public UnityEvent _onProgramRelease;
@@ -64,6 +80,8 @@ public class ProgramLogic : MonoBehaviour
         _onProgramGrab.Invoke();
         journeyLength = Vector3.Distance(transform.position, _grabProxy.position);
         startTime = 0;
+        _initialProxyDistance = Vector3.Distance(_user.transform.position, _userHand.position);
+        _initialProgramDistance = Vector3.Distance(_user.transform.position, _program.transform.position);
     }
     public void OnRelease()
     {
