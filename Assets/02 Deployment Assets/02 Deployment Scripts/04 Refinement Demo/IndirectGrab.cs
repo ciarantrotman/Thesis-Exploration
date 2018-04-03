@@ -24,6 +24,7 @@ public class IndirectGrab : MonoBehaviour
     private int ShellState = 0;                     // the int that determines the case for the shell switchcase
     private int _lastActiveProgram;                 // the int value for the last active program in the active program list (count - 1)
     private int _hoverCounter = 0;
+    private int _pocketHoverCounter = 0;
 
     private float ReachDistance = 1000.0f;          // how far the raycast for grabbing reaches
     private float SmoothVelocity = 1.0f;            // part of the highlight effect
@@ -44,6 +45,7 @@ public class IndirectGrab : MonoBehaviour
     private GameObject ContextualShell;             // the contextual shell master
     private GameObject SelectedObjectProxy;         // will move to the center of selected objects
     private GameObject _grabProxy;
+    private GameObject _pocket;
     private GameObject[] ShellParents;              // an array of objects that will be activated on a trigger
     private List<GameObject> ActivePrograms;        // an array of objects that will be activated on a trigger
 
@@ -70,6 +72,7 @@ public class IndirectGrab : MonoBehaviour
     private bool _lineRenderTrue;                   // dynamic bool for the linerenderer state
     private bool _lineRenderFalse;                  // dynamic bool for the linerenderer state
     private bool _shellActive;                      // is the contextual shell active?
+    private bool _pocketActive;
     private bool _select;                           // has the current UI element already been selected?
     #endregion
     #region Public Variables            | 00
@@ -126,6 +129,7 @@ public class IndirectGrab : MonoBehaviour
         ManualController = GameObject.Find("Manual Input Controller");
         ContextualShell = GameObject.Find("Contextual Shell ----- | Parent");
         _grabProxy = GameObject.Find("Psuedo Direct Grab Target");
+        _pocket = GameObject.Find("Pocket | Master");
         RaycastLineRender = GetComponent<LineRenderer>();
         contextualLineRenderer = ContextualShell.GetComponent<LineRenderer>();
         ActivePrograms = new List<GameObject>();
@@ -238,9 +242,10 @@ public class IndirectGrab : MonoBehaviour
             }
             #endregion
             #region Pocket              | 4
-            if (HitPoint.transform.tag == "Pocket" && IndirectSelectionEnabled == true)
+            if (HitPoint.transform.tag == "Pocket")
             {
-                //Debug.Log("Skkrt");
+                _pocketHoverCounter = 0;
+                Invoke("OnPocketGazeBegin", 0);
             }
             #endregion
         }
@@ -299,9 +304,14 @@ public class IndirectGrab : MonoBehaviour
             default:
                 #region Default;
                 _hoverCounter++;
+                _pocketHoverCounter++;
                 if (_shellActive == false && _hoverCounter == 1)
                 {
                     Invoke("OnHoverEnd", 0);
+                }
+                if (/*_pocketActive == false &&*/ _pocketHoverCounter == 1)
+                {
+                    Invoke("OnPocketGazeEnd", 0);
                 }
                 RaycastLineRender.enabled = _lineRenderFalse;
                 RaycastLineRender.useWorldSpace = false;
@@ -549,6 +559,18 @@ public class IndirectGrab : MonoBehaviour
     {
         _grabProxy.transform.position = ActivePrograms[_lastActiveProgram].transform.gameObject.transform.position;
         _grabProxy.transform.rotation = ActivePrograms[_lastActiveProgram].transform.gameObject.transform.rotation;
+    }
+    #endregion
+    #region Pocket Methods              | 70
+    public void OnPocketGazeBegin()
+    {
+        _pocketActive = true;
+        ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<PocketLogic>().Invoke("OnGazeBegin", 0);
+    }
+    public void OnPocketGazeEnd()
+    {
+        _pocketActive = false;
+        ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<PocketLogic>().Invoke("OnGazeEnd", 0);
     }
     #endregion
 }
