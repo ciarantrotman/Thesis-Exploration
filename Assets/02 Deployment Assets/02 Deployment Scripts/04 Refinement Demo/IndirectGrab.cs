@@ -283,6 +283,7 @@ public class IndirectGrab : MonoBehaviour
                     TeleportPosition.x = TeleportTargetPosition.x;
                     TeleportPosition.z = TeleportTargetPosition.z;
                     LeapMotionRig.transform.position = TeleportPosition;
+                    TeleportTarget.GetComponent<TeleportEvents>().Invoke("Teleport",0);
                 }
                 break;
             #endregion
