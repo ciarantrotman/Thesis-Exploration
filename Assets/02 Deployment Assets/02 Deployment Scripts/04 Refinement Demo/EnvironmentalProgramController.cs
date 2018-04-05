@@ -32,12 +32,13 @@ public class EnvironmentalProgramController : MonoBehaviour {
             EnvironmentalProgram.transform.parent = UserHead.transform;
             StartCoroutine("EnvironmentalLaunch");
         }
+        /*
         if (collider.GetComponent<Collider>().name == "Environmental Program - Position Marker")
         {
             EnvironmentalProgram.transform.parent = collider.transform;
             //transform.GetComponent<Rigidbody>().isKinematic = true;
         }
-        
+        */
     }
 
     public void OnTriggerExit(Collider collider)
@@ -50,11 +51,13 @@ public class EnvironmentalProgramController : MonoBehaviour {
             EnvironmentalProgram.transform.parent = null;
             LoopCount = 0;
         }
+        /*
         if (collider.GetComponent<Collider>().name == "Environmental Program - Position Marker")
         {
             EnvironmentalProgram.transform.parent = null;
             //transform.GetComponent<Rigidbody>().isKinematic = false;
         }
+        */
     }
 
     IEnumerator EnvironmentalLaunch()
@@ -89,7 +92,6 @@ public class EnvironmentalProgramController : MonoBehaviour {
     #endregion
     public void OnGrab()
     {
-        Debug.Log("Full Tiddy");
         EnvironmentalProgram.transform.parent = null;
     }
 }
