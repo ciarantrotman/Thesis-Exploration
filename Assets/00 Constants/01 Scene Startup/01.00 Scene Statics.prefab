@@ -866,7 +866,7 @@ GameObject:
   - component: {fileID: 4861216726330402}
   - component: {fileID: 114635831479976514}
   m_Layer: 0
-  m_Name: Right Hand Proxy
+  m_Name: Left Hand Proxy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5465,6 +5465,19 @@ Transform:
   m_Father: {fileID: 4578978921426714}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4078386691442430
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1052125214787016}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4598887612913054}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4082244187674416
 Transform:
   m_ObjectHideFlags: 1
@@ -6882,7 +6895,7 @@ Transform:
   - {fileID: 4248471622843376}
   - {fileID: 4495475836227936}
   m_Father: {fileID: 4598887612913054}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4370433606242634
 Transform:
@@ -7394,7 +7407,7 @@ Transform:
   - {fileID: 4811223854159836}
   - {fileID: 4213026662599942}
   m_Father: {fileID: 4598887612913054}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4495475836227936
 Transform:
@@ -7905,6 +7918,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4078386691442430}
   - {fileID: 4861216726330402}
   - {fileID: 4366332457894200}
   - {fileID: 4494669351934628}
@@ -9079,12 +9093,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1159943792824790}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4598887612913054}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4863390189000064
 Transform:
@@ -9731,7 +9745,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 1024
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 0151b97ef12bb4e41bdfc90451248ea7, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 94ff7a53e0834d144ad60c95bb279abb, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
@@ -16183,7 +16197,7 @@ MonoBehaviour:
     _values:
     - {fileID: 114757951616515374}
     - {fileID: 114040206209844576}
-  hoverActivationRadius: 0.125
+  hoverActivationRadius: 0.2
   touchActivationRadius: 0.075
   _autoGenerateLayers: 1
   _templateLayer:
@@ -16662,6 +16676,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d9eebbaa3e2c784fa439514d3f28d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _leftHandTrigger: 0
+  _rightHandTrigger: 0
+  _altTrigger: {fileID: 0}
   _distanceThreshold: 0.2
 --- !u!114 &114228739889473274
 MonoBehaviour:
@@ -17245,6 +17262,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d9eebbaa3e2c784fa439514d3f28d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _leftHandTrigger: 0
+  _rightHandTrigger: 0
+  _altTrigger: {fileID: 0}
   _distanceThreshold: 0.2
 --- !u!114 &114307571021818298
 MonoBehaviour:
@@ -17257,6 +17277,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d9eebbaa3e2c784fa439514d3f28d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _leftHandTrigger: 0
+  _rightHandTrigger: 0
+  _altTrigger: {fileID: 0}
   _distanceThreshold: 0.2
 --- !u!114 &114318657662671752
 MonoBehaviour:
@@ -17973,6 +17996,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d9eebbaa3e2c784fa439514d3f28d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _leftHandTrigger: 0
+  _rightHandTrigger: 0
+  _altTrigger: {fileID: 0}
   _distanceThreshold: 0.2
 --- !u!114 &114558422176699300
 MonoBehaviour:
@@ -18626,7 +18652,7 @@ MonoBehaviour:
   FollowRotation: 1
   FollowPosition: 1
   FollowerObject: {fileID: 1159943792824790}
-  FollowedObject: {fileID: 1643122494998452}
+  FollowedObject: {fileID: 1732366473424538}
 --- !u!114 &114640599282664124
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -18638,6 +18664,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d9eebbaa3e2c784fa439514d3f28d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _leftHandTrigger: 0
+  _rightHandTrigger: 0
+  _altTrigger: {fileID: 0}
   _distanceThreshold: 0.2
 --- !u!114 &114641387945630578
 MonoBehaviour:
@@ -18864,6 +18893,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d9eebbaa3e2c784fa439514d3f28d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _leftHandTrigger: 0
+  _rightHandTrigger: 0
+  _altTrigger: {fileID: 0}
   _distanceThreshold: 0.2
 --- !u!114 &114684334462940610
 MonoBehaviour:
@@ -19507,6 +19539,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d9eebbaa3e2c784fa439514d3f28d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _leftHandTrigger: 0
+  _rightHandTrigger: 0
+  _altTrigger: {fileID: 0}
   _distanceThreshold: 0.2
 --- !u!114 &114782650737588466
 MonoBehaviour:
@@ -20697,6 +20732,21 @@ MonoBehaviour:
   FollowPosition: 1
   FollowerObject: {fileID: 1594271891891086}
   FollowedObject: {fileID: 1609326998391066}
+--- !u!114 &114951131250137720
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1052125214787016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1773893b3d9bfed409337f24f6f1611b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FollowRotation: 1
+  FollowPosition: 1
+  FollowerObject: {fileID: 1052125214787016}
+  FollowedObject: {fileID: 1643122494998452}
 --- !u!114 &114952125737405876
 MonoBehaviour:
   m_ObjectHideFlags: 1
