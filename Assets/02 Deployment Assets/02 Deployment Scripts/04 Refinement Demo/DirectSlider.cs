@@ -20,7 +20,7 @@ public class DirectSlider : MonoBehaviour
         HorizontalSlider = SliderObject.GetComponent<InteractionSlider>();
         _slidervalue = HorizontalSlider.HorizontalSliderPercent;
         _slidervalue = _slidervalue * SliderMultiplier;
-        //Debug.Log(_slidervalue);
+        Debug.Log(_slidervalue);
         if (_slidervalue > 90)
         {
             _onSummon.Invoke();
