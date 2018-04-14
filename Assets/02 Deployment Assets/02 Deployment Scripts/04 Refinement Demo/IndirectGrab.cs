@@ -61,6 +61,7 @@ public class IndirectGrab : MonoBehaviour
     private bool Mode;
     [HideInInspector]
     public bool _rightButtonPress = false;          // this is reffered to from other scripts to trigger events
+    [HideInInspector]
     public bool _leftButtonPress = false;          // this is reffered to from other scripts to trigger events
     [HideInInspector]
     public bool IndirectSelectionState = true;      // this is reffered to from other scripts to trigger selection
@@ -124,7 +125,7 @@ public class IndirectGrab : MonoBehaviour
         EgocentricOrigin = GameObject.Find("Egocentric Content Origin");
         GazeController = GameObject.Find("Gaze Input Controller");
         ManualController = GameObject.Find("Manual Input Controller");
-        ContextualShell = GameObject.Find("Contextual Shell ----- | Parent");
+        ContextualShell = GameObject.Find("CS | Parent");
         _grabProxy = GameObject.Find("Psuedo Direct Grab Target");
         _pocket = GameObject.Find("Pocket | Master");
         RaycastLineRender = GetComponent<LineRenderer>();
@@ -145,6 +146,7 @@ public class IndirectGrab : MonoBehaviour
     }
     void Update()
     {
+        Debug.Log("Manual Active: " + _manualActive);
         _lineRenderTrue = LineRendererEnabled ? true : false;
         _lineRenderFalse = LineRendererEnabled ? false : false;
         #region Button Pressing Logic       | 10
@@ -189,8 +191,11 @@ public class IndirectGrab : MonoBehaviour
         }
         #endregion
         #region Raycasting                  | 30
+
         if (Physics.Raycast(GrabRay, out HitPoint, ReachDistance, LayerMask.NameToLayer("IgnoreIndirectGrab")))
         {
+            Debug.Log("skkrt"); 
+            //Debug.Log("PROGRAM: " + ActivePrograms[_lastActiveProgram].transform.name);
             SelectedObject = HitPoint.transform.gameObject;
             ActivePrograms.Add(SelectedObject);
             if (ActivePrograms.Count > 0)
@@ -203,20 +208,6 @@ public class IndirectGrab : MonoBehaviour
             RaycastLineRender.SetPosition(0, transform.position);
             RaycastLineRender.SetPosition(1, _midPoint);
             RaycastLineRender.SetPosition(2, _endPoint);
-
-            /*
-            var vertexCount = 12;
-            var pointList = new List<Vector3>();
-            for (float ratio = 0; ratio <= 1; ratio += 1.0f / vertexCount)
-            {
-                var tangentLineVertex1 = Vector3.Lerp(_start_point, _midPointLerped, ratio);
-                var tangentLineVertex2 = Vector3.Lerp(_midPointLerped, _midPointLerped, ratio);
-                var bezierpoint = Vector3.Lerp(tangentLineVertex1, tangentLineVertex2, ratio);
-                pointList.Add(bezierpoint);
-            }
-            RaycastLineRender.positionCount = pointList.Count;
-            RaycastLineRender.SetPositions(pointList.ToArray());
-            */
             #endregion
             #region Indirect Grab       | 1
             if (HitPoint.transform.tag == "GrabObject")
@@ -330,20 +321,21 @@ public class IndirectGrab : MonoBehaviour
         }
         #endregion
         #region Gaze Cursor                 | 40
-        if (GazeCursorEnabled /*&& ActivePrograms.Count > 0 && HitPoint.transform.tag != "DirectObject"*/)
+        if (GazeCursorEnabled && ActivePrograms.Count > 0 && HitPoint.transform.tag != "DirectObject")
         {
             GazeCursor.transform.position = HitPoint.point;
         }
         #endregion
         #region Input Controller            | 50
-        if (_manualActive == true && ManualController != null)
+        if (_manualActive == true)
         {
+            Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAH!");
             LineRendererEnabled = true;
             GazeCursorEnabled = false;
             transform.position = ManualController.transform.position;
             transform.localRotation = ManualController.transform.localRotation;
         }
-        if (_gazeActive == true && GazeController != null)
+        if (_gazeActive == true)
         {
             LineRendererEnabled = false;
             GazeCursorEnabled = true;
@@ -354,19 +346,10 @@ public class IndirectGrab : MonoBehaviour
         #region Contextual Shell            | 60
         if (_shellActive == true && ActivePrograms.Count > 0)
         {
+            Debug.Log("CS ACTIVE");
             contextualLineRenderer.SetPosition(0, ContextualShell.transform.position);
             contextualLineRenderer.SetPosition(1, ActivePrograms[_lastActiveProgram].transform.position);
         }
-        if (_shellActive == false)
-        { 
-
-        }
-        #endregion
-        #region Summoning                   | 70
-        /*if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Invoke("SummonActiveProgram", 0);
-        }*/
         #endregion
     }
     private void LateUpdate()
