@@ -173,7 +173,7 @@ public class IndirectGrab : MonoBehaviour
         _lastLeftPinValue = _inputPinLeftValue;
         #endregion
         #region Midpoint Calculation        | 20
-        if (ActivePrograms.Count > 0)
+        if (ActivePrograms.Count > 0 && ActivePrograms != null)
         {
             float _midX = (transform.position.x + ActivePrograms[_lastActiveProgram].transform.gameObject.transform.position.x) / 2;
             float _midY = (transform.position.y + ActivePrograms[_lastActiveProgram].transform.gameObject.transform.position.y) / 2;
