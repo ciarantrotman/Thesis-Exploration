@@ -11,7 +11,7 @@ public class DirectSlider : MonoBehaviour
     public UnityEvent _onSummon;
     public UnityEvent _onUnsummon;
     public GameObject SliderObject;
-    public float SliderMultiplier = 100.0f;
+    private float SliderMultiplier = 100.0f;
     private InteractionSlider HorizontalSlider;
     private float _slidervalue;
 
@@ -20,7 +20,6 @@ public class DirectSlider : MonoBehaviour
         HorizontalSlider = SliderObject.GetComponent<InteractionSlider>();
         _slidervalue = HorizontalSlider.HorizontalSliderPercent;
         _slidervalue = _slidervalue * SliderMultiplier;
-        Debug.Log(_slidervalue);
         if (_slidervalue > 90)
         {
             _onSummon.Invoke();

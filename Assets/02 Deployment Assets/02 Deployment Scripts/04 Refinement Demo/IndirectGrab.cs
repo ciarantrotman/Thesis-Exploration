@@ -124,7 +124,7 @@ public class IndirectGrab : MonoBehaviour
         EgocentricOrigin = GameObject.Find("Egocentric Content Origin");
         GazeController = GameObject.Find("Gaze Input Controller");
         ManualController = GameObject.Find("Manual Input Controller");
-        ContextualShell = GameObject.Find("Contextual Shell ----- | Parent");
+        ContextualShell = GameObject.Find("CS | Parent");
         _grabProxy = GameObject.Find("Psuedo Direct Grab Target");
         _pocket = GameObject.Find("Pocket | Master");
         RaycastLineRender = GetComponent<LineRenderer>();
