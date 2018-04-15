@@ -15,7 +15,7 @@ public class DistanceBasedBlendshape : MonoBehaviour
     SkinnedMeshRenderer skinnedMeshRenderer;
     [Header("Distance Based Blendshape Settings")]
     [Space(5)]
-    public bool _leftHandTrigger;
+    public bool _leftHandTrigger = true;
     public bool _rightHandTrigger = true;
     public GameObject _altTrigger;
     public float _distanceThreshold = .2f;
@@ -41,6 +41,11 @@ public class DistanceBasedBlendshape : MonoBehaviour
         if (_rightDistance < _distanceThreshold || _leftDistance < _distanceThreshold)
         {
             _blendshapeValue = (_rightDistance/_distanceThreshold)*100;
+            skinnedMeshRenderer.SetBlendShapeWeight(_blendshapeIndex, _blendshapeValue);
+        }
+        if (_leftDistance < _distanceThreshold)
+        {
+            _blendshapeValue = (_leftDistance / _distanceThreshold) * 100;
             skinnedMeshRenderer.SetBlendShapeWeight(_blendshapeIndex, _blendshapeValue);
         }
         if (_rightDistance >= _distanceThreshold && _leftDistance >= _distanceThreshold)

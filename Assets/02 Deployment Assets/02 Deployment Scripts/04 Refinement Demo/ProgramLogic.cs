@@ -164,4 +164,24 @@ public class ProgramLogic : MonoBehaviour
         _onUnsummon.Invoke();
     }
     #endregion
+    #region Collision                   | 70
+    [Header("Collision Events")]
+    [Space(5)]
+    public UnityEvent _onColliderEnter;
+    public UnityEvent _onColliderExit;
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.GetComponent<Collider>().name == "ANIMATION DIORAMA")
+        {
+            _onColliderEnter.Invoke();
+        }
+    }
+    public void OnTriggerExit(Collider collider)
+    {
+        if (collider.GetComponent<Collider>().name == "ANIMATION DIORAMA")
+        {
+            _onColliderExit.Invoke();
+        }
+    }
+    #endregion
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Uniduino;
+using TMPro;
 
 public class IndirectGrab : MonoBehaviour
 {
@@ -43,6 +44,8 @@ public class IndirectGrab : MonoBehaviour
     private GameObject SelectedObjectProxy;         // will move to the center of selected objects
     private GameObject _grabProxy;
     private GameObject _pocket;
+    private GameObject _csLinerenderOrigin;
+    private GameObject _programNameDisplay;         // the gameobject on the Contextual Shell which displays the name of the active program
     private GameObject[] ShellParents;              // an array of objects that will be activated on a trigger
     private List<GameObject> ActivePrograms;        // an array of objects that will be activated on a trigger
 
@@ -127,6 +130,8 @@ public class IndirectGrab : MonoBehaviour
         ContextualShell = GameObject.Find("CS | Parent");
         _grabProxy = GameObject.Find("Psuedo Direct Grab Target");
         _pocket = GameObject.Find("Pocket | Master");
+        _programNameDisplay = GameObject.Find("CS | Program Name");
+        _csLinerenderOrigin = GameObject.Find("CS - Line Renderer Origin");
         RaycastLineRender = GetComponent<LineRenderer>();
         contextualLineRenderer = ContextualShell.GetComponent<LineRenderer>();
         ActivePrograms = new List<GameObject>();
@@ -367,6 +372,10 @@ public class IndirectGrab : MonoBehaviour
         {
             Invoke("SummonActiveProgram", 0);
         }*/
+        #endregion
+        #region Contextual Shell Label      | 80
+        TextMeshPro textmeshPro = _programNameDisplay.GetComponent<TextMeshPro>();
+        textmeshPro.text = ActivePrograms[_lastActiveProgram].transform.gameObject.transform.name;
         #endregion
     }
     private void LateUpdate()

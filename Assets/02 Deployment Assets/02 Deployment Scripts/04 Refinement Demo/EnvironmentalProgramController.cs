@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnvironmentalProgramController : MonoBehaviour {
 
@@ -10,6 +11,10 @@ public class EnvironmentalProgramController : MonoBehaviour {
     private GameObject UserHead;
     private GameObject EnvironmentalProgram;
     private int LoopCount = 0;
+
+    [Header("Environmental Program Events")]
+    public UnityEvent _onLaunch;
+    public UnityEvent _onClose;
 
     void Start ()
     {
@@ -27,37 +32,25 @@ public class EnvironmentalProgramController : MonoBehaviour {
     #region Collision Based
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.GetComponent<Collider>().name == UserHead.transform.name)
+        if (collider.GetComponent<Collider>().name == "HMD Camera")
         {
+            _onLaunch.Invoke();
             EnvironmentalProgram.transform.parent = UserHead.transform;
             StartCoroutine("EnvironmentalLaunch");
         }
-        /*
-        if (collider.GetComponent<Collider>().name == "Environmental Program - Position Marker")
-        {
-            EnvironmentalProgram.transform.parent = collider.transform;
-            //transform.GetComponent<Rigidbody>().isKinematic = true;
-        }
-        */
     }
 
     public void OnTriggerExit(Collider collider)
     {
-        if (collider.GetComponent<Collider>().name == UserHead.transform.name)
+        if (collider.GetComponent<Collider>().name == "HMD Camera")
         {
+            _onClose.Invoke();
             HMD.cullingMask = ~(1 << LayerMask.NameToLayer("Environmental Program")); // Switch off Environmental Programs, leave others as-is
             HMD.cullingMask |= (1 << LayerMask.NameToLayer("Real World Objects")); // Switch on Real World Objects, leave others as-is
             TriggerRenderer.enabled = true;
             EnvironmentalProgram.transform.parent = null;
             LoopCount = 0;
         }
-        /*
-        if (collider.GetComponent<Collider>().name == "Environmental Program - Position Marker")
-        {
-            EnvironmentalProgram.transform.parent = null;
-            //transform.GetComponent<Rigidbody>().isKinematic = false;
-        }
-        */
     }
 
     IEnumerator EnvironmentalLaunch()
