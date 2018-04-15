@@ -240,6 +240,8 @@ public class IndirectGrab : MonoBehaviour
             #region Selection           | 3
             if (HitPoint.transform.tag == "SelectableUI" && IndirectSelectionEnabled == true)
             {
+                _hoverCounter = 0;
+                Invoke("OnHoverStart", 0);
                 InteractionType = 3;
             }
             #endregion
