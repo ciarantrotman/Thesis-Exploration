@@ -377,7 +377,10 @@ public class IndirectGrab : MonoBehaviour
         #endregion
         #region Contextual Shell Label      | 80
         TextMeshPro textmeshPro = _programNameDisplay.GetComponent<TextMeshPro>();
-        textmeshPro.text = ActivePrograms[_lastActiveProgram].transform.gameObject.transform.name;
+        if (ActivePrograms.Count > 0)
+        {
+            textmeshPro.text = ActivePrograms[_lastActiveProgram].transform.gameObject.transform.name;
+        }
         #endregion
     }
     private void LateUpdate()
@@ -414,7 +417,7 @@ public class IndirectGrab : MonoBehaviour
     #region Hover Methods               | 10
     public void OnHoverStart()
     {
-        if (ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null && ActivePrograms.Count > 0)
+        if (ActivePrograms.Count > 0 && ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null)
         {
             ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnHoverStart", 0);
         }
@@ -455,7 +458,7 @@ public class IndirectGrab : MonoBehaviour
     }
     public void OnHoverEnd()
     {
-        if (ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null && ActivePrograms.Count > 0)
+        if (ActivePrograms.Count > 0 && ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>() != null)
         {
             ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnHoverEnd", 0);
         }
@@ -492,94 +495,127 @@ public class IndirectGrab : MonoBehaviour
     #region Active Program Methods      | 30
     public void LaunchActiveProgram()
     {
-        ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnLaunch", 0);
+        if (ActivePrograms.Count > 0)
+        {
+            ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnLaunch", 0);
+        }
     }
     public void CloseActiveProgram()
     {
-        ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnClose", 0);
+        if (ActivePrograms.Count > 0)
+        {
+            ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnClose", 0);
+        }
     }
     #endregion
     #region Summoning Methods           | 40
     public void SummonActiveProgram()
     {
-        ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnSummon", 0);
+        if (ActivePrograms.Count > 0)
+        {
+            ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnSummon", 0);
+        }
     }
     public void UnsummonActiveProgram()
     {
-        ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnUnsummon", 0);
+        if (ActivePrograms.Count > 0)
+        {
+            ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnUnsummon", 0);
+        }
     }
     #endregion
     #region Selection Methods           | 50
     public void SelectionEvent()
     {
-        ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnSelect", 0);
-        if (GazeCursorEnabled)
+        if (ActivePrograms.Count > 0)
         {
-            GazeCursor.GetComponent<GazeCursor>().Invoke("OnSelect", 0);
+            ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnSelect", 0);
+            if (GazeCursorEnabled)
+            {
+                GazeCursor.GetComponent<GazeCursor>().Invoke("OnSelect", 0);
+            }
         }
     }
     public void DeselectionEvent()
     {
-        ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnDeselect", 0);
-        if (GazeCursorEnabled)
+        if (ActivePrograms.Count > 0)
         {
-            GazeCursor.GetComponent<GazeCursor>().Invoke("OnDeselect", 0);
+            ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnDeselect", 0);
+            if (GazeCursorEnabled)
+            {
+                GazeCursor.GetComponent<GazeCursor>().Invoke("OnDeselect", 0);
+            }
         }
     }
     #endregion
     #region Manipulation Methods        | 60
     public void GrabEvent()
     {
-        ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnGrab", 0);
-        if (GazeCursorEnabled)
+        if (ActivePrograms.Count > 0)
         {
-            GazeCursor.GetComponent<GazeCursor>().Invoke("OnGrab", 0);
-        }
+            ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnGrab", 0);
+            if (GazeCursorEnabled)
+            {
+                GazeCursor.GetComponent<GazeCursor>().Invoke("OnGrab", 0);
+            }
             #region Lerp Grab Mechanic
             if (_lerpGrabEnabled == true)
-        {
-            if (LerpState == false)
             {
-                if (SelectedObject.GetComponent<ObjectMass>() != null)
+                if (LerpState == false)
                 {
-                    ObjectMassScript = ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ObjectMass>();
-                    LerpTime = ObjectMassScript.DigitalObjectMass;
+                    if (SelectedObject.GetComponent<ObjectMass>() != null)
+                    {
+                        ObjectMassScript = ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ObjectMass>();
+                        LerpTime = ObjectMassScript.DigitalObjectMass;
+                    }
+                    if (SelectedObject.GetComponent<ObjectMass>() == null)
+                    {
+                        LerpTime = DefaultObjectMass;
+                    }
+                    TargetLocation.transform.position = SelectedObject.transform.position;
+                    LerpState = true;
+                    RaycastLineRender.enabled = _lineRenderFalse;
                 }
-                if (SelectedObject.GetComponent<ObjectMass>() == null)
-                {
-                    LerpTime = DefaultObjectMass;
-                }
-                TargetLocation.transform.position = SelectedObject.transform.position;
-                LerpState = true;
-                RaycastLineRender.enabled = _lineRenderFalse;
             }
         }
         #endregion
     }
     public void ReleaseEvent()
     {
-        ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnRelease", 0);
-        if (GazeCursorEnabled)
+        if (ActivePrograms.Count > 0)
         {
-            GazeCursor.GetComponent<GazeCursor>().Invoke("OnRelease", 0);
+            ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<ProgramLogic>().Invoke("OnRelease", 0);
+            if (GazeCursorEnabled)
+            {
+                GazeCursor.GetComponent<GazeCursor>().Invoke("OnRelease", 0);
+            }
         }
     }
     public void SnapToActiveProgram()
     {
-        _grabProxy.transform.position = ActivePrograms[_lastActiveProgram].transform.gameObject.transform.position;
-        _grabProxy.transform.rotation = ActivePrograms[_lastActiveProgram].transform.gameObject.transform.rotation;
+        if (ActivePrograms.Count > 0)
+        {
+            _grabProxy.transform.position = ActivePrograms[_lastActiveProgram].transform.gameObject.transform.position;
+            _grabProxy.transform.rotation = ActivePrograms[_lastActiveProgram].transform.gameObject.transform.rotation;
+        }
     }
     #endregion
     #region Pocket Methods              | 70
     public void OnPocketGazeBegin()
     {
-        _pocketActive = true;
-        ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<PocketLogic>().Invoke("OnGazeBegin", 0);
+        if (ActivePrograms.Count > 0)
+        {
+            _pocketActive = true;
+            ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<PocketLogic>().Invoke("OnGazeBegin", 0);
+        }
     }
     public void OnPocketGazeEnd()
     {
-        _pocketActive = false;
-        ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<PocketLogic>().Invoke("OnGazeEnd", 0);
+        if (ActivePrograms.Count > 0)
+        {
+            _pocketActive = false;
+            ActivePrograms[_lastActiveProgram].transform.gameObject.GetComponent<PocketLogic>().Invoke("OnGazeEnd", 0);
+        }
     }
     #endregion
 }
