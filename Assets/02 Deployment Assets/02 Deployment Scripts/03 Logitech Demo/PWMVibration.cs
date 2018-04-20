@@ -16,15 +16,20 @@ public class PWMVibration : MonoBehaviour
 
     public float LowerTarget = 0.0F;
     public float UpperTarget = 200.0f;
+    public float ClickDuration = .25f;
 
     private bool Trigger = false;
+    private bool _dom = true;
 
     void Start()
     {
         arduino = Arduino.global;
         arduino.Setup(ConfigurePins);
     }
-
+    private void Update()
+    {
+        //PWMPin = _dom ? 3 : 5;
+    }
     void ConfigurePins()
     {
         arduino.pinMode(PWMPin, PinMode.PWM);
@@ -35,7 +40,6 @@ public class PWMVibration : MonoBehaviour
         Trigger = true;
         StartCoroutine(SmoothVibrateStart());
     }
-
     private IEnumerator SmoothVibrateStart()
     {
         while (Trigger == true && VoltageFloat < (UpperTarget - 1))
@@ -52,7 +56,6 @@ public class PWMVibration : MonoBehaviour
         Trigger = false;
         StartCoroutine(SmoothVibrateStop());
     }
-
     private IEnumerator SmoothVibrateStop()
     {
         while (VoltageFloat > (LowerTarget + 1))
@@ -69,13 +72,13 @@ public class PWMVibration : MonoBehaviour
         Trigger = true;
         StartCoroutine(PressClick());
     }
-
     private IEnumerator PressClick()
     {
         if (Trigger == true)
         {
-            arduino.analogWrite(PWMPin, 150);
-            yield return new WaitForSeconds(.25f);
+            int UpperInt = (Mathf.RoundToInt(UpperTarget));
+            arduino.analogWrite(PWMPin, UpperInt);
+            yield return new WaitForSeconds(ClickDuration);
             arduino.analogWrite(PWMPin, 0);
             Trigger = false;
         }
