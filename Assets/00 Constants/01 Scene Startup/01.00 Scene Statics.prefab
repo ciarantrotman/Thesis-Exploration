@@ -71,7 +71,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1023336773011510
 GameObject:
   m_ObjectHideFlags: 1
@@ -198,7 +198,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1041593013229590
 GameObject:
   m_ObjectHideFlags: 1
@@ -721,7 +721,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1149879020159168
 GameObject:
   m_ObjectHideFlags: 1
@@ -1373,7 +1373,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4723091831609050}
-  - component: {fileID: 114080384912198768}
   m_Layer: 13
   m_Name: 01.00 Notification
   m_TagString: Untagged
@@ -4060,7 +4059,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1816758518596548
 GameObject:
   m_ObjectHideFlags: 1
@@ -4093,7 +4092,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1825363156913244
 GameObject:
   m_ObjectHideFlags: 1
@@ -7459,13 +7458,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1758053036318502}
-  m_LocalRotation: {x: 0.08261423, y: 0.6275174, z: -0.10105424, w: 0.7675838}
+  m_LocalRotation: {x: 0.09123664, y: 0.7085266, z: -0.0932101, w: 0.6935256}
   m_LocalPosition: {x: 0.16929, y: -0.02174, z: 0.04304}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4574146696675632}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 14.694, y: 78.14001, z: -3.0490003}
+  m_LocalEulerAnglesHint: {x: 14.989, y: 91.226006, z: 0}
 --- !u!4 &4627148023060082
 Transform:
   m_ObjectHideFlags: 1
@@ -14181,28 +14180,6 @@ MonoBehaviour:
   LowerTarget: 0
   UpperTarget: 150
   HapticTriggerDistance: 0.02
---- !u!114 &114080384912198768
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1274765534922232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 171097f00f497504da15cafb01f904f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetTransform: {fileID: 4772854304913714}
-  startTransform: {fileID: 4151131854374672}
-  endTransform: {fileID: 4589051587290598}
-  startAtEnd: 0
-  tweenLocalPosition: 0
-  tweenLocalRotation: 0
-  tweenLocalScale: 1
-  tweenDuration: 0.2
-  tweenSmoothType: 2
-  _eventTable:
-    _entries: []
 --- !u!114 &114084137427491932
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -15517,7 +15494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RubberbandSpeed: 10
-  DistanceThreshold: 1
+  DistanceThreshold: 0.5
   RotationThreshold: 60
 --- !u!114 &114327088551319642
 MonoBehaviour:
@@ -17136,9 +17113,9 @@ MonoBehaviour:
   _OnPress:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114080384912198768}
-        m_MethodName: PlayBackward
-        m_Mode: 1
+      - m_Target: {fileID: 1234052599471200}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -18231,17 +18208,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: HapticPulse
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 114080384912198768}
         m_MethodName: PlayForward
         m_Mode: 1
         m_Arguments:
@@ -19560,7 +19526,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135347145994428100
 SphereCollider:
