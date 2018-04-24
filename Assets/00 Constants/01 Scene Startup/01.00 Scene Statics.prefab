@@ -3848,6 +3848,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1777984612998116
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4874220722688416}
+  - component: {fileID: 114094180106752180}
+  m_Layer: 0
+  m_Name: HAPTIC | Shell
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1778063124393618
 GameObject:
   m_ObjectHideFlags: 1
@@ -3890,7 +3906,7 @@ GameObject:
   - component: {fileID: 4085672655405808}
   - component: {fileID: 114045163795466268}
   m_Layer: 0
-  m_Name: HAPTIC | Shell
+  m_Name: HAPTIC | Hover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5210,7 +5226,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4857240326412122}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4086756468276720
 Transform:
@@ -8493,6 +8509,7 @@ Transform:
   - {fileID: 4632122464149556}
   - {fileID: 4860586243099128}
   - {fileID: 4479682381013986}
+  - {fileID: 4874220722688416}
   - {fileID: 4085672655405808}
   m_Father: {fileID: 4094817299905866}
   m_RootOrder: 1
@@ -8592,6 +8609,19 @@ Transform:
   - {fileID: 4092548962158246}
   m_Father: {fileID: 4547065437833584}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4874220722688416
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1777984612998116}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4857240326412122}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4874736572953560
 Transform:
@@ -11095,7 +11125,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.05463993, y: 0.04594175, z: 0.01572198}
+  m_Size: {x: 0.05463993, y: 0.04594175, z: 0.01}
   m_Center: {x: -0.013623206, y: 0.0008534027, z: 0.06896287}
 --- !u!65 &65463876996467708
 BoxCollider:
@@ -11131,7 +11161,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.05463993, y: 0.04594175, z: 0.015721986}
+  m_Size: {x: 0.05463993, y: 0.04594175, z: 0.01}
   m_Center: {x: -0.013623206, y: 0.0008534027, z: 0.06896287}
 --- !u!65 &65694054889729030
 BoxCollider:
@@ -13806,7 +13836,7 @@ MonoBehaviour:
   SmoothDuration: 0.1
   PWMPin: 5
   LowerTarget: 0
-  UpperTarget: 70
+  UpperTarget: 50
   ClickDuration: 0.1
 --- !u!114 &114046817423903544
 MonoBehaviour:
@@ -14335,6 +14365,22 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114094180106752180
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1777984612998116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f52e3ee91f0ab444b24138def13ef76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SmoothDuration: 0.1
+  PWMPin: 5
+  LowerTarget: 0
+  UpperTarget: 70
+  ClickDuration: 0.1
 --- !u!114 &114100850326532636
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -15472,7 +15518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RubberbandSpeed: 10
   DistanceThreshold: 1
-  RotationThreshold: 100
+  RotationThreshold: 60
 --- !u!114 &114327088551319642
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -16951,7 +16997,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 114045163795466268}
+      - m_Target: {fileID: 114094180106752180}
         m_MethodName: OnPressClick
         m_Mode: 1
         m_Arguments:
@@ -18375,7 +18421,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 114045163795466268}
+      - m_Target: {fileID: 114094180106752180}
         m_MethodName: OnPressClick
         m_Mode: 1
         m_Arguments:
