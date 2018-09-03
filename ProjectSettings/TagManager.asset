@@ -18,6 +18,9 @@ TagManager:
   - ProprioShell
   - Pocket
   - DirectObject
+  - GravityParticle
+  - SelectableObject
+  - _selectionHand
   layers:
   - Default
   - TransparentFX

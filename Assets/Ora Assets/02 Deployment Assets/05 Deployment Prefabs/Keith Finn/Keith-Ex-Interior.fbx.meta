@@ -1,0 +1,1077 @@
+fileFormatVersion: 2
+guid: ab1fe6c1ceb3c564c9778e9c4191c151
+timeCreated: 1526039907
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: 3DGeom~4340
+    100002: 3DGeom~4341
+    100004: 3DGeom~4366
+    100006: 3DGeom~4367
+    100008: 3DGeom~4440
+    100010: 3DGeom~4441
+    100012: 3DGeom~4451
+    100014: 3DGeom~4452
+    100016: 3DGeom~4560
+    100018: 3DGeom~4561
+    100020: 3DGeom~4597
+    100022: 3DGeom~4598
+    100024: 3DGeom~4622
+    100026: 3DGeom~4623
+    100028: 3DGeom~4680
+    100030: 3DGeom~4681
+    100032: 3DGeom~4717
+    100034: 3DGeom~4718
+    100036: 3DGeom~5351
+    100038: 3DGeom~5352
+    100040: 3DGeom~5353
+    100042: 3DGeom~5354
+    100044: 3DGeom~5355
+    100046: 3DGeom~5356
+    100048: 3DGeom~5357
+    100050: 3DGeom~5358
+    100052: 3DGeom~5359
+    100054: 3DGeom~5360
+    100056: 3DGeom~5361
+    100058: 3DGeom~5362
+    100060: 3DGeom~5363
+    100062: 3DGeom~5364
+    100064: 3DGeom~5365
+    100066: 3DGeom~5366
+    100068: ALLOY CAP-1
+    100070: ALLOY CAP-1_2
+    100072: ALLOY CAP-1_3
+    100074: ALLOY CAP-1_4
+    100076: ALLOY-1
+    100078: ALLOY-1_2
+    100080: ALLOY-1_3
+    100082: ALLOY-1_4
+    100084: BADGE ALLOY CAP-1
+    100086: BADGE ALLOY CAP-1_2
+    100088: BADGE ALLOY CAP-1_3
+    100090: BADGE ALLOY CAP-1_4
+    100092: BODY-1
+    100094: Body_11
+    100096: Body_12
+    100098: Body_13
+    100100: Body_14
+    100102: Body_15
+    100104: Body_16
+    100106: Body_17
+    100108: Body_18
+    100110: Body_19
+    100112: Body_1_10
+    100114: Body_1_11
+    100116: Body_1_12
+    100118: Body_1_13
+    100120: Body_1_14
+    100122: Body_1_15
+    100124: Body_1_16
+    100126: Body_1_17
+    100128: Body_1_18
+    100130: Body_1_19
+    100132: Body_1_2
+    100134: Body_1_20
+    100136: Body_1_21
+    100138: Body_1_22
+    100140: Body_1_23
+    100142: Body_1_24
+    100144: Body_1_25
+    100146: Body_1_26
+    100148: Body_1_27
+    100150: Body_1_28
+    100152: Body_1_29
+    100154: Body_1_3
+    100156: Body_1_30
+    100158: Body_1_31
+    100160: Body_1_32
+    100162: Body_1_33
+    100164: Body_1_34
+    100166: Body_1_35
+    100168: Body_1_36
+    100170: Body_1_37
+    100172: Body_1_4
+    100174: Body_1_5
+    100176: Body_1_6
+    100178: Body_1_7
+    100180: Body_1_8
+    100182: Body_1_9
+    100184: Body_2
+    100186: Body_20
+    100188: Body_21
+    100190: Body_22
+    100192: Body_23
+    100194: Body_24
+    100196: Body_26
+    100198: Body_2_10
+    100200: Body_2_11
+    100202: Body_2_2
+    100204: Body_2_3
+    100206: Body_2_4
+    100208: Body_2_5
+    100210: Body_2_6
+    100212: Body_2_7
+    100214: Body_2_8
+    100216: Body_2_9
+    100218: Body_3_2
+    100220: Body_3_3
+    100222: Body_3_4
+    100224: Body_3_5
+    100226: Body_3_6
+    100228: Body_3_7
+    100230: Body_3_8
+    100232: Body_3_9
+    100234: Body_4.001
+    100236: Body_4_2
+    100238: Body_4_3
+    100240: Body_4_4
+    100242: Body_4_5
+    100244: Body_4_6
+    100246: Body_4_7
+    100248: Body_4_8
+    100250: Body_5.001
+    100252: Body_5_2
+    100254: Body_5_3
+    100256: Body_5_4
+    100258: Body_5_5
+    100260: Body_5_6
+    100262: Body_6.001
+    100264: Body_6_2
+    100266: Body_6_3
+    100268: Body_6_4
+    100270: Body_6_5
+    100272: Body_6_6
+    100274: Body_7_2
+    100276: Body_7_3
+    100278: Body_7_4
+    100280: Body_7_5
+    100282: Body_7_6
+    100284: Body_7_7
+    100286: Body_8.001
+    100288: Body_8_2
+    100290: Body_9_2
+    100292: BUMPER-1
+    100294: Camera
+    100296: Camera~1
+    100298: FLOATING PART-1
+    100300: FLOOR TRIM-1
+    100302: FRONT BADGE BEAM-1
+    100304: FRONT BADGE GLASS - INTERIOR-1
+    100306: FRONT BEAM GLASS-1
+    100308: FRONT BEAM-1
+    100310: FRONT GLASS-1
+    100312: FRONT TRIM-1
+    100314: Interior v14-1
+    100316: //RootNode
+    100318: Lamp
+    100320: PILLAR-1
+    100322: REAR BADGE BEAM FINAL-1
+    100324: REAR BEAM-1
+    100326: REAR GLASS BADGE FINAL-1
+    100328: REAR GLASS LIGHTS-1
+    100330: REAR GLASS V0-1
+    100332: SEAT ASSEMBLY-1
+    100334: SEAT SHAFT-1
+    100336: SEAT-1
+    100338: SIDE GLASS-1
+    100340: SIDE TRIM-1
+    100342: SUB 1 - FLOATING-1
+    100344: SUB 2 - TYRE & ALLOY-1
+    100346: SUB 2 - TYRE & ALLOY-2
+    100348: SUB 2 - TYRE & ALLOY-3
+    100350: SUB 2 - TYRE & ALLOY-4
+    100352: SUB 3 - FRONT BADGE-1
+    100354: SUB 4 - REAR GLASS DOORS-1
+    100356: TRIM READ DOOR V0-1
+    100358: TRIM REAR DOOR V1-1
+    100360: TYRE-1
+    100362: TYRE-1_2
+    100364: TYRE-1_3
+    100366: TYRE-1_4
+    100368: UPPER TRIM-1
+    400000: 3DGeom~4340
+    400002: 3DGeom~4341
+    400004: 3DGeom~4366
+    400006: 3DGeom~4367
+    400008: 3DGeom~4440
+    400010: 3DGeom~4441
+    400012: 3DGeom~4451
+    400014: 3DGeom~4452
+    400016: 3DGeom~4560
+    400018: 3DGeom~4561
+    400020: 3DGeom~4597
+    400022: 3DGeom~4598
+    400024: 3DGeom~4622
+    400026: 3DGeom~4623
+    400028: 3DGeom~4680
+    400030: 3DGeom~4681
+    400032: 3DGeom~4717
+    400034: 3DGeom~4718
+    400036: 3DGeom~5351
+    400038: 3DGeom~5352
+    400040: 3DGeom~5353
+    400042: 3DGeom~5354
+    400044: 3DGeom~5355
+    400046: 3DGeom~5356
+    400048: 3DGeom~5357
+    400050: 3DGeom~5358
+    400052: 3DGeom~5359
+    400054: 3DGeom~5360
+    400056: 3DGeom~5361
+    400058: 3DGeom~5362
+    400060: 3DGeom~5363
+    400062: 3DGeom~5364
+    400064: 3DGeom~5365
+    400066: 3DGeom~5366
+    400068: ALLOY CAP-1
+    400070: ALLOY CAP-1_2
+    400072: ALLOY CAP-1_3
+    400074: ALLOY CAP-1_4
+    400076: ALLOY-1
+    400078: ALLOY-1_2
+    400080: ALLOY-1_3
+    400082: ALLOY-1_4
+    400084: BADGE ALLOY CAP-1
+    400086: BADGE ALLOY CAP-1_2
+    400088: BADGE ALLOY CAP-1_3
+    400090: BADGE ALLOY CAP-1_4
+    400092: BODY-1
+    400094: Body_11
+    400096: Body_12
+    400098: Body_13
+    400100: Body_14
+    400102: Body_15
+    400104: Body_16
+    400106: Body_17
+    400108: Body_18
+    400110: Body_19
+    400112: Body_1_10
+    400114: Body_1_11
+    400116: Body_1_12
+    400118: Body_1_13
+    400120: Body_1_14
+    400122: Body_1_15
+    400124: Body_1_16
+    400126: Body_1_17
+    400128: Body_1_18
+    400130: Body_1_19
+    400132: Body_1_2
+    400134: Body_1_20
+    400136: Body_1_21
+    400138: Body_1_22
+    400140: Body_1_23
+    400142: Body_1_24
+    400144: Body_1_25
+    400146: Body_1_26
+    400148: Body_1_27
+    400150: Body_1_28
+    400152: Body_1_29
+    400154: Body_1_3
+    400156: Body_1_30
+    400158: Body_1_31
+    400160: Body_1_32
+    400162: Body_1_33
+    400164: Body_1_34
+    400166: Body_1_35
+    400168: Body_1_36
+    400170: Body_1_37
+    400172: Body_1_4
+    400174: Body_1_5
+    400176: Body_1_6
+    400178: Body_1_7
+    400180: Body_1_8
+    400182: Body_1_9
+    400184: Body_2
+    400186: Body_20
+    400188: Body_21
+    400190: Body_22
+    400192: Body_23
+    400194: Body_24
+    400196: Body_26
+    400198: Body_2_10
+    400200: Body_2_11
+    400202: Body_2_2
+    400204: Body_2_3
+    400206: Body_2_4
+    400208: Body_2_5
+    400210: Body_2_6
+    400212: Body_2_7
+    400214: Body_2_8
+    400216: Body_2_9
+    400218: Body_3_2
+    400220: Body_3_3
+    400222: Body_3_4
+    400224: Body_3_5
+    400226: Body_3_6
+    400228: Body_3_7
+    400230: Body_3_8
+    400232: Body_3_9
+    400234: Body_4.001
+    400236: Body_4_2
+    400238: Body_4_3
+    400240: Body_4_4
+    400242: Body_4_5
+    400244: Body_4_6
+    400246: Body_4_7
+    400248: Body_4_8
+    400250: Body_5.001
+    400252: Body_5_2
+    400254: Body_5_3
+    400256: Body_5_4
+    400258: Body_5_5
+    400260: Body_5_6
+    400262: Body_6.001
+    400264: Body_6_2
+    400266: Body_6_3
+    400268: Body_6_4
+    400270: Body_6_5
+    400272: Body_6_6
+    400274: Body_7_2
+    400276: Body_7_3
+    400278: Body_7_4
+    400280: Body_7_5
+    400282: Body_7_6
+    400284: Body_7_7
+    400286: Body_8.001
+    400288: Body_8_2
+    400290: Body_9_2
+    400292: BUMPER-1
+    400294: Camera
+    400296: Camera~1
+    400298: FLOATING PART-1
+    400300: FLOOR TRIM-1
+    400302: FRONT BADGE BEAM-1
+    400304: FRONT BADGE GLASS - INTERIOR-1
+    400306: FRONT BEAM GLASS-1
+    400308: FRONT BEAM-1
+    400310: FRONT GLASS-1
+    400312: FRONT TRIM-1
+    400314: Interior v14-1
+    400316: //RootNode
+    400318: Lamp
+    400320: PILLAR-1
+    400322: REAR BADGE BEAM FINAL-1
+    400324: REAR BEAM-1
+    400326: REAR GLASS BADGE FINAL-1
+    400328: REAR GLASS LIGHTS-1
+    400330: REAR GLASS V0-1
+    400332: SEAT ASSEMBLY-1
+    400334: SEAT SHAFT-1
+    400336: SEAT-1
+    400338: SIDE GLASS-1
+    400340: SIDE TRIM-1
+    400342: SUB 1 - FLOATING-1
+    400344: SUB 2 - TYRE & ALLOY-1
+    400346: SUB 2 - TYRE & ALLOY-2
+    400348: SUB 2 - TYRE & ALLOY-3
+    400350: SUB 2 - TYRE & ALLOY-4
+    400352: SUB 3 - FRONT BADGE-1
+    400354: SUB 4 - REAR GLASS DOORS-1
+    400356: TRIM READ DOOR V0-1
+    400358: TRIM REAR DOOR V1-1
+    400360: TYRE-1
+    400362: TYRE-1_2
+    400364: TYRE-1_3
+    400366: TYRE-1_4
+    400368: UPPER TRIM-1
+    2000000: Camera
+    2000002: Camera~1
+    2300000: 3DGeom~4340
+    2300002: 3DGeom~4341
+    2300004: 3DGeom~4366
+    2300006: 3DGeom~4367
+    2300008: 3DGeom~4440
+    2300010: 3DGeom~4441
+    2300012: 3DGeom~4451
+    2300014: 3DGeom~4452
+    2300016: 3DGeom~4560
+    2300018: 3DGeom~4561
+    2300020: 3DGeom~4597
+    2300022: 3DGeom~4598
+    2300024: 3DGeom~4622
+    2300026: 3DGeom~4623
+    2300028: 3DGeom~4680
+    2300030: 3DGeom~4681
+    2300032: 3DGeom~4717
+    2300034: 3DGeom~4718
+    2300036: 3DGeom~5351
+    2300038: 3DGeom~5352
+    2300040: 3DGeom~5353
+    2300042: 3DGeom~5354
+    2300044: 3DGeom~5355
+    2300046: 3DGeom~5356
+    2300048: 3DGeom~5357
+    2300050: 3DGeom~5358
+    2300052: 3DGeom~5359
+    2300054: 3DGeom~5360
+    2300056: 3DGeom~5361
+    2300058: 3DGeom~5362
+    2300060: 3DGeom~5363
+    2300062: 3DGeom~5364
+    2300064: 3DGeom~5365
+    2300066: 3DGeom~5366
+    2300068: Body_13
+    2300070: Body_14
+    2300072: Body_15
+    2300074: Body_17
+    2300076: Body_18
+    2300078: Body_1_10
+    2300080: Body_1_11
+    2300082: Body_1_12
+    2300084: Body_1_13
+    2300086: Body_1_14
+    2300088: Body_1_15
+    2300090: Body_1_16
+    2300092: Body_1_17
+    2300094: Body_1_18
+    2300096: Body_1_19
+    2300098: Body_1_2
+    2300100: Body_1_20
+    2300102: Body_1_21
+    2300104: Body_1_22
+    2300106: Body_1_23
+    2300108: Body_1_24
+    2300110: Body_1_25
+    2300112: Body_1_26
+    2300114: Body_1_27
+    2300116: Body_1_28
+    2300118: Body_1_29
+    2300120: Body_1_3
+    2300122: Body_1_30
+    2300124: Body_1_31
+    2300126: Body_1_32
+    2300128: Body_1_33
+    2300130: Body_1_34
+    2300132: Body_1_35
+    2300134: Body_1_36
+    2300136: Body_1_37
+    2300138: Body_1_4
+    2300140: Body_1_5
+    2300142: Body_1_6
+    2300144: Body_1_7
+    2300146: Body_1_8
+    2300148: Body_1_9
+    2300150: Body_2
+    2300152: Body_22
+    2300154: Body_24
+    2300156: Body_26
+    2300158: Body_2_10
+    2300160: Body_2_11
+    2300162: Body_2_2
+    2300164: Body_2_3
+    2300166: Body_2_4
+    2300168: Body_2_5
+    2300170: Body_2_6
+    2300172: Body_2_7
+    2300174: Body_2_8
+    2300176: Body_2_9
+    2300178: Body_3_2
+    2300180: Body_3_3
+    2300182: Body_3_4
+    2300184: Body_3_5
+    2300186: Body_3_6
+    2300188: Body_3_7
+    2300190: Body_3_8
+    2300192: Body_3_9
+    2300194: Body_4.001
+    2300196: Body_4_2
+    2300198: Body_4_3
+    2300200: Body_4_4
+    2300202: Body_4_5
+    2300204: Body_4_6
+    2300206: Body_4_7
+    2300208: Body_4_8
+    2300210: Body_5_2
+    2300212: Body_5_3
+    2300214: Body_5_4
+    2300216: Body_5_5
+    2300218: Body_5_6
+    2300220: Body_6_2
+    2300222: Body_6_3
+    2300224: Body_6_4
+    2300226: Body_6_5
+    2300228: Body_6_6
+    2300230: Body_7_2
+    2300232: Body_7_3
+    2300234: Body_7_4
+    2300236: Body_7_5
+    2300238: Body_7_6
+    2300240: Body_7_7
+    2300242: Body_8_2
+    2300244: Body_9_2
+    3300000: 3DGeom~4340
+    3300002: 3DGeom~4341
+    3300004: 3DGeom~4366
+    3300006: 3DGeom~4367
+    3300008: 3DGeom~4440
+    3300010: 3DGeom~4441
+    3300012: 3DGeom~4451
+    3300014: 3DGeom~4452
+    3300016: 3DGeom~4560
+    3300018: 3DGeom~4561
+    3300020: 3DGeom~4597
+    3300022: 3DGeom~4598
+    3300024: 3DGeom~4622
+    3300026: 3DGeom~4623
+    3300028: 3DGeom~4680
+    3300030: 3DGeom~4681
+    3300032: 3DGeom~4717
+    3300034: 3DGeom~4718
+    3300036: 3DGeom~5351
+    3300038: 3DGeom~5352
+    3300040: 3DGeom~5353
+    3300042: 3DGeom~5354
+    3300044: 3DGeom~5355
+    3300046: 3DGeom~5356
+    3300048: 3DGeom~5357
+    3300050: 3DGeom~5358
+    3300052: 3DGeom~5359
+    3300054: 3DGeom~5360
+    3300056: 3DGeom~5361
+    3300058: 3DGeom~5362
+    3300060: 3DGeom~5363
+    3300062: 3DGeom~5364
+    3300064: 3DGeom~5365
+    3300066: 3DGeom~5366
+    3300068: Body_13
+    3300070: Body_14
+    3300072: Body_15
+    3300074: Body_17
+    3300076: Body_18
+    3300078: Body_1_10
+    3300080: Body_1_11
+    3300082: Body_1_12
+    3300084: Body_1_13
+    3300086: Body_1_14
+    3300088: Body_1_15
+    3300090: Body_1_16
+    3300092: Body_1_17
+    3300094: Body_1_18
+    3300096: Body_1_19
+    3300098: Body_1_2
+    3300100: Body_1_20
+    3300102: Body_1_21
+    3300104: Body_1_22
+    3300106: Body_1_23
+    3300108: Body_1_24
+    3300110: Body_1_25
+    3300112: Body_1_26
+    3300114: Body_1_27
+    3300116: Body_1_28
+    3300118: Body_1_29
+    3300120: Body_1_3
+    3300122: Body_1_30
+    3300124: Body_1_31
+    3300126: Body_1_32
+    3300128: Body_1_33
+    3300130: Body_1_34
+    3300132: Body_1_35
+    3300134: Body_1_36
+    3300136: Body_1_37
+    3300138: Body_1_4
+    3300140: Body_1_5
+    3300142: Body_1_6
+    3300144: Body_1_7
+    3300146: Body_1_8
+    3300148: Body_1_9
+    3300150: Body_2
+    3300152: Body_22
+    3300154: Body_24
+    3300156: Body_26
+    3300158: Body_2_10
+    3300160: Body_2_11
+    3300162: Body_2_2
+    3300164: Body_2_3
+    3300166: Body_2_4
+    3300168: Body_2_5
+    3300170: Body_2_6
+    3300172: Body_2_7
+    3300174: Body_2_8
+    3300176: Body_2_9
+    3300178: Body_3_2
+    3300180: Body_3_3
+    3300182: Body_3_4
+    3300184: Body_3_5
+    3300186: Body_3_6
+    3300188: Body_3_7
+    3300190: Body_3_8
+    3300192: Body_3_9
+    3300194: Body_4.001
+    3300196: Body_4_2
+    3300198: Body_4_3
+    3300200: Body_4_4
+    3300202: Body_4_5
+    3300204: Body_4_6
+    3300206: Body_4_7
+    3300208: Body_4_8
+    3300210: Body_5_2
+    3300212: Body_5_3
+    3300214: Body_5_4
+    3300216: Body_5_5
+    3300218: Body_5_6
+    3300220: Body_6_2
+    3300222: Body_6_3
+    3300224: Body_6_4
+    3300226: Body_6_5
+    3300228: Body_6_6
+    3300230: Body_7_2
+    3300232: Body_7_3
+    3300234: Body_7_4
+    3300236: Body_7_5
+    3300238: Body_7_6
+    3300240: Body_7_7
+    3300242: Body_8_2
+    3300244: Body_9_2
+    4300000: Body_8_2
+    4300002: Body_7_7
+    4300004: Body_6_6
+    4300006: Body_4_8
+    4300008: Body_3_9
+    4300010: 3DGeom~5366
+    4300012: 3DGeom~5365
+    4300014: 3DGeom~5364
+    4300016: 3DGeom~5363
+    4300018: 3DGeom~5362
+    4300020: 3DGeom~5361
+    4300022: 3DGeom~5360
+    4300024: 3DGeom~5359
+    4300026: 3DGeom~5358
+    4300028: 3DGeom~5357
+    4300030: 3DGeom~5356
+    4300032: 3DGeom~5355
+    4300034: 3DGeom~5354
+    4300036: 3DGeom~5353
+    4300038: 3DGeom~5352
+    4300040: 3DGeom~5351
+    4300042: Body_1_37
+    4300044: Body_1_36
+    4300046: Body_2_11
+    4300048: Body_1_35
+    4300050: Body_2_10
+    4300052: Body_1_34
+    4300054: Body_1_33
+    4300056: Body_26
+    4300058: Body_24
+    4300060: Body_22
+    4300062: Body_18
+    4300064: Body_17
+    4300066: Body_15
+    4300068: Body_14
+    4300070: Body_13
+    4300072: Body_9_2
+    4300074: Body_7_6
+    4300076: Body_5_6
+    4300078: Body_4_7
+    4300080: Body_3_8
+    4300082: Body_2_9
+    4300084: Body_1_32
+    4300086: 3DGeom~4718
+    4300088: 3DGeom~4717
+    4300090: 3DGeom~4681
+    4300092: 3DGeom~4680
+    4300094: 3DGeom~4623
+    4300096: 3DGeom~4622
+    4300098: 3DGeom~4598
+    4300100: 3DGeom~4597
+    4300102: 3DGeom~4561
+    4300104: 3DGeom~4560
+    4300106: 3DGeom~4452
+    4300108: 3DGeom~4451
+    4300110: 3DGeom~4441
+    4300112: 3DGeom~4440
+    4300114: 3DGeom~4367
+    4300116: 3DGeom~4366
+    4300118: 3DGeom~4341
+    4300120: 3DGeom~4340
+    4300122: Body_1_31
+    4300124: Body_2_8
+    4300126: Body_1_30
+    4300128: Body_2_7
+    4300130: Body_1_29
+    4300132: Body_1_28
+    4300134: Body_1_27
+    4300136: Body_1_26
+    4300138: Body_1_25
+    4300140: Body_1_24
+    4300142: Body_7_5
+    4300144: Body_6_5
+    4300146: Body_5_5
+    4300148: Body_4_6
+    4300150: Body_3_7
+    4300152: Body_1_23
+    4300154: Body_1_22
+    4300156: Body_1_21
+    4300158: Body_1_20
+    4300160: Body_7_4
+    4300162: Body_6_4
+    4300164: Body_5_4
+    4300166: Body_4_5
+    4300168: Body_3_6
+    4300170: Body_1_19
+    4300172: Body_1_18
+    4300174: Body_1_17
+    4300176: Body_1_16
+    4300178: Body_7_3
+    4300180: Body_6_3
+    4300182: Body_5_3
+    4300184: Body_4_4
+    4300186: Body_3_5
+    4300188: Body_1_15
+    4300190: Body_1_14
+    4300192: Body_1_13
+    4300194: Body_1_12
+    4300196: Body_7_2
+    4300198: Body_6_2
+    4300200: Body_5_2
+    4300202: Body_4_3
+    4300204: Body_3_4
+    4300206: Body_1_11
+    4300208: Body_2_6
+    4300210: Body_1_10
+    4300212: Body_1_9
+    4300214: Body_1_8
+    4300216: Body_4_2
+    4300218: Body_3_3
+    4300220: Body_1_7
+    4300222: Body_1_6
+    4300224: Body_2_5
+    4300226: Body_1_5
+    4300228: Body_2_4
+    4300230: Body_1_4
+    4300232: Body_2_3
+    4300234: Body_1_3
+    4300236: Body_4.001
+    4300238: Body_3_2
+    4300240: Body_2_2
+    4300242: Body_1_2
+    4300244: Body_2
+    10800000: Lamp
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DefaultMaterial~1
+    second: {fileID: 2100000, guid: 3deade04ea238744cbfa0c3edfc7694a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl
+    second: {fileID: 2100000, guid: 915354591bb8ef1439cfb7233a9ecf34, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl10
+    second: {fileID: 2100000, guid: 4f6fd2ce80899e64ca47fc144b811950, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl11
+    second: {fileID: 2100000, guid: 80b202aba74dfae49a2f8f4328ff6bfd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl15
+    second: {fileID: 2100000, guid: b56b042885b0ecf47838978f3644654d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl17
+    second: {fileID: 2100000, guid: 3eb29e672d691684c9eafc4c341a4c34, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl19
+    second: {fileID: 2100000, guid: 54e03d5473ae6784884cd47549c5bd15, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl1a
+    second: {fileID: 2100000, guid: 51c4a3f4592e93d4283610d7a1fdda10, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl1b
+    second: {fileID: 2100000, guid: 7417827314c812e478983b0fe5d94ef3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl21
+    second: {fileID: 2100000, guid: abb171500a6d1734f8ecf263f5af894d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl24
+    second: {fileID: 2100000, guid: f19dfabd79fe58f40a8f2d0de4cb9466, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl26
+    second: {fileID: 2100000, guid: e59b21ab28b146b4187307020fb91c31, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl28
+    second: {fileID: 2100000, guid: c342e523c2c30304f9fe1077413c81a5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl2a
+    second: {fileID: 2100000, guid: 29cf3ee80c7f4ca4fbf3e5147b8d8a70, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl30
+    second: {fileID: 2100000, guid: 6f1f65392aea0ef42b36cdd57f53cc28, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl32
+    second: {fileID: 2100000, guid: c25f8e1a3025b8f46aee26da514bc2b3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl33
+    second: {fileID: 2100000, guid: 741d328251d97554e9e1f030a87c2908, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl34
+    second: {fileID: 2100000, guid: 68712c10e7d67204b88ab35cb2eef595, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl37
+    second: {fileID: 2100000, guid: a0c5af53f81660040a289f9bb62fcde5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl39
+    second: {fileID: 2100000, guid: 409f609c7058a6141b81d72edc897d74, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl3b
+    second: {fileID: 2100000, guid: 6fcf98ad165b0e349b1e4c1f0181fc4a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl40
+    second: {fileID: 2100000, guid: e11c24ef4c6ddd8448fcc93969a1416f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl42
+    second: {fileID: 2100000, guid: b251b306e0f5ef749a3b9863399a1e5e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl43
+    second: {fileID: 2100000, guid: c33eb629df2636344bd94843d65dab52, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl44
+    second: {fileID: 2100000, guid: 4b66768e2f1774441864bc754465fb2d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl45
+    second: {fileID: 2100000, guid: 0f2d609be32d7464f8f53dd7c419e236, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl47
+    second: {fileID: 2100000, guid: ba34dc279c8896248bed4fd6c8c979f8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl49
+    second: {fileID: 2100000, guid: e81ba0992bf933942bd7d1e85de2649c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl5
+    second: {fileID: 2100000, guid: d6ecbf88cfd4f0846b942b467900f728, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl58
+    second: {fileID: 2100000, guid: 10c80b85c612243499fb5f11026806cf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl59
+    second: {fileID: 2100000, guid: bdd8dd64e98e6de46a7751578ec9ec2b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl6
+    second: {fileID: 2100000, guid: e13757b04f19f134b9cbcc9eefb5d49a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl7
+    second: {fileID: 2100000, guid: 61c838da47a784e48bd0c008b0c84ffd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl8
+    second: {fileID: 2100000, guid: 0b46f4b33de7ced49b4aca330b316e43, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl9
+    second: {fileID: 2100000, guid: a6930aab90de2a3488394dbb704ec978, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtla
+    second: {fileID: 2100000, guid: 11b958b6663b86241bfa222e47c3834c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: texture
+    second: {fileID: 2100000, guid: 6096bc5cbf269504c9582bc3ca7b2e57, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: texture31
+    second: {fileID: 2100000, guid: 935ccd954952d6b4d9048adbff5a2949, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: texture46
+    second: {fileID: 2100000, guid: 64add0332d5582e418dcc8768559063d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: texture48
+    second: {fileID: 2100000, guid: 28977e9978bafba4a809b36d385ea3bf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: texture4a
+    second: {fileID: 2100000, guid: 2054c8b109d083645a5811ac0a64922a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: texture4b
+    second: {fileID: 2100000, guid: 2054c8b109d083645a5811ac0a64922a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: texture50
+    second: {fileID: 2100000, guid: 2054c8b109d083645a5811ac0a64922a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: texture51
+    second: {fileID: 2100000, guid: 2054c8b109d083645a5811ac0a64922a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: texture52
+    second: {fileID: 2100000, guid: 2054c8b109d083645a5811ac0a64922a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: texture53
+    second: {fileID: 2100000, guid: 2054c8b109d083645a5811ac0a64922a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: texture54
+    second: {fileID: 2100000, guid: 2054c8b109d083645a5811ac0a64922a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: texture55
+    second: {fileID: 2100000, guid: 2054c8b109d083645a5811ac0a64922a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: texture56
+    second: {fileID: 2100000, guid: 2054c8b109d083645a5811ac0a64922a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: texture57
+    second: {fileID: 2100000, guid: 2054c8b109d083645a5811ac0a64922a, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
