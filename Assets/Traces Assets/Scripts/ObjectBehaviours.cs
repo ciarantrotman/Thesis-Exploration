@@ -76,7 +76,7 @@ public class ObjectBehaviours : MonoBehaviour
     
     public void OnGrabEnd()
     {
-
+        
     }
     
     public void DrawLineRenderer()

@@ -7,8 +7,8 @@ using TMPro;
 
 public class IndirectManipulation : MonoBehaviour
 {
+    #region Variables
     public float LerpSpeed = .025f;
-    public float ZDepthAcceleration = .2f;
 
     private float _ctrlRat;
     
@@ -25,11 +25,10 @@ public class IndirectManipulation : MonoBehaviour
     private GameObject _ctrlRatMax;
     private GameObject _indRatMax;
     private GameObject _indActScaled;
+    private GameObject _objectText;
     
     private Vector3 _userPos;
     private Vector3 _displacment;
-    private Vector3 _indInitial;
-    private Vector3 _ctrlInitial;
     private Vector3 _zDepthAdjust;
     
     [HideInInspector]
@@ -40,7 +39,7 @@ public class IndirectManipulation : MonoBehaviour
     private LineRenderer _joinLine;
     
     private ObjectSelection _objectSelection;
-    
+    #endregion
 
     private void Start()
     {    
@@ -57,6 +56,7 @@ public class IndirectManipulation : MonoBehaviour
         _ctrlRatMax = GameObject.Find("CtrlRatMax");
         _indRatMax = GameObject.Find("IndRatMax");
         _indActScaled = GameObject.Find("IndActScaled");
+        _objectText = GameObject.Find("ActiveObjectText");
         
         _ctrlLine = _ctrlProx.GetComponent<LineRenderer>();
         _indLine = _indProx.GetComponent<LineRenderer>();
@@ -67,12 +67,14 @@ public class IndirectManipulation : MonoBehaviour
 
     private void Update()
     {
-        Invoke("DrawLineRenderers", 0);
-        Invoke("WriteTextMeshPro", 0);
         Invoke("FollowActiveProgram",0);
-        
         if (GraspState == true)
+        {
+            Invoke("DrawLineRenderers", 0);
+            Invoke("WriteTextMeshPro", 0);
             Invoke("GraspStay", 0);
+        }
+            
     }
 
     private void FollowActiveProgram()
@@ -101,18 +103,22 @@ public class IndirectManipulation : MonoBehaviour
         
         TextMeshPro indText = _indText.GetComponent<TextMeshPro>();
         indText.SetText("{0:2}", _indActScaled.transform.localPosition.z);
+        
+        TextMeshPro activeObject = _objectText.GetComponent<TextMeshPro>();
+        activeObject.text = (_objectSelection.LastActiveObject.transform.name);
     }
     
     public void GraspBegin()
-    {
-        _objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>().Invoke("OnGrabBegin",0);
+    {    
+        GameObject.Find("ThumbTip").GetComponent<FingerTriggerController>().Grab = true;
+        
+        if (_objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>() != null)
+            _objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>().Invoke("OnGrabBegin",0);
+        
         float userPosx = (_ctrlMidpointRef.transform.position.x + _ctrlProx.transform.position.x) / 2;
         float userPosy = (_ctrlMidpointRef.transform.position.y + _ctrlProx.transform.position.y) / 2;
         float userPosz = (_ctrlMidpointRef.transform.position.z + _ctrlProx.transform.position.z) / 2;
         _userPos = new Vector3(userPosx, userPosy, userPosz);
-
-        _ctrlInitial = (_ctrlProx.transform.position - _userPos);
-        _indInitial = (_indProx.transform.position - _userPos);
 
         _indRatMax.transform.localPosition = _indRefNorm.transform.localPosition;
         _indRatMax.transform.localRotation = _indRefNorm.transform.localRotation;
@@ -131,7 +137,10 @@ public class IndirectManipulation : MonoBehaviour
     
     public void GraspEnd()
     {
-        _objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>().Invoke("OnGrabEnd",0);
+        GameObject.Find("ThumbTip").GetComponent<FingerTriggerController>().Grab = false;
+        
+        if (_objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>() != null)
+            _objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>().Invoke("OnGrabEnd",0);
         GraspState = false;
         _indProx.transform.position = _indAct.transform.position;
         _ctrlProx.transform.position = _ctrlAct.transform.position;

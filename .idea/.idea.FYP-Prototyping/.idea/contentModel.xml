@@ -1081,6 +1081,7 @@
           <e p="Scripts" t="Include">
             <e p="CtrlRefFollow.cs" t="Include" />
             <e p="DepthRefProx.cs" t="Include" />
+            <e p="DirectionalMenu.cs" t="Include" />
             <e p="FingerTriggerController.cs" t="Include" />
             <e p="FollowLookAt.cs" t="Include" />
             <e p="FollowObject.cs" t="Include" />
@@ -1091,6 +1092,7 @@
             <e p="LineRendererVertexPosition.cs" t="Include" />
             <e p="NodeBehaviour.cs" t="Include" />
             <e p="ObjectBehaviours.cs" t="Include" />
+            <e p="ObjectQuickActions.cs" t="Include" />
             <e p="ObjectSelection.cs" t="Include" />
             <e p="Particle.cs" t="Include" />
             <e p="SceneReset.cs" t="Include" />
