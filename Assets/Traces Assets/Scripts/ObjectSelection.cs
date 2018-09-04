@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class ObjectSelection : MonoBehaviour
 {
+    public float DirectDistance = 1.0f;
+    
     public float MacroSelectionFov = 30f;
     public float MicroSelectionFov = 15f;
     private float _microSelectionFovRef;
@@ -40,7 +42,7 @@ public class ObjectSelection : MonoBehaviour
 
     private void Update()
     {
-       foreach (GameObject selectableObject in GlobalSelectableObjects)
+        foreach (GameObject selectableObject in GlobalSelectableObjects)
         {
             float microAngle = selectableObject.GetComponent<ObjectBehaviours>().MicroAngle;
             float macroAngle = selectableObject.GetComponent<ObjectBehaviours>().MacroAngle;
@@ -142,8 +144,6 @@ public class ObjectSelection : MonoBehaviour
     {
         SelectedObjects.Clear();
     }
-
-
     
     int SortByDeviation(GameObject obj1, GameObject obj2)
     {

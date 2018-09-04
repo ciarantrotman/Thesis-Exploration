@@ -7,6 +7,11 @@ using TMPro;
 
 public class IndirectManipulation : MonoBehaviour
 {
+    public float LerpSpeed = .025f;
+    public float ZDepthAcceleration = .2f;
+
+    private float _ctrlRat;
+    
     private GameObject _user;
     private GameObject _ctrlMidpointRef;
     private GameObject _ctrlProx;
@@ -15,9 +20,18 @@ public class IndirectManipulation : MonoBehaviour
     private GameObject _indProx;
     private GameObject _indAct;
     private GameObject _indText;
-
+    private GameObject _ctrlRefNorm;
+    private GameObject _indRefNorm;
+    private GameObject _ctrlRatMax;
+    private GameObject _indRatMax;
+    private GameObject _indActScaled;
+    
     private Vector3 _userPos;
-
+    private Vector3 _displacment;
+    private Vector3 _indInitial;
+    private Vector3 _ctrlInitial;
+    private Vector3 _zDepthAdjust;
+    
     [HideInInspector]
     public bool GraspState;
     
@@ -38,7 +52,12 @@ public class IndirectManipulation : MonoBehaviour
         _indProx = GameObject.Find("IndProx");
         _indAct = GameObject.Find("IndAct");
         _indText = GameObject.Find("IndText");
-
+        _ctrlRefNorm = GameObject.Find("CtrlRefNorm");
+        _indRefNorm = GameObject.Find("IndRefNorm");
+        _ctrlRatMax = GameObject.Find("CtrlRatMax");
+        _indRatMax = GameObject.Find("IndRatMax");
+        _indActScaled = GameObject.Find("IndActScaled");
+        
         _ctrlLine = _ctrlProx.GetComponent<LineRenderer>();
         _indLine = _indProx.GetComponent<LineRenderer>();
         _joinLine = transform.GetComponent<LineRenderer>();
@@ -52,41 +71,17 @@ public class IndirectManipulation : MonoBehaviour
         Invoke("WriteTextMeshPro", 0);
         Invoke("FollowActiveProgram",0);
         
-        /*
-        Vector3 ctrlDirection = _ctrlAct.transform.position - _ctrlProx.transform.position;
-        float ctrlDistance = ctrlDirection.magnitude;
-        
-        Vector3 indDirection = _indAct.transform.position - _indProx.transform.position;
-        float indDistance = indDirection.magnitude;
-        
-        float userDistance = Vector3.Distance(_indProx.transform.position, _user.transform.position);
-        float scaleFactor = Mathf.Pow(userDistance, 1.5f);
-
-        if (_graspState == true)
-            _indAct.transform.localPosition = (ctrlDirection*scaleFactor);
-        */
-
-        Vector3 ctrlDirection = _ctrlAct.transform.position - _userPos;
-        float ctrlDistance = ctrlDirection.magnitude;
-        
-        Vector3 indDirection = _indAct.transform.position - _userPos;
-        float indDistance = indDirection.magnitude;
-        
-        float ctrlDisplacement = Vector3.Magnitude(_ctrlAct.transform.position - _ctrlProx.transform.position);
-        float scaleFactor = 1;//(ctrlDisplacement);
-
         if (GraspState == true)
-        {
-            _indAct.transform.localPosition = (ctrlDirection * .5f);//scaleFactor);
             Invoke("GraspStay", 0);
-        }
-            
     }
 
     private void FollowActiveProgram()
     {
-        Vector3 activeProgamPos = _objectSelection.LastActiveObject.transform.position;
-        _indProx.transform.position = activeProgamPos;
+        if (GraspState == false && _objectSelection.LastActiveObject != null)
+        {
+            Vector3 activeProgamPos = _objectSelection.LastActiveObject.transform.position;
+            _indProx.transform.position = activeProgamPos;
+        }
     }
     
     private void DrawLineRenderers()
@@ -94,38 +89,50 @@ public class IndirectManipulation : MonoBehaviour
         _ctrlLine.SetPosition(0, _ctrlProx.transform.position);
         _ctrlLine.SetPosition(1, _ctrlAct.transform.position);
         _indLine.SetPosition(0, _indProx.transform.position);
-        _indLine.SetPosition(1, _indAct.transform.position);
-        _joinLine.SetPosition(0, _indAct.transform.position);
+        _indLine.SetPosition(1, _indActScaled.transform.position);
+        _joinLine.SetPosition(0, _indActScaled.transform.position);
         _joinLine.SetPosition(1, _ctrlAct.transform.position);
     }
 
     private void WriteTextMeshPro()
     {
         TextMeshPro ctrlText = _ctrlText.GetComponent<TextMeshPro>();
-        ctrlText.SetText("{0:1} : {1:1} : {2:1}", _ctrlAct.transform.localPosition.x, _ctrlAct.transform.localPosition.y, _ctrlAct.transform.localPosition.z);
+        ctrlText.SetText("{0:2}", _ctrlRat);
         
         TextMeshPro indText = _indText.GetComponent<TextMeshPro>();
-        indText.SetText("{0:1} : {1:1} : {2:1}", _indAct.transform.localPosition.x, _indAct.transform.localPosition.y, _indAct.transform.localPosition.z);
+        indText.SetText("{0:2}", _indActScaled.transform.localPosition.z);
     }
     
     public void GraspBegin()
     {
+        _objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>().Invoke("OnGrabBegin",0);
         float userPosx = (_ctrlMidpointRef.transform.position.x + _ctrlProx.transform.position.x) / 2;
         float userPosy = (_ctrlMidpointRef.transform.position.y + _ctrlProx.transform.position.y) / 2;
         float userPosz = (_ctrlMidpointRef.transform.position.z + _ctrlProx.transform.position.z) / 2;
         _userPos = new Vector3(userPosx, userPosy, userPosz);
+
+        _ctrlInitial = (_ctrlProx.transform.position - _userPos);
+        _indInitial = (_indProx.transform.position - _userPos);
+
+        _indRatMax.transform.localPosition = _indRefNorm.transform.localPosition;
+        _indRatMax.transform.localRotation = _indRefNorm.transform.localRotation;
+        _ctrlRatMax.transform.localPosition = _ctrlRefNorm.transform.localPosition;
+        _ctrlRatMax.transform.localRotation = _ctrlRefNorm.transform.localRotation;
+        
         GraspState = true;
     }
 
     public void GraspStay()
     {
-        
+        _objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>().Invoke("OnGrabStay",0);
+        _ctrlRat = _ctrlRefNorm.transform.localPosition.z / _ctrlRatMax.transform.localPosition.z;
+        _indActScaled.transform.localPosition = _indRefNorm.transform.localPosition * (_ctrlRat*_ctrlRat);
     }
     
     public void GraspEnd()
     {
+        _objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>().Invoke("OnGrabEnd",0);
         GraspState = false;
-        
         _indProx.transform.position = _indAct.transform.position;
         _ctrlProx.transform.position = _ctrlAct.transform.position;
         _indAct.transform.localPosition = new Vector3(0, 0, 0);

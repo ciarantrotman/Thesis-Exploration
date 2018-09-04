@@ -1080,9 +1080,16 @@
         <e p="Traces Assets" t="Include">
           <e p="Scripts" t="Include">
             <e p="CtrlRefFollow.cs" t="Include" />
+            <e p="DepthRefProx.cs" t="Include" />
             <e p="FingerTriggerController.cs" t="Include" />
+            <e p="FollowLookAt.cs" t="Include" />
+            <e p="FollowObject.cs" t="Include" />
+            <e p="FollowPosFollowRot.cs" t="Include" />
             <e p="GrabEventTrigger.cs" t="Include" />
+            <e p="IndDepthRefNormalised.cs" t="Include" />
             <e p="IndirectManipulation.cs" t="Include" />
+            <e p="LineRendererVertexPosition.cs" t="Include" />
+            <e p="NodeBehaviour.cs" t="Include" />
             <e p="ObjectBehaviours.cs" t="Include" />
             <e p="ObjectSelection.cs" t="Include" />
             <e p="Particle.cs" t="Include" />

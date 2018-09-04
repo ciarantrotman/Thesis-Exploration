@@ -8,7 +8,7 @@ public class ObjectBehaviours : MonoBehaviour
     private GameObject _self;
     private GameObject _user;
     private GameObject _microSelectionOrigin;
-    private GameObject _indAct;
+    private GameObject _lerpTarget;
     private ObjectSelection _objectSelection;
     private IndirectManipulation _indirectManipulation;
     private LineRenderer _lineRenderer;
@@ -22,26 +22,22 @@ public class ObjectBehaviours : MonoBehaviour
     public UnityEvent SelectEnd;
     public UnityEvent GrabBegin;
     public UnityEvent GrabEnd;
-
-    private const float LerpSpeed = 2.0f;
-    private float _lerpTime;
-    private float _journeyLength;
-    
+   
     private void Start()
     {
         _self = transform.gameObject;
         _user = GameObject.Find("HMD Camera");
         _microSelectionOrigin = GameObject.Find("MicroSelectionOrigin");
-        _indAct = GameObject.Find("IndAct");
+        _lerpTarget = GameObject.Find("IndActScaled");
         _objectSelection = _user.GetComponent<ObjectSelection>();
         _indirectManipulation = GameObject.Find("SceneController").GetComponent<IndirectManipulation>(); 
-        
-        if (_objectSelection.GlobalSelectableObjects.Contains(_self) == false)
-            _objectSelection.GlobalSelectableObjects.Add(_self);
     }
 
     private void Update()
     {
+        if (_objectSelection.GlobalSelectableObjects.Contains(_self) == false && Vector3.Magnitude(_self.transform.position - _user.transform.position) > _objectSelection.DirectDistance)
+            _objectSelection.GlobalSelectableObjects.Add(_self);
+        
         Vector3 microPosition = _self.transform.position - _microSelectionOrigin.transform.position;
         MicroAngle = Vector3.Angle(microPosition, _microSelectionOrigin.transform.forward);
         
@@ -54,13 +50,7 @@ public class ObjectBehaviours : MonoBehaviour
             _stateCounter = 0;
 
         if (_stateCounter == 1)
-            Invoke("OnSelectBegin", 0);
-
-        if (_indirectManipulation.GraspState == true && _objectSelection.LastActiveObject == _self)
-        {
-            Invoke("OnGrabStay", 0);
-        }
-        
+            Invoke("OnSelectBegin", 0);        
     }
 
     public void OnSelectBegin()
@@ -75,19 +65,18 @@ public class ObjectBehaviours : MonoBehaviour
 
     public void OnGrabBegin()
     {
-        
+        transform.GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
     }
 
     public void OnGrabStay()
     {
-        _lerpTime += Time.deltaTime;
-        _journeyLength = _lerpTime/LerpSpeed;
-        transform.position = Vector3.Lerp(transform.position, _indAct.transform.position, _journeyLength);
+        transform.position = Vector3.Lerp(transform.position, _lerpTarget.transform.position, _indirectManipulation.LerpSpeed);
+        transform.rotation = Quaternion.Lerp(transform.localRotation, _lerpTarget.transform.localRotation, _indirectManipulation.LerpSpeed);
     }
     
     public void OnGrabEnd()
     {
-        _lerpTime = 0;
+
     }
     
     public void DrawLineRenderer()
@@ -95,7 +84,6 @@ public class ObjectBehaviours : MonoBehaviour
         _lineRenderer = _self.transform.GetComponent<LineRenderer>();
         if (_lineRenderer == null)
             _lineRenderer = _self.AddComponent<LineRenderer>();
-        _lineRenderer.material = transform.GetComponent<Renderer>().material;
         _lineRenderer.useWorldSpace = true;
         _lineRenderer.SetWidth(0.0005f, 0.0005f);
         _lineRenderer.SetVertexCount(2);
