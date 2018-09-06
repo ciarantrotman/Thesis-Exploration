@@ -2,24 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NodeBehaviour : MonoBehaviour 
+public class NodeBehaviour : MonoBehaviour
 {
-	private LineRenderer _lineRenderer;
+    private DirectionalMenu _dirMenu;
+    [HideInInspector]
+    public float CtrlNodeDistance;
 
-	private GameObject _controlNode;
+    public enum Node{UpRight, Up, UpLeft, DownLeft, Forward, Back}
+    public Node node;
+    
+    private void Start()
+    {
+        _dirMenu = GameObject.Find("DirectionalMenu").GetComponent<DirectionalMenu>();
+    }
 
-	private void Start()
-	{
-		_lineRenderer = transform.GetComponent<LineRenderer>();
-		_controlNode = GameObject.Find("ControlNode");
-	}
+    private void Update()
+    {
+        if (_dirMenu.MenuNodes.Contains(transform.gameObject) == false)
+            _dirMenu.MenuNodes.Add(transform.gameObject);
+    }
 
-	void Update () 
-	{
-		_lineRenderer.useWorldSpace = true;
-		_lineRenderer.SetWidth(0.0015f, 0.0015f);
-		_lineRenderer.SetVertexCount(2);
-		_lineRenderer.SetPosition(0, transform.position);
-		_lineRenderer.SetPosition(1, _controlNode.transform.position);
-	}
+    public void NodeTriggered()
+    {
+        GameObject.Find("HMD Camera").GetComponent<ObjectSelection>().LastActiveObject.GetComponent<ObjectQuickActions>().Invoke(node.ToString(), 0);
+    }
 }

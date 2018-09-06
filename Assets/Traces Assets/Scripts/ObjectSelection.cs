@@ -38,10 +38,14 @@ public class ObjectSelection : MonoBehaviour
     {
         MicroSelectionOrigin = GameObject.Find("MicroSelectionOrigin");
         _self = transform.gameObject;
+        LastActiveObject = null;
     }
 
     private void Update()
     {
+        if (LastActiveObject != null)
+            Debug.Log(LastActiveObject.transform.name);
+        
         foreach (GameObject selectableObject in GlobalSelectableObjects)
         {
             float microAngle = selectableObject.GetComponent<ObjectBehaviours>().MicroAngle;
@@ -89,15 +93,7 @@ public class ObjectSelection : MonoBehaviour
         ActiveObject = SelectedObjects.Count > 0 ? SelectedObjects[0].gameObject : null;
         LastActiveObject = ActiveObject == null ? LastActiveObject : ActiveObject;
         
-        _lineRenderer = transform.GetComponent<LineRenderer>();
-        if (_lineRenderer == null)
-            _lineRenderer = _self.AddComponent<LineRenderer>();
-        _lineRenderer.material = LineRendererMaterial;
-        _lineRenderer.useWorldSpace = true;
-        _lineRenderer.SetWidth(0.0015f, 0.0015f);
-        _lineRenderer.SetVertexCount(2);
-        _lineRenderer.SetPosition(0, MicroSelectionOrigin.transform.position);
-        _lineRenderer.SetPosition(1, ActiveObject != null ? ActiveObject.transform.position : MicroSelectionOrigin.transform.position);
+        Invoke("DrawLineRenderer", 0);
     }
 
     #region Selection Events
@@ -106,40 +102,55 @@ public class ObjectSelection : MonoBehaviour
     {
         
     }
-    
     public void OnMacroSelectEnd()
     {
         
     }
-    
     public void OnMicroSelectBegin()
     {
         
     }
-    
     public void OnMicroSelectEnd()
     {
 
     }
-    
     public void OnGrabBegin()
     {
         _microSelectionFovRef = MicroSelectionFov;
         MicroSelectionFov = 0;
     }
-
     public void OnGrabStay()
     {
         
     }
-    
     public void OnGrabEnd()
     {
         MicroSelectionFov = _microSelectionFovRef;
     }
 
     #endregion
-   
+
+    private void DrawLineRenderer()
+    {
+        if (LastActiveObject == null) return;
+        
+        var midPointx = (LastActiveObject.transform.position.x - MicroSelectionOrigin.transform.position.x) / 2;
+        var midPointy = (LastActiveObject.transform.position.y - MicroSelectionOrigin.transform.position.y) / 2;
+        var midPointz = (LastActiveObject.transform.position.z - MicroSelectionOrigin.transform.position.z) / 2;
+        var midPoint = new Vector3(midPointx, midPointy, midPointz);
+        
+        _lineRenderer = transform.GetComponent<LineRenderer>();
+        if (_lineRenderer == null)
+            _lineRenderer = _self.AddComponent<LineRenderer>();
+        _lineRenderer.material = LineRendererMaterial;
+        _lineRenderer.useWorldSpace = true;
+        _lineRenderer.SetWidth(0.0015f, 0.0015f);
+        _lineRenderer.SetVertexCount(2);
+        _lineRenderer.SetPosition(0, MicroSelectionOrigin.transform.position);
+        //_lineRenderer.SetPosition(1, midPoint);
+        _lineRenderer.SetPosition(1, ActiveObject != null ? ActiveObject.transform.position : MicroSelectionOrigin.transform.position);
+    }
+    
     public void ActiveProgramClear()
     {
         SelectedObjects.Clear();

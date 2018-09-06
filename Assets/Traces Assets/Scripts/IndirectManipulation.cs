@@ -67,23 +67,22 @@ public class IndirectManipulation : MonoBehaviour
 
     private void Update()
     {
+        if (_objectSelection.LastActiveObject == null) return;
         Invoke("FollowActiveProgram",0);
-        if (GraspState == true)
-        {
-            Invoke("DrawLineRenderers", 0);
-            Invoke("WriteTextMeshPro", 0);
-            Invoke("GraspStay", 0);
-        }
-            
+        
+        if (GraspState != true) return;
+        Invoke("DrawLineRenderers", 0);
+        Invoke("WriteTextMeshPro", 0);
+        Invoke("GraspStay", 0);
+
     }
 
     private void FollowActiveProgram()
     {
-        if (GraspState == false && _objectSelection.LastActiveObject != null)
-        {
-            Vector3 activeProgamPos = _objectSelection.LastActiveObject.transform.position;
-            _indProx.transform.position = activeProgamPos;
-        }
+        if (GraspState != false || _objectSelection.LastActiveObject == null) return;
+        
+        var activeProgamPos = _objectSelection.LastActiveObject.transform.position;
+        _indProx.transform.position = activeProgamPos;
     }
     
     private void DrawLineRenderers()
@@ -98,26 +97,32 @@ public class IndirectManipulation : MonoBehaviour
 
     private void WriteTextMeshPro()
     {
-        TextMeshPro ctrlText = _ctrlText.GetComponent<TextMeshPro>();
+        var ctrlText = _ctrlText.GetComponent<TextMeshPro>();
         ctrlText.SetText("{0:2}", _ctrlRat);
         
-        TextMeshPro indText = _indText.GetComponent<TextMeshPro>();
+        var indText = _indText.GetComponent<TextMeshPro>();
         indText.SetText("{0:2}", _indActScaled.transform.localPosition.z);
         
-        TextMeshPro activeObject = _objectText.GetComponent<TextMeshPro>();
+        var activeObject = _objectText.GetComponent<TextMeshPro>();
         activeObject.text = (_objectSelection.LastActiveObject.transform.name);
     }
     
     public void GraspBegin()
-    {    
+    {   
+        if (_objectSelection.LastActiveObject == null) return;
+
+        _ctrlLine.enabled = true;
+        _indLine.enabled = true;
+        _joinLine.enabled = true;
+        
         GameObject.Find("ThumbTip").GetComponent<FingerTriggerController>().Grab = true;
         
         if (_objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>() != null)
             _objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>().Invoke("OnGrabBegin",0);
         
-        float userPosx = (_ctrlMidpointRef.transform.position.x + _ctrlProx.transform.position.x) / 2;
-        float userPosy = (_ctrlMidpointRef.transform.position.y + _ctrlProx.transform.position.y) / 2;
-        float userPosz = (_ctrlMidpointRef.transform.position.z + _ctrlProx.transform.position.z) / 2;
+        var userPosx = (_ctrlMidpointRef.transform.position.x + _ctrlProx.transform.position.x) / 2;
+        var userPosy = (_ctrlMidpointRef.transform.position.y + _ctrlProx.transform.position.y) / 2;
+        var userPosz = (_ctrlMidpointRef.transform.position.z + _ctrlProx.transform.position.z) / 2;
         _userPos = new Vector3(userPosx, userPosy, userPosz);
 
         _indRatMax.transform.localPosition = _indRefNorm.transform.localPosition;
@@ -130,6 +135,8 @@ public class IndirectManipulation : MonoBehaviour
 
     public void GraspStay()
     {
+        if (_objectSelection.LastActiveObject == null) return;
+        
         _objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>().Invoke("OnGrabStay",0);
         _ctrlRat = _ctrlRefNorm.transform.localPosition.z / _ctrlRatMax.transform.localPosition.z;
         _indActScaled.transform.localPosition = _indRefNorm.transform.localPosition * (_ctrlRat*_ctrlRat);
@@ -137,6 +144,12 @@ public class IndirectManipulation : MonoBehaviour
     
     public void GraspEnd()
     {
+        if (_objectSelection.LastActiveObject == null) return;
+        
+        _ctrlLine.enabled = false;
+        _indLine.enabled = false;
+        _joinLine.enabled = false;
+        
         GameObject.Find("ThumbTip").GetComponent<FingerTriggerController>().Grab = false;
         
         if (_objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>() != null)

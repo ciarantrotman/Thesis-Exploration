@@ -15,7 +15,9 @@ public class ObjectBehaviours : MonoBehaviour
 
     private int _stateCounter;
     
+    [HideInInspector]
     public float MacroAngle;
+    [HideInInspector]
     public float MicroAngle;
 
     public UnityEvent SelectBegin;
@@ -31,10 +33,14 @@ public class ObjectBehaviours : MonoBehaviour
         _lerpTarget = GameObject.Find("IndActScaled");
         _objectSelection = _user.GetComponent<ObjectSelection>();
         _indirectManipulation = GameObject.Find("SceneController").GetComponent<IndirectManipulation>(); 
+        
+        if (_objectSelection.GlobalSelectableObjects.Contains(_self) == false) _objectSelection.GlobalSelectableObjects.Add(_self);
     }
 
     private void Update()
     {
+        if (_objectSelection.GlobalSelectableObjects.Contains(_self) == true && Vector3.Magnitude(_self.transform.position - _user.transform.position) < _objectSelection.DirectDistance)
+            _objectSelection.GlobalSelectableObjects.Remove(_self);
         if (_objectSelection.GlobalSelectableObjects.Contains(_self) == false && Vector3.Magnitude(_self.transform.position - _user.transform.position) > _objectSelection.DirectDistance)
             _objectSelection.GlobalSelectableObjects.Add(_self);
         

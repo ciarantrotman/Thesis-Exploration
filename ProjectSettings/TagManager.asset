@@ -21,6 +21,10 @@ TagManager:
   - GravityParticle
   - SelectableObject
   - _selectionHand
+  - DirMenNode
+  - MenuSummon
+  - RightHand
+  - LeftHand
   layers:
   - Default
   - TransparentFX
