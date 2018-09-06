@@ -6,6 +6,16 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="Ciconia Studio" t="Include">
+          <e p="Shaders" t="Include">
+            <e p="Double Sided Shaders" t="Include">
+              <e p="Double Sided Emissive Diffuse.shader" t="Include" />
+              <e p="Double Sided Standard Diffuse Bump.shader" t="Include" />
+              <e p="Double Sided Transparent Diffuse Bump Cutout.shader" t="Include" />
+              <e p="Double Sided Transparent Diffuse Bump.shader" t="Include" />
+            </e>
+          </e>
+        </e>
         <e p="Editor" t="Include">
           <e p="IndirectGrabEditor.cs" t="Include" />
           <e p="ObjectMassEditor.cs" t="Include" />
@@ -1080,6 +1090,7 @@
         <e p="Traces Assets" t="Include">
           <e p="Scripts" t="Include">
             <e p="ActiveObjectFollow.cs" t="Include" />
+            <e p="AnimateCircle.cs" t="Include" />
             <e p="CtrlRefFollow.cs" t="Include" />
             <e p="DepthRefProx.cs" t="Include" />
             <e p="DirectionalMenu.cs" t="Include" />
@@ -1090,7 +1101,9 @@
             <e p="GrabEventTrigger.cs" t="Include" />
             <e p="IndDepthRefNormalised.cs" t="Include" />
             <e p="IndirectManipulation.cs" t="Include" />
+            <e p="LineRendererCurved.cs" t="Include" />
             <e p="LineRendererVertexPosition.cs" t="Include" />
+            <e p="LookAtTrigger.cs" t="Include" />
             <e p="NodeBehaviour.cs" t="Include" />
             <e p="ObjectBehaviours.cs" t="Include" />
             <e p="ObjectQuickActions.cs" t="Include" />

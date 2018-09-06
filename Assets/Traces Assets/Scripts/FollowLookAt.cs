@@ -9,15 +9,22 @@ public class FollowLookAt : MonoBehaviour
 	public GameObject TargetObject;
 	public GameObject TargetLookAt;
 	public Color DebugLineColor;
-	
-	void Update ()
+
+	private void Update ()
 	{
-		transform.position = TargetObject.transform.position;
-		if (LookAway == true)
-			transform.LookAwayFrom(TargetLookAt.transform);
-		else if (LookAway == false)
-			transform.LookAt(TargetLookAt.transform);
-		
-		Debug.DrawLine(TargetObject.transform.position, TargetLookAt.transform.position, DebugLineColor);
+		Debug.DrawLine(transform.position, TargetLookAt.transform.position, DebugLineColor);
+		switch (LookAway)
+		{
+			case true:
+				transform.LookAwayFrom(TargetLookAt.transform);
+				break;
+			case false:
+				transform.LookAt(TargetLookAt.transform);
+				break;
+			default:
+				break;
+		}
+		if (TargetObject == null) return;
+			transform.position = TargetObject.transform.position;
 	}
 }

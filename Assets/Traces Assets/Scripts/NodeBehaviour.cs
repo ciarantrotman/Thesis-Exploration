@@ -24,6 +24,7 @@ public class NodeBehaviour : MonoBehaviour
 
     public void NodeTriggered()
     {
-        GameObject.Find("HMD Camera").GetComponent<ObjectSelection>().LastActiveObject.GetComponent<ObjectQuickActions>().Invoke(node.ToString(), 0);
+        if (GameObject.Find("HMD Camera").GetComponent<ObjectSelection>().LastActiveObject == null) return;
+            GameObject.Find("HMD Camera").GetComponent<ObjectSelection>().LastActiveObject.GetComponent<ObjectQuickActions>().Invoke(node.ToString(), 0);
     }
 }

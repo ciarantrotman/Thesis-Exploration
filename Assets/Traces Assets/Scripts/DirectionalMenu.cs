@@ -7,6 +7,7 @@ public class DirectionalMenu : MonoBehaviour
 {
     private GameObject _ctrlNode;
     private GameObject _selectedNode;
+    private GameObject _thumbTip;
     [HideInInspector]
     public List<GameObject> MenuNodes;
     private float _ctrlDistance;
@@ -23,7 +24,8 @@ public class DirectionalMenu : MonoBehaviour
 
     private void Update()
     {
-        Invoke(GameObject.FindGameObjectWithTag("MenuSummon").GetComponent<FingerTriggerController>().Touching == true ? "MenuActive" : "MenuSummonEnd", 0);
+        _thumbTip = GameObject.FindGameObjectWithTag("MenuSummon");
+        Invoke(_thumbTip.GetComponent<FingerTriggerController>().Touching == true ? "MenuActive" : "MenuSummonEnd", 0);
     }
 
     public void MenuSummonBegin()
@@ -39,10 +41,12 @@ public class DirectionalMenu : MonoBehaviour
         if (_menuActive == false) return;
         _graspEndSwitch = 0;
         
-        GameObject.Find("ThumbTip").GetComponent<FingerTriggerController>().HoldTimerUi.GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(0, 0);
+        //GameObject.Find("ThumbTip").GetComponent<FingerTriggerController>().HoldTimerUi.GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(0, 0);
+
+        _thumbTip.GetComponent<FingerTriggerController>().HoldTimerUi.GetComponent<LineRendererCurved>().EndAngle = 0;
         
         _ctrlDistance = Vector3.Magnitude(transform.position - GameObject.Find("DirMenuSummon").transform.position);
-        foreach (GameObject menuNode in MenuNodes)
+        foreach (var menuNode in MenuNodes)
         {
             menuNode.GetComponent<NodeBehaviour>().CtrlNodeDistance = Vector3.Magnitude(_ctrlNode.transform.position - menuNode.transform.position);
         }

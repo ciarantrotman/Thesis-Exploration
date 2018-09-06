@@ -16,6 +16,8 @@ public class FingerTriggerController : MonoBehaviour
 	private int _gestureTouchCount = 1;
 	[HideInInspector]
 	public bool Touching;
+	private bool _switch;
+	private float _currentTime;
 	private bool _holdTriggered;
 	[HideInInspector]
 	public bool Grab;
@@ -52,16 +54,17 @@ public class FingerTriggerController : MonoBehaviour
 	private void Start()
 	{
 		if (HoldTimerUi == null) return;
-		_holdTimerUi = HoldTimerUi.GetComponent<SkinnedMeshRenderer>();
+		//_holdTimerUi = HoldTimerUi.GetComponent<SkinnedMeshRenderer>();
 	}
 
 	private void Update()
 	{
-		if (Grab == true || hand.ToString() != _lastCollider.tag.ToString()) return;
+		if (Grab == true) return;
+		if (_lastCollider != null && hand.ToString() != _lastCollider.tag.ToString()) return;
 		
-		TextMeshPro debugTextTop = GameObject.Find("ActiveObjectTextTop").GetComponent<TextMeshPro>();
+		var debugTextTop = GameObject.Find("ActiveObjectTextTop").GetComponent<TextMeshPro>();
 		debugTextTop.SetText("Count: {0}", _gestureTouchCount);
-		TextMeshPro debugTextBottom = GameObject.Find("ActiveObjectTextBottom").GetComponent<TextMeshPro>();
+		var debugTextBottom = GameObject.Find("ActiveObjectTextBottom").GetComponent<TextMeshPro>();
 		debugTextBottom.SetText("{0:2}", _gestureTimer);
 		
 		if (_gestureTimer > HoldTimeout && Touching == true && _holdTriggered == false)
@@ -109,14 +112,8 @@ public class FingerTriggerController : MonoBehaviour
 		}
 
 		if (Touching == true && HoldTimerUi != null)
-		{
-			HoldTimerUi.SetActive(true);
-			HoldTimerUi.transform.position = _lastCollider.transform.position;
-			HoldTimerUi.transform.rotation = _lastCollider.transform.rotation;
-			_holdPercent = _gestureTimer / HoldTimeout;
-			_holdTimerUi.SetBlendShapeWeight(0, _holdPercent * 100);
-		}
-		
+			Invoke("HoldVisual",0);
+			
 		if (Touching == false && HoldTimerUi != null)
 			HoldTimerUi.SetActive(false);
 		
@@ -129,6 +126,9 @@ public class FingerTriggerController : MonoBehaviour
 		
 		if (thumbCollision.collider == _lastCollider && _gestureTimer < GestureTimeout)
 			_gestureTouchCount++;
+
+		_switch = true;
+		_currentTime = 0f;
 		
 		switch (thumbCollision.gameObject.name)
 		{
@@ -166,7 +166,12 @@ public class FingerTriggerController : MonoBehaviour
 		if (Grab == true || hand.ToString() != thumbCollision.collider.gameObject.tag.ToString()) return;
 		
 		_holdTriggered = false;
-		_holdTimerUi.SetBlendShapeWeight(0, 0);
+		
+		if (HoldTimerUi != null && _switch == false)
+			HoldTimerUi.GetComponent<LineRendererCurved>().EndAngle = 0;
+		
+		//_holdTimerUi.SetBlendShapeWeight(0, 0);
+		
 		switch (thumbCollision.gameObject.name)
 		{
 			case "IndexTip":
@@ -186,6 +191,26 @@ public class FingerTriggerController : MonoBehaviour
 		}
 	}
 
+	public void HoldVisual()
+	{
+		HoldTimerUi.SetActive(true);
+		HoldTimerUi.transform.position = _lastCollider.transform.position;
+		HoldTimerUi.transform.rotation = _lastCollider.transform.rotation;
+		if (_switch == false) return; 
+		if (_currentTime <= .4f && Touching == true)
+		{
+			_currentTime += Time.deltaTime;
+			HoldTimerUi.GetComponent<LineRendererCurved>().EndAngle = Mathf.Lerp(90f, 360f, _currentTime/.4f);
+		}
+		else
+		{	
+			_currentTime = 0f;
+			_switch = false;
+		}
+		//_holdPercent = _gestureTimer / HoldTimeout;
+		//_holdTimerUi.SetBlendShapeWeight(0, _holdPercent * 100);
+	}
+	
 	public void OnGraspBegin()
 	{
 		Grab = true;
