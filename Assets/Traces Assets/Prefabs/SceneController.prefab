@@ -62,6 +62,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1529808895120446
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4620112059442684}
+  - component: {fileID: 114065912668017494}
+  - component: {fileID: 114863808470033936}
+  - component: {fileID: 114817930440587972}
+  m_Layer: 0
+  m_Name: Voice Assistant
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1639435763278422
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,6 +198,19 @@ Transform:
   m_Father: {fileID: 4856284408477184}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4620112059442684
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1529808895120446}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4856284408477184}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4638437587922472
 Transform:
   m_ObjectHideFlags: 1
@@ -221,6 +252,7 @@ Transform:
   - {fileID: 4109079603416270}
   - {fileID: 4217143030980702}
   - {fileID: 4568236534194160}
+  - {fileID: 4620112059442684}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -265,6 +297,24 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1939367280921292}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114065912668017494
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1529808895120446}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c5299c1c838a8c44b49ecc9254704e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _serviceUrl: https://stream.watsonplatform.net/speech-to-text/api
+  ResultsField: {fileID: 0}
+  _username: 73765394-1379-4dcd-b4e3-51f27af6fc32
+  _password: QnAkbSdYxusS
+  _iamApikey: 
+  _iamUrl: 
+  DefaultText: Voice Assistant Active
 --- !u!114 &114081165974191184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -406,6 +456,34 @@ MonoBehaviour:
   _lockXRotation: 0
   _lockYRotation: 0
   _lockZRotation: 0
+--- !u!114 &114817930440587972
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1529808895120446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea25d431d0f848f44a2b2a40c4ce9dfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _serviceUrl: https://stream.watsonplatform.net/speech-to-text/api
+  ResultsField: {fileID: 0}
+  _username: 73765394-1379-4dcd-b4e3-51f27af6fc32
+  _password: QnAkbSdYxusS
+  _iamApikey: 
+  _iamUrl: 
+--- !u!114 &114863808470033936
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1529808895120446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd7133fdeccec6e47a4ce8ee2e6f328c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!120 &120375525997032094
 LineRenderer:
   m_ObjectHideFlags: 1

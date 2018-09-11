@@ -77,7 +77,7 @@ public class ObjectBehaviours : MonoBehaviour
     public void OnGrabStay()
     {
         transform.position = Vector3.Lerp(transform.position, _lerpTarget.transform.position, _indirectManipulation.LerpSpeed);
-        transform.rotation = Quaternion.Lerp(transform.localRotation, _lerpTarget.transform.localRotation, _indirectManipulation.LerpSpeed);
+        //transform.rotation = Quaternion.Lerp(transform.localRotation, _lerpTarget.transform.localRotation, _indirectManipulation.LerpSpeed);
     }
     
     public void OnGrabEnd()

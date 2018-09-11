@@ -25,6 +25,8 @@ TagManager:
   - MenuSummon
   - RightHand
   - LeftHand
+  - RightHandFingerController
+  - LeftHandFingerController
   layers:
   - Default
   - TransparentFX

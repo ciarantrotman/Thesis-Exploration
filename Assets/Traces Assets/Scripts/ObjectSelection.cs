@@ -43,13 +43,10 @@ public class ObjectSelection : MonoBehaviour
 
     private void Update()
     {
-        if (LastActiveObject != null)
-            Debug.Log(LastActiveObject.transform.name);
-        
-        foreach (GameObject selectableObject in GlobalSelectableObjects)
+        foreach (var selectableObject in GlobalSelectableObjects)
         {
-            float microAngle = selectableObject.GetComponent<ObjectBehaviours>().MicroAngle;
-            float macroAngle = selectableObject.GetComponent<ObjectBehaviours>().MacroAngle;
+            var microAngle = selectableObject.GetComponent<ObjectBehaviours>().MicroAngle;
+            var macroAngle = selectableObject.GetComponent<ObjectBehaviours>().MacroAngle;
 
             if (macroAngle < MacroSelectionFov / 2 && SelectableObjects.Contains(selectableObject) == false)
             {
@@ -78,12 +75,12 @@ public class ObjectSelection : MonoBehaviour
                
         }
         
-        foreach (GameObject selectableObject in SelectableObjects)
+        foreach (var selectableObject in SelectableObjects)
         {
             Debug.DrawLine(transform.position, selectableObject.transform.position, Color.cyan);
         }
         
-        foreach (GameObject activeObject in SelectedObjects)
+        foreach (var activeObject in SelectedObjects)
         {
             Debug.DrawLine(activeObject.transform.position, MicroSelectionOrigin.transform.position, Color.blue);
         }

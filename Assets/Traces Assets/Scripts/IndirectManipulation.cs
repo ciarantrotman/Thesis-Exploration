@@ -115,8 +115,6 @@ public class IndirectManipulation : MonoBehaviour
         _indLine.enabled = true;
         _joinLine.enabled = true;
         
-        GameObject.Find("ThumbTip").GetComponent<FingerTriggerController>().Grab = true;
-        
         if (_objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>() != null)
             _objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>().Invoke("OnGrabBegin",0);
         
@@ -149,8 +147,6 @@ public class IndirectManipulation : MonoBehaviour
         _ctrlLine.enabled = false;
         _indLine.enabled = false;
         _joinLine.enabled = false;
-        
-        GameObject.Find("ThumbTip").GetComponent<FingerTriggerController>().Grab = false;
         
         if (_objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>() != null)
             _objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>().Invoke("OnGrabEnd",0);

@@ -12,6 +12,8 @@ public class SummonBehaviour : MonoBehaviour
 	private Vector3 _unsumOrigPos;
 	private Quaternion _sumOrigRot;
 	private Quaternion _unsumOrigRot;
+
+	private Vector3 _sumToPos;
 	
 	private void Update()
 	{
@@ -20,7 +22,7 @@ public class SummonBehaviour : MonoBehaviour
 			if (_currentTime <= TimeToMove)
 			{
 				_currentTime += Time.deltaTime;
-				transform.position = Vector3.Lerp(_sumOrigPos, GameObject.Find("SummonPosition").transform.position, _currentTime / TimeToMove);
+				transform.position = Vector3.Lerp(_sumOrigPos, _sumToPos, _currentTime / TimeToMove);
 				transform.rotation = Quaternion.Lerp(_sumOrigRot, GameObject.Find("SummonPosition").transform.rotation, TimeToMove);
 			}
 			else
@@ -55,6 +57,7 @@ public class SummonBehaviour : MonoBehaviour
 		_summon = true;
 		_sumOrigPos = transform.position;
 		_sumOrigRot = transform.rotation;
+		_sumToPos = GameObject.Find("SummonPosition").transform.position;
 	}
 
 	public void Unsummon()

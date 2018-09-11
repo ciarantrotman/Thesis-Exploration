@@ -24,7 +24,7 @@ public class DirectionalMenu : MonoBehaviour
 
     private void Update()
     {
-        _thumbTip = GameObject.FindGameObjectWithTag("MenuSummon");
+        _thumbTip = GameObject.FindGameObjectWithTag("RightHandFingerController");
         Invoke(_thumbTip.GetComponent<FingerTriggerController>().Touching == true ? "MenuActive" : "MenuSummonEnd", 0);
     }
 

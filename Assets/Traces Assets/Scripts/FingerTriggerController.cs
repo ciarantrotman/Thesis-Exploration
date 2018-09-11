@@ -19,7 +19,7 @@ public class FingerTriggerController : MonoBehaviour
 	private bool _switch;
 	private float _currentTime;
 	private bool _holdTriggered;
-	[HideInInspector]
+	//[HideInInspector]
 	public bool Grab;
 	private Collider _lastCollider;
 	private SkinnedMeshRenderer _holdTimerUi;
