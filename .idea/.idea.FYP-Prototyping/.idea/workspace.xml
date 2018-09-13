@@ -4,18 +4,10 @@
     <list default="true" id="4d7fb725-81e2-44ee-ade9-49c51acedffb" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FYP-Prototyping/.idea/contentModel.xml" afterPath="$PROJECT_DIR$/.idea/.idea.FYP-Prototyping/.idea/contentModel.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FYP-Prototyping/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/.idea.FYP-Prototyping/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/Assets/New Terrain.asset" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/Assets/New Terrain.asset.meta" afterPath="" />
       <change beforePath="$PROJECT_DIR$/Assets/Ora Assets/01 Test Assets/01 Test Scenes/Indirect Manipulation Tweaking.unity" afterPath="$PROJECT_DIR$/Assets/Ora Assets/01 Test Assets/01 Test Scenes/Indirect Manipulation Tweaking.unity" />
-      <change beforePath="$PROJECT_DIR$/Assets/Traces Assets/Materials/GIF.asset" afterPath="$PROJECT_DIR$/Assets/Traces Assets/Materials/GIF.asset" />
-      <change beforePath="$PROJECT_DIR$/Assets/Traces Assets/Prefabs/IndirectManipulation.prefab" afterPath="$PROJECT_DIR$/Assets/Traces Assets/Prefabs/IndirectManipulation.prefab" />
       <change beforePath="$PROJECT_DIR$/Assets/Traces Assets/Prefabs/Leap Motion Rig.prefab" afterPath="$PROJECT_DIR$/Assets/Traces Assets/Prefabs/Leap Motion Rig.prefab" />
-      <change beforePath="$PROJECT_DIR$/Assets/Traces Assets/Prefabs/SceneController.prefab" afterPath="$PROJECT_DIR$/Assets/Traces Assets/Prefabs/SceneController.prefab" />
-      <change beforePath="$PROJECT_DIR$/Assets/Traces Assets/Scripts/DirectionalMenu.cs" afterPath="$PROJECT_DIR$/Assets/Traces Assets/Scripts/DirectionalMenu.cs" />
-      <change beforePath="$PROJECT_DIR$/Assets/Traces Assets/Scripts/FingerTriggerController.cs" afterPath="$PROJECT_DIR$/Assets/Traces Assets/Scripts/FingerTriggerController.cs" />
-      <change beforePath="$PROJECT_DIR$/Assets/Traces Assets/Scripts/IndirectManipulation.cs" afterPath="$PROJECT_DIR$/Assets/Traces Assets/Scripts/IndirectManipulation.cs" />
-      <change beforePath="$PROJECT_DIR$/Assets/Traces Assets/Scripts/ObjectBehaviours.cs" afterPath="$PROJECT_DIR$/Assets/Traces Assets/Scripts/ObjectBehaviours.cs" />
-      <change beforePath="$PROJECT_DIR$/Assets/Traces Assets/Scripts/ObjectSelection.cs" afterPath="$PROJECT_DIR$/Assets/Traces Assets/Scripts/ObjectSelection.cs" />
-      <change beforePath="$PROJECT_DIR$/Assets/Traces Assets/Scripts/SummonBehaviour.cs" afterPath="$PROJECT_DIR$/Assets/Traces Assets/Scripts/SummonBehaviour.cs" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -70,63 +62,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VoiceAssistantCommands.cs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/VoiceAssistantCommands.cs">
+      <file leaf-file-name="DynamicMesh.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/DynamicMesh.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="16" column="1" lean-forward="false" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+            <state relative-caret-position="375">
+              <caret line="25" column="52" lean-forward="false" selection-start-line="25" selection-start-column="52" selection-end-line="25" selection-end-column="52" />
               <folding>
-                <marker date="1536524082434" expanded="false" signature="6:155" ph="..." />
-                <marker date="1536524082434" expanded="true" signature="208:407" ph="{...}" />
-                <marker date="1536524082434" expanded="true" signature="277:405" ph="{...}" />
-                <marker date="1536524082434" expanded="true" signature="367:401" ph="{...}" />
+                <marker date="1536676909650" expanded="true" signature="6:92" ph="..." />
+                <marker date="1536676909650" expanded="true" signature="134:692" ph="{...}" />
+                <marker date="1536676909650" expanded="true" signature="328:387" ph="{...}" />
+                <marker date="1536676909650" expanded="true" signature="412:690" ph="{...}" />
+                <marker date="1536676909650" expanded="true" signature="448:631" ph="{...}" />
+                <marker date="1536676909650" expanded="true" signature="662:686" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IBMSpeechToText.cs" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/IBMSpeechToText.cs">
+      <file leaf-file-name="LineGizmo.cs" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/LineGizmo.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="588">
-              <caret line="229" column="13" lean-forward="true" selection-start-line="229" selection-start-column="13" selection-end-line="229" selection-end-column="13" />
+            <state relative-caret-position="210">
+              <caret line="16" column="1" lean-forward="false" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
               <folding>
-                <marker date="1536663450977" expanded="false" signature="6:350" ph="..." />
-                <marker date="1536663450977" expanded="true" signature="396:8643" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="399:1279" ph="PLEASE SET THESE VARIABLES IN THE INSPECTOR" />
-                <marker date="1536663450977" expanded="true" signature="1536:1631" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="1672:2790" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="1854:2009" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="2061:2480" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="2188:2276" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="2493:2642" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="2814:3777" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="2877:3771" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="2935:3638" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="3691:3761" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="3812:3995" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="3854:3989" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="4029:4221" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="4071:4215" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="4261:4368" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="4412:6548" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="4708:4782" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="4957:6520" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="5122:5307" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="5418:6047" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="6064:6509" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="6095:6249" ph="/* calculate the number of samples remaining until we ready for a block of audio, ... */" />
-                <marker date="1536663450977" expanded="true" signature="6648:8148" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="6711:8142" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="6769:8132" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="6837:7040" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="7129:7499" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="7220:7481" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="7551:8118" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="7644:8100" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="8256:8641" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="8290:8635" ph="{...}" />
-                <marker date="1536663450977" expanded="true" signature="8379:8625" ph="{...}" />
+                <marker date="1536677448213" expanded="false" signature="6:78" ph="..." />
+                <marker date="1536677448213" expanded="true" signature="139:325" ph="{...}" />
+                <marker date="1536677448213" expanded="true" signature="218:323" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -175,49 +136,51 @@
     <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/SceneReset.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/TextDuplication.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/SummonBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/ActiveObjectFollow.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/LeapMotion/Core/Scripts/Utils/Utils.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/CarouselMenu.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/ScalarBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Watson/Examples/ServiceExamples/Scripts/OriginalExampleStreaming.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Watson/ThirdParty/FullSerializer/Aot/Editor/fsAotConfigurationEditor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Watson/Scripts/Debug/DebugReactor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/GrabEventTrigger.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Watson/Examples/ServiceExamples/Scripts/ExampleSpeechToText.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/ActiveProgramLineRenderer.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/FingerTriggerController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Ora Assets/02 Deployment Assets/02 Deployment Scripts/04 Refinement Demo/FollowObjectMulti.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/DirectionalMenu.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/LookAtTrigger.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/AnimateCircle.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/DistanceTrigger.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/LerpSummon.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/FollowObject.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/FollowLookAt.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Ora Assets/02 Deployment Assets/02 Deployment Scripts/04 Refinement Demo/FollowObjectLock.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/FollowPosFollowRot.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/CtrlRefFollow.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/VoiceGesture.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/VoiceAssistantCommands.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/Particle.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Ora Assets/01 Test Assets/02 Test Scripts/02 Refined Scripts/FingerHaptics.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/RotateBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/NodeBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Ora Assets/02 Deployment Assets/02 Deployment Scripts/04 Refinement Demo/IndirectGrab.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/LineRendererCurved.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/IBMSpeechToText.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/IndirectManipulation.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/DepthRefProx.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Ora Assets/01 Test Assets/02 Test Scripts/02 Refined Scripts/RotationLock.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/LineRendererVertexPosition.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/VoiceAssistentTextToString.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/FollowLerp.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/ObjectSelection.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/IndDepthRefNormalised.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/ObjectQuickActions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Ora Assets/01 Test Assets/02 Test Scripts/01 Rough Scripts/BlendshapeAnimation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/ObjectBehaviours.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Ora Assets/02 Deployment Assets/02 Deployment Scripts/02 Concept Development Presentation/FollowObject.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/LineGizmo.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/ActiveObjectFollow.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/LeapMotion/Core/Scripts/Utils/Utils.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/ScalarBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Watson/ThirdParty/FullSerializer/Aot/Editor/fsAotConfigurationEditor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/GrabEventTrigger.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Watson/Examples/ServiceExamples/Scripts/ExampleSpeechToText.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/FingerTriggerController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Ora Assets/02 Deployment Assets/02 Deployment Scripts/04 Refinement Demo/FollowObjectMulti.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/DirectionalMenu.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/DistanceTrigger.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/LerpSummon.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Ora Assets/02 Deployment Assets/02 Deployment Scripts/04 Refinement Demo/FollowObjectLock.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/CtrlRefFollow.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/VoiceGesture.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/DynamicMesh.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Ora Assets/02 Deployment Assets/02 Deployment Scripts/04 Refinement Demo/IndirectGrab.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/LineRendererCurved.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/IBMSpeechToText.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/IndirectManipulation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/DepthRefProx.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/LineRendererVertexPosition.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/VoiceAssistentTextToString.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/ObjectSelection.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -271,6 +234,8 @@
         <option value="$PROJECT_DIR$/Assets/Watson/Examples/ServiceExamples/Scripts/OriginalExampleStreaming.cs" />
         <option value="$PROJECT_DIR$/Assets/Traces Assets/Scripts/SpeechToText.cs" />
         <option value="$PROJECT_DIR$/Assets/Traces Assets/Scripts/IBMSpeechToText.cs" />
+        <option value="$PROJECT_DIR$/Assets/Traces Assets/Scripts/DynamicMesh.cs" />
+        <option value="$PROJECT_DIR$/Assets/Traces Assets/Scripts/LineGizmo.cs" />
       </list>
     </option>
   </component>
@@ -358,12 +323,12 @@
       <workItem from="1535918898318" duration="21125000" />
       <workItem from="1535981208068" duration="90485000" />
       <workItem from="1536261162085" duration="12188000" />
-      <workItem from="1536315750804" duration="41455000" />
+      <workItem from="1536315750804" duration="46527000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="231925000" />
+    <option name="totallyTimeSpent" value="236997000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -414,20 +379,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/CtrlRefFollow.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/LineRendererVertexPosition.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Ora Assets/01 Test Assets/02 Test Scripts/02 Refined Scripts/RotationLock.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -898,26 +849,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/ObjectBehaviours.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="80" column="5" lean-forward="false" selection-start-line="80" selection-start-column="5" selection-end-line="80" selection-end-column="5" />
-          <folding>
-            <marker date="1536623670412" expanded="false" signature="6:104" ph="..." />
-            <marker date="1536623670412" expanded="true" signature="151:3667" ph="{...}" />
-            <marker date="1536623670412" expanded="true" signature="738:1276" ph="{...}" />
-            <marker date="1536623670412" expanded="true" signature="1303:2444" ph="{...}" />
-            <marker date="1536623670412" expanded="true" signature="2477:2498" ph="{...}" />
-            <marker date="1536623670412" expanded="true" signature="2529:2550" ph="{...}" />
-            <marker date="1536623670412" expanded="true" signature="2581:2668" ph="{...}" />
-            <marker date="1536623670412" expanded="true" signature="2698:2981" ph="{...}" />
-            <marker date="1536623670412" expanded="true" signature="3014:3035" ph="{...}" />
-            <marker date="1536623670412" expanded="true" signature="3075:3535" ph="{...}" />
-            <marker date="1536623670412" expanded="true" signature="3573:3665" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/RotateBehaviour.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -1166,19 +1097,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/VoiceAssistantCommands.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="16" column="1" lean-forward="false" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-          <folding>
-            <marker date="1536524082434" expanded="false" signature="6:155" ph="..." />
-            <marker date="1536524082434" expanded="true" signature="208:407" ph="{...}" />
-            <marker date="1536524082434" expanded="true" signature="277:405" ph="{...}" />
-            <marker date="1536524082434" expanded="true" signature="367:401" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Watson/Examples/ServiceExamples/Scripts/OriginalExampleStreaming.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3765">
@@ -1228,7 +1146,7 @@
     <entry file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/IBMSpeechToText.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="588">
-          <caret line="229" column="13" lean-forward="true" selection-start-line="229" selection-start-column="13" selection-end-line="229" selection-end-column="13" />
+          <caret line="229" column="13" lean-forward="false" selection-start-line="229" selection-start-column="13" selection-end-line="229" selection-end-column="13" />
           <folding>
             <marker date="1536663450977" expanded="false" signature="6:350" ph="..." />
             <marker date="1536663450977" expanded="true" signature="396:8643" ph="{...}" />
@@ -1266,6 +1184,66 @@
             <marker date="1536663450977" expanded="true" signature="8256:8641" ph="{...}" />
             <marker date="1536663450977" expanded="true" signature="8290:8635" ph="{...}" />
             <marker date="1536663450977" expanded="true" signature="8379:8625" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/VoiceAssistantCommands.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="16" column="1" lean-forward="false" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+          <folding>
+            <marker date="1536524082434" expanded="false" signature="6:155" ph="..." />
+            <marker date="1536524082434" expanded="true" signature="208:407" ph="{...}" />
+            <marker date="1536524082434" expanded="true" signature="277:405" ph="{...}" />
+            <marker date="1536524082434" expanded="true" signature="367:401" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/ObjectBehaviours.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="80" column="5" lean-forward="false" selection-start-line="80" selection-start-column="5" selection-end-line="80" selection-end-column="5" />
+          <folding>
+            <marker date="1536623670412" expanded="false" signature="6:104" ph="..." />
+            <marker date="1536623670412" expanded="true" signature="151:3667" ph="{...}" />
+            <marker date="1536623670412" expanded="true" signature="738:1276" ph="{...}" />
+            <marker date="1536623670412" expanded="true" signature="1303:2444" ph="{...}" />
+            <marker date="1536623670412" expanded="true" signature="2477:2498" ph="{...}" />
+            <marker date="1536623670412" expanded="true" signature="2529:2550" ph="{...}" />
+            <marker date="1536623670412" expanded="true" signature="2581:2668" ph="{...}" />
+            <marker date="1536623670412" expanded="true" signature="2698:2981" ph="{...}" />
+            <marker date="1536623670412" expanded="true" signature="3014:3035" ph="{...}" />
+            <marker date="1536623670412" expanded="true" signature="3075:3535" ph="{...}" />
+            <marker date="1536623670412" expanded="true" signature="3573:3665" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/DynamicMesh.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="52" lean-forward="false" selection-start-line="25" selection-start-column="52" selection-end-line="25" selection-end-column="52" />
+          <folding>
+            <marker date="1536676909650" expanded="true" signature="6:92" ph="..." />
+            <marker date="1536676909650" expanded="true" signature="134:692" ph="{...}" />
+            <marker date="1536676909650" expanded="true" signature="328:387" ph="{...}" />
+            <marker date="1536676909650" expanded="true" signature="412:690" ph="{...}" />
+            <marker date="1536676909650" expanded="true" signature="448:631" ph="{...}" />
+            <marker date="1536676909650" expanded="true" signature="662:686" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Traces Assets/Scripts/LineGizmo.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="16" column="1" lean-forward="false" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+          <folding>
+            <marker date="1536677448213" expanded="false" signature="6:78" ph="..." />
+            <marker date="1536677448213" expanded="true" signature="139:325" ph="{...}" />
+            <marker date="1536677448213" expanded="true" signature="218:323" ph="{...}" />
           </folding>
         </state>
       </provider>

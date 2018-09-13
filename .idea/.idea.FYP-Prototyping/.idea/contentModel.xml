@@ -1097,6 +1097,7 @@
             <e p="DepthRefProx.cs" t="Include" />
             <e p="DirectionalMenu.cs" t="Include" />
             <e p="DistanceTrigger.cs" t="Include" />
+            <e p="DynamicMesh.cs" t="Include" />
             <e p="FingerTriggerController.cs" t="Include" />
             <e p="FollowLerp.cs" t="Include" />
             <e p="FollowLookAt.cs" t="Include" />
@@ -1107,6 +1108,7 @@
             <e p="IndDepthRefNormalised.cs" t="Include" />
             <e p="IndirectManipulation.cs" t="Include" />
             <e p="LerpSummon.cs" t="Include" />
+            <e p="LineGizmo.cs" t="Include" />
             <e p="LineRendererCurved.cs" t="Include" />
             <e p="LineRendererVertexPosition.cs" t="Include" />
             <e p="LookAtTrigger.cs" t="Include" />
