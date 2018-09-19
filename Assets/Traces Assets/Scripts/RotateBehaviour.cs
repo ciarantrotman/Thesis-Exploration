@@ -10,6 +10,7 @@ public class RotateBehaviour : MonoBehaviour
 	
 	public void RotateActionBegin()
 	{
+		if (GameObject.Find("HMD Camera").GetComponent<ObjectSelection>().LastActiveObject == null) return;
 		_rotateTarget = GameObject.Find("HMD Camera").GetComponent<ObjectSelection>().LastActiveObject;
 		_initTarRot = _rotateTarget.transform.rotation;
 		_initRot = transform.rotation;
@@ -17,6 +18,7 @@ public class RotateBehaviour : MonoBehaviour
     
 	public void RotateActionStay()
 	{
+		if (_rotateTarget == null) return;
 		var applyRot = (_initRot) * (transform.rotation);
 		_rotateTarget.transform.rotation = _initTarRot * applyRot;
 	}

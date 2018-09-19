@@ -50,6 +50,12 @@ public class FingerTriggerController : MonoBehaviour
 	public UnityEvent OnMiddleTipGesture;
 	public UnityEvent OnRingTipGesture;
 	public UnityEvent OnPinkyTipGesture;
+	[Header("Fingertip Touch End Events")]
+	[Space(5)]
+	public UnityEvent OnIndexTipTouchEnd;
+	public UnityEvent OnMiddleTipTouchEnd;
+	public UnityEvent OnRingTipTouchEnd;
+	public UnityEvent OnPinkyTipTouchEnd;
 
 	private void Start()
 	{
@@ -175,15 +181,19 @@ public class FingerTriggerController : MonoBehaviour
 		switch (thumbCollision.gameObject.name)
 		{
 			case "IndexTip":
+				OnIndexTipTouchEnd.Invoke();
 				Touching = false;
 				break;
 			case "MiddleTip":
+				OnMiddleTipTouchEnd.Invoke();
 				Touching = false;
 				break;
 			case "RingTip":
+				OnRingTipTouchEnd.Invoke();
 				Touching = false;
 				break;
 			case "PinkyTip":
+				OnPinkyTipTouchEnd.Invoke();
 				Touching = false;
 				break;
 			default:

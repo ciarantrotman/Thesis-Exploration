@@ -17,7 +17,8 @@ public class IndirectManipulation : MonoBehaviour
     private GameObject _ctrlProx;
     private GameObject _ctrlAct;
     private GameObject _ctrlText;
-    private GameObject _indProx;
+    [HideInInspector]
+    public GameObject _indProx;
     private GameObject _indAct;
     private GameObject _indText;
     private GameObject _ctrlRefNorm;
@@ -82,6 +83,14 @@ public class IndirectManipulation : MonoBehaviour
         if (GraspState != false || _objectSelection.LastActiveObject == null) return;
         
         var activeProgamPos = _objectSelection.LastActiveObject.transform.position;
+        
+        if (GameObject.Find("MultiSelectionLogic").GetComponent<MultiSelectionViewport>().MultiSelectionObjects.Count > 0)
+        {
+            // maybe figure out how to get the middle of a bunch of vectors?
+            _indProx.transform.position = GameObject.Find("MultiSelectionLogic").GetComponent<MultiSelectionViewport>().MultiSelectionObjects[0].gameObject.transform.position;
+            return;
+        }
+        
         _indProx.transform.position = activeProgamPos;
     }
     
@@ -115,9 +124,6 @@ public class IndirectManipulation : MonoBehaviour
         _indLine.enabled = true;
         _joinLine.enabled = true;
         
-        if (_objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>() != null)
-            _objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>().Invoke("OnGrabBegin",0);
-        
         var userPosx = (_ctrlMidpointRef.transform.position.x + _ctrlProx.transform.position.x) / 2;
         var userPosy = (_ctrlMidpointRef.transform.position.y + _ctrlProx.transform.position.y) / 2;
         var userPosz = (_ctrlMidpointRef.transform.position.z + _ctrlProx.transform.position.z) / 2;
@@ -129,15 +135,32 @@ public class IndirectManipulation : MonoBehaviour
         _ctrlRatMax.transform.localRotation = _ctrlRefNorm.transform.localRotation;
         
         GraspState = true;
+
+        if (GameObject.Find("MultiSelectionLogic").GetComponent<MultiSelectionViewport>().MultiSelectionObjects.Count > 0)
+        {
+            GameObject.Find("MultiSelectionLogic").GetComponent<MultiSelectionViewport>().Invoke("GrabBegin", 0);
+            return;
+        }
+            
+        if (_objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>() != null)
+            _objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>().Invoke("OnGrabBegin",0);
     }
 
     public void GraspStay()
     {
         if (_objectSelection.LastActiveObject == null) return;
         
-        _objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>().Invoke("OnGrabStay",0);
+        
         _ctrlRat = _ctrlRefNorm.transform.localPosition.z / _ctrlRatMax.transform.localPosition.z;
         _indActScaled.transform.localPosition = _indRefNorm.transform.localPosition * (_ctrlRat*_ctrlRat);
+        
+        if (GameObject.Find("MultiSelectionLogic").GetComponent<MultiSelectionViewport>().MultiSelectionObjects.Count > 0)
+        {
+            GameObject.Find("MultiSelectionLogic").GetComponent<MultiSelectionViewport>().Invoke("GrabStay", 0);
+            return;
+        }
+            
+        _objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>().Invoke("OnGrabStay",0);
     }
     
     public void GraspEnd()
@@ -148,12 +171,20 @@ public class IndirectManipulation : MonoBehaviour
         _indLine.enabled = false;
         _joinLine.enabled = false;
         
-        if (_objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>() != null)
-            _objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>().Invoke("OnGrabEnd",0);
+
         GraspState = false;
         _indProx.transform.position = _indAct.transform.position;
         _ctrlProx.transform.position = _ctrlAct.transform.position;
         _indAct.transform.localPosition = new Vector3(0, 0, 0);
         _ctrlAct.transform.localPosition = new Vector3(0, 0, 0);
+                
+        if (GameObject.Find("MultiSelectionLogic").GetComponent<MultiSelectionViewport>().MultiSelectionObjects.Count > 0)
+        {
+            GameObject.Find("MultiSelectionLogic").GetComponent<MultiSelectionViewport>().Invoke("GrabEnd", 0);
+            return;
+        }
+        
+        if (_objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>() != null)
+            _objectSelection.LastActiveObject.GetComponent<ObjectBehaviours>().Invoke("OnGrabEnd",0);
     }
 }

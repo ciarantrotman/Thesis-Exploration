@@ -8,8 +8,10 @@ public class ScalarBehaviour : MonoBehaviour
     private GameObject _ctrlAct;
     private float _initDist;
     private Vector3 _initScale;
+    
     public void ScalingActionBegin()
     {
+        if (GameObject.Find("HMD Camera").GetComponent<ObjectSelection>().LastActiveObject == null) return;
         _scaleTarget = GameObject.Find("HMD Camera").GetComponent<ObjectSelection>().LastActiveObject;
         _ctrlAct = GameObject.Find("CtrlAct");
         _initDist = Vector3.Magnitude(transform.position - _ctrlAct.transform.position);
@@ -18,6 +20,7 @@ public class ScalarBehaviour : MonoBehaviour
     
     public void ScalingActionStay()
     {
+        if (_scaleTarget == null) return;
         var scaleRat = Vector3.Magnitude(transform.position - _ctrlAct.transform.position) / _initDist;
         _scaleTarget.transform.localScale = _initScale * scaleRat;
     }

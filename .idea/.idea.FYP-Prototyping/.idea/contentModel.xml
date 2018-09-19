@@ -1104,14 +1104,17 @@
             <e p="FollowObject.cs" t="Include" />
             <e p="FollowPosFollowRot.cs" t="Include" />
             <e p="GrabEventTrigger.cs" t="Include" />
+            <e p="HighlightBehaviour.cs" t="Include" />
             <e p="IBMSpeechToText.cs" t="Include" />
             <e p="IndDepthRefNormalised.cs" t="Include" />
             <e p="IndirectManipulation.cs" t="Include" />
             <e p="LerpSummon.cs" t="Include" />
             <e p="LineGizmo.cs" t="Include" />
             <e p="LineRendererCurved.cs" t="Include" />
+            <e p="LineRendererCurvedRadius.cs" t="Include" />
             <e p="LineRendererVertexPosition.cs" t="Include" />
             <e p="LookAtTrigger.cs" t="Include" />
+            <e p="MultiSelectionViewport.cs" t="Include" />
             <e p="NodeBehaviour.cs" t="Include" />
             <e p="ObjectBehaviours.cs" t="Include" />
             <e p="ObjectQuickActions.cs" t="Include" />

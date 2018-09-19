@@ -14,16 +14,27 @@ public class ObjectBehaviours : MonoBehaviour
     private LineRenderer _lineRenderer;
 
     private int _stateCounter;
+
+    private bool _multiselected;
     
     [HideInInspector]
     public float MacroAngle;
     [HideInInspector]
     public float MicroAngle;
 
+    [HideInInspector]
+    public float GazeAngle;
+    
+    [HideInInspector]
+    public Transform OriginalParent;
+    
     public UnityEvent SelectBegin;
     public UnityEvent SelectEnd;
     public UnityEvent GrabBegin;
     public UnityEvent GrabEnd;
+
+    public UnityEvent MultiSelectBegin;
+    public UnityEvent MultiSelectEnd;
    
     private void Start()
     {
@@ -32,7 +43,9 @@ public class ObjectBehaviours : MonoBehaviour
         _microSelectionOrigin = GameObject.Find("MicroSelectionOrigin");
         _lerpTarget = GameObject.Find("IndActScaled");
         _objectSelection = _user.GetComponent<ObjectSelection>();
-        _indirectManipulation = GameObject.Find("SceneController").GetComponent<IndirectManipulation>(); 
+        _indirectManipulation = GameObject.Find("SceneController").GetComponent<IndirectManipulation>();
+
+        OriginalParent = transform.parent;
         
         if (_objectSelection.GlobalSelectableObjects.Contains(_self) == false) _objectSelection.GlobalSelectableObjects.Add(_self);
     }
@@ -44,10 +57,10 @@ public class ObjectBehaviours : MonoBehaviour
         if (_objectSelection.GlobalSelectableObjects.Contains(_self) == false && Vector3.Magnitude(_self.transform.position - _user.transform.position) > _objectSelection.DirectDistance)
             _objectSelection.GlobalSelectableObjects.Add(_self);
         
-        Vector3 microPosition = _self.transform.position - _microSelectionOrigin.transform.position;
+        var microPosition = _self.transform.position - _microSelectionOrigin.transform.position;
         MicroAngle = Vector3.Angle(microPosition, _microSelectionOrigin.transform.forward);
         
-        Vector3 macroPosition = _self.transform.position - _user.transform.position;
+        var macroPosition = _self.transform.position - _user.transform.position;
         MacroAngle = Vector3.Angle(macroPosition, _user.transform.forward);
 
         if (_objectSelection.ActiveObject == _self)
@@ -77,12 +90,21 @@ public class ObjectBehaviours : MonoBehaviour
     public void OnGrabStay()
     {
         transform.position = Vector3.Lerp(transform.position, _lerpTarget.transform.position, _indirectManipulation.LerpSpeed);
-        //transform.rotation = Quaternion.Lerp(transform.localRotation, _lerpTarget.transform.localRotation, _indirectManipulation.LerpSpeed);
     }
     
     public void OnGrabEnd()
     {
         
+    }
+
+    public void OnMultiselectBegin()
+    {
+        _multiselected = true;
+    }
+
+    public void OnMultiselectEnd()
+    {
+        _multiselected = false;
     }
     
     public void DrawLineRenderer()
